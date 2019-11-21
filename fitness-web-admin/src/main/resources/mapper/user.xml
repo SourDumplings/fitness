@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zju.se.nohair.fitness.web.admin.dao.mapper.UserMapper">
+  <select id="listAll" resultType="com.zju.se.nohair.fitness.web.admin.dao.po.User">
+    SELECT
+      *
+    FROM
+      user
+  </select>
+</mapper>
