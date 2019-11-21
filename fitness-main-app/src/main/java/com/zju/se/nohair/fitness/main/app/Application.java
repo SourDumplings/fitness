@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
+ * 主启动类.
+ *
  * @author CHANG Zheng
  * @version 1.0.0
  * @projectName fitness
