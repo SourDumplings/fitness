@@ -3,14 +3,14 @@ package com.zju.se.nohair.fitness.commons.persistence;
 import java.util.List;
 
 /**
- * Service 类的公共接口.
+ * Mapper 类的公共接口.
  *
  * @author CHANG Zheng
  * @version 1.0.0
  * @projectName fitness
- * @date 2019/11/21 14:30
+ * @date 2019/11/22 8:10
  */
-public interface BaseService<T extends BaseEntity> {
+public interface BaseMapper<T extends BaseEntity> {
 
   /**
    * 查询全部记录.
