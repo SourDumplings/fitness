@@ -29,6 +29,7 @@
     <mysql.version>5.1.46</mysql.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <lombok.version>1.16.18</lombok.version>
   </properties>
 
   <dependencyManagement>
@@ -58,6 +59,14 @@
         <version>${mysql.version}</version>
       </dependency>
       <!-- MySQL End -->
+
+      <!-- Lombok Begin -->
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+      </dependency>
+      <!-- Lombok End -->
     </dependencies>
   </dependencyManagement>
 
