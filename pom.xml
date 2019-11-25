@@ -30,6 +30,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <lombok.version>1.16.18</lombok.version>
+    <swagger-ui.version>2.6.1</swagger-ui.version>
   </properties>
 
   <dependencyManagement>
@@ -67,6 +68,19 @@
         <version>${lombok.version}</version>
       </dependency>
       <!-- Lombok End -->
+
+      <!-- Swagger UI Begin -->
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>${swagger-ui.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>${swagger-ui.version}</version>
+      </dependency>
+      <!-- Swagger UI End -->
 
 
     </dependencies>

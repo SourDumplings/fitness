@@ -12,5 +12,13 @@
 
   <artifactId>fitness-web-ui</artifactId>
 
-
+  <dependencies>
+    <!-- Project Begin -->
+    <dependency>
+      <groupId>com.zju.se.nohair</groupId>
+      <artifactId>fitness-commons</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+    <!-- Project End -->
+  </dependencies>
 </project>

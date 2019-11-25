@@ -14,10 +14,10 @@
 
   <dependencies>
     <!-- SpringBoot Begin -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
     <!-- SpringBoot End -->
 
 
@@ -27,6 +27,19 @@
       <artifactId>lombok</artifactId>
     </dependency>
     <!-- Lombok End -->
+
+    <!-- Swagger UI Begin -->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>${swagger-ui.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>${swagger-ui.version}</version>
+    </dependency>
+    <!-- Swagger UI End -->
   </dependencies>
 
 

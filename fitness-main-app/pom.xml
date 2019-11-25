@@ -35,6 +35,11 @@
       <artifactId>fitness-web-admin</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.zju.se.nohair</groupId>
+      <artifactId>fitness-web-ui</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
     <!-- Project End -->
   </dependencies>
 

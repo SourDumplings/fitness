@@ -2,6 +2,8 @@ package com.zju.se.nohair.fitness.web.admin.controller;
 
 import com.zju.se.nohair.fitness.web.admin.dao.po.User;
 import com.zju.se.nohair.fitness.web.admin.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("admin/users")
+@Api
 public class UserController {
 
-  private static Logger logger =  LoggerFactory.getLogger(UserController.class);
+  private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
   private UserService userService;
 
@@ -32,12 +35,14 @@ public class UserController {
     this.userService = userService;
   }
 
+  @ApiOperation(value = "hello world 测试", httpMethod = "GET")
   @RequestMapping(value = "hello", method = RequestMethod.GET)
   public String sayHi() {
     logger.warn("say hihihihihi..................");
     return "hello";
   }
 
+  @ApiOperation(value = "数据 mapper 测试", httpMethod = "GET")
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ResponseBody
   public List<User> listAll() {
