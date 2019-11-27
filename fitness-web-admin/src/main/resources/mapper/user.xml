@@ -4,8 +4,25 @@
 <mapper namespace="com.zju.se.nohair.fitness.web.admin.dao.mapper.UserMapper">
   <select id="listAll" resultType="com.zju.se.nohair.fitness.web.admin.dao.po.User">
     SELECT
-      *
+    *
     FROM
-      user
+    user
   </select>
+
+  <select id="getUserByPhone" parameterType="java.lang.String"
+    resultType="com.zju.se.nohair.fitness.web.admin.dao.po.User">
+    SELECT
+    *
+    FROM
+    user
+    WHERE
+    phone=#{phone}
+  </select>
+
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.web.admin.dao.po.User">
+    INSERT INTO
+    user(id, username, password, phone, email, created, updated)
+    VALUES
+    (#{id}, #{username}, #{password}, #{phone}, #{email}, #{created}, #{updated})
+  </insert>
 </mapper>

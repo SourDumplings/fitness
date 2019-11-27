@@ -1,6 +1,8 @@
 package com.zju.se.nohair.fitness.web.admin.service;
 
+import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.persistence.BaseService;
+import com.zju.se.nohair.fitness.web.admin.dto.CreateUserDto;
 import com.zju.se.nohair.fitness.web.admin.dao.po.User;
 
 /**
@@ -12,5 +14,9 @@ import com.zju.se.nohair.fitness.web.admin.dao.po.User;
  * @date 2019/11/21 15:27
  */
 public interface UserService extends BaseService<User> {
+
+  BaseResult getUserByPhone(String phone);
+
+  BaseResult createUser(CreateUserDto createUserDto);
 
 }

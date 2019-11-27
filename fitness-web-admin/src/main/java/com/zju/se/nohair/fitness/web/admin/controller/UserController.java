@@ -1,15 +1,20 @@
 package com.zju.se.nohair.fitness.web.admin.controller;
 
+import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.web.admin.dto.CreateUserDto;
 import com.zju.se.nohair.fitness.web.admin.dao.po.User;
 import com.zju.se.nohair.fitness.web.admin.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,5 +52,29 @@ public class UserController {
   @ResponseBody
   public List<User> listAll() {
     return userService.listAll();
+  }
+
+  @ApiOperation(value = "根据手机号获取用户信息", httpMethod = "GET")
+  @RequestMapping(value = "phone", method = RequestMethod.GET)
+  @ResponseBody
+  public Object getUserByPhone(@RequestParam(name = "phone") String phone) {
+    BaseResult baseResult = userService.getUserByPhone(phone);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return baseResult.getData();
+    } else {
+      return baseResult.getMessage();
+    }
+  }
+
+  @ApiOperation(value = "创建新用户", httpMethod = "POST")
+  @RequestMapping(value = "", method = RequestMethod.POST)
+  @ResponseBody
+  public Object createUser(@RequestBody @Valid CreateUserDto createUserDto) {
+    BaseResult baseResult = userService.createUser(createUserDto);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return baseResult.getMessage();
+    } else {
+      return baseResult.getMessage();
+    }
   }
 }

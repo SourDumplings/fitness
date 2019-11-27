@@ -17,4 +17,6 @@ import org.springframework.stereotype.Component;
 @Component(value = "UserMapper")
 public interface UserMapper extends BaseMapper<User> {
 
+  User getUserByPhone(String phone);
+
 }
