@@ -1,7 +1,7 @@
 package com.zju.se.nohair.fitness.web.admin.service;
 
+import com.zju.se.nohair.fitness.dao.po.User;
 import com.zju.se.nohair.fitness.web.admin.TestApplication;
-import com.zju.se.nohair.fitness.web.admin.dao.po.User;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;

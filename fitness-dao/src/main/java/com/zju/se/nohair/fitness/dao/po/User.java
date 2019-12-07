@@ -1,4 +1,4 @@
-package com.zju.se.nohair.fitness.web.admin.dao.po;
+package com.zju.se.nohair.fitness.dao.po;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zju.se.nohair.fitness.commons.persistence.BaseEntity;

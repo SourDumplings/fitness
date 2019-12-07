@@ -9,6 +9,10 @@
     <module>fitness-web-admin</module>
     <module>fitness-web-ui</module>
     <module>fitness-main-app</module>
+    <module>fitness-dao</module>
+    <module>fitness-customer</module>
+    <module>fitness-business</module>
+    <module>fitness-coach</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>

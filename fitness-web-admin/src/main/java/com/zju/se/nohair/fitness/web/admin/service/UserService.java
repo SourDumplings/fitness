@@ -2,8 +2,8 @@ package com.zju.se.nohair.fitness.web.admin.service;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.persistence.BaseService;
+import com.zju.se.nohair.fitness.dao.po.User;
 import com.zju.se.nohair.fitness.web.admin.dto.CreateUserDto;
-import com.zju.se.nohair.fitness.web.admin.dao.po.User;
 
 /**
  * 用户 Service 接口.

@@ -1,7 +1,7 @@
-package com.zju.se.nohair.fitness.web.admin.dao.mapper;
+package com.zju.se.nohair.fitness.dao.mapper;
 
 import com.zju.se.nohair.fitness.commons.persistence.BaseMapper;
-import com.zju.se.nohair.fitness.web.admin.dao.po.User;
+import com.zju.se.nohair.fitness.dao.po.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

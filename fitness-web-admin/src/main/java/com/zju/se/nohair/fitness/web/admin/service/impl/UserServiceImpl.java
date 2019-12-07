@@ -1,9 +1,9 @@
 package com.zju.se.nohair.fitness.web.admin.service.impl;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.dao.mapper.UserMapper;
+import com.zju.se.nohair.fitness.dao.po.User;
 import com.zju.se.nohair.fitness.web.admin.dto.CreateUserDto;
-import com.zju.se.nohair.fitness.web.admin.dao.mapper.UserMapper;
-import com.zju.se.nohair.fitness.web.admin.dao.po.User;
 import com.zju.se.nohair.fitness.web.admin.service.UserService;
 import java.util.Date;
 import java.util.List;
