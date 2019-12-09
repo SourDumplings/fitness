@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @projectName fitness
  * @date 2019/11/21 17:05
  */
-@ComponentScan(basePackages = "com.zju.se.nohair.fitness.web.*")
+@ComponentScan(basePackages = "com.zju.se.nohair.fitness.*")
 @MapperScan("com.zju.se.nohair.fitness.dao.mapper")
 @SpringBootApplication
 public class Application {
