@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zju.se.nohair.fitness.dao.mapper.OwnsGymMapper">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.OwnsGymKey">
+    <id column="bussiness_id" jdbcType="INTEGER" property="bussinessId"/>
+    <id column="gym_id" jdbcType="INTEGER" property="gymId"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.OwnsGymKey">
+    delete from owns_gym
+    where bussiness_id = #{bussinessId,jdbcType=INTEGER}
+      and gym_id = #{gymId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.OwnsGymKey">
+    insert into owns_gym (bussiness_id, gym_id)
+    values (#{bussinessId,jdbcType=INTEGER}, #{gymId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.OwnsGymKey">
+    insert into owns_gym
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bussinessId != null">
+        bussiness_id,
+      </if>
+      <if test="gymId != null">
+        gym_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bussinessId != null">
+        #{bussinessId,jdbcType=INTEGER},
+      </if>
+      <if test="gymId != null">
+        #{gymId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

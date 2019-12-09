@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zju.se.nohair.fitness.dao.mapper.VipOrderMapper">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.VipOrder">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="gym_id" jdbcType="INTEGER" property="gymId"/>
+    <result column="order_price" jdbcType="DECIMAL" property="orderPrice"/>
+    <result column="status" jdbcType="INTEGER" property="status"/>
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, gym_id, order_price, status, created_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from vip_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from vip_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.VipOrder">
+    insert into vip_order (id, gym_id, order_price, 
+      status, created_time)
+    values (#{id,jdbcType=INTEGER}, #{gymId,jdbcType=INTEGER}, #{orderPrice,jdbcType=DECIMAL}, 
+      #{status,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.VipOrder">
+    insert into vip_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="gymId != null">
+        gym_id,
+      </if>
+      <if test="orderPrice != null">
+        order_price,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="gymId != null">
+        #{gymId,jdbcType=INTEGER},
+      </if>
+      <if test="orderPrice != null">
+        #{orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective"
+    parameterType="com.zju.se.nohair.fitness.dao.po.VipOrder">
+    update vip_order
+    <set>
+      <if test="gymId != null">
+        gym_id = #{gymId,jdbcType=INTEGER},
+      </if>
+      <if test="orderPrice != null">
+        order_price = #{orderPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.VipOrder">
+    update vip_order
+    set gym_id = #{gymId,jdbcType=INTEGER},
+      order_price = #{orderPrice,jdbcType=DECIMAL},
+      status = #{status,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

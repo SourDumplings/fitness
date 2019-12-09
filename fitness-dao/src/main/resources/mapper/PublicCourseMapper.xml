@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zju.se.nohair.fitness.dao.mapper.PublicCourseMapper">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.PublicCourse">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="content" jdbcType="VARCHAR" property="content"/>
+    <result column="coach_id" jdbcType="INTEGER" property="coachId"/>
+    <result column="business_id" jdbcType="INTEGER" property="businessId"/>
+    <result column="price" jdbcType="DECIMAL" property="price"/>
+    <result column="coach_price" jdbcType="DECIMAL" property="coachPrice"/>
+    <result column="pic_id" jdbcType="INTEGER" property="picId"/>
+    <result column="capacity" jdbcType="INTEGER" property="capacity"/>
+    <result column="course_date" jdbcType="DATE" property="courseDate"/>
+    <result column="time_slot_id" jdbcType="INTEGER" property="timeSlotId"/>
+    <result column="status" jdbcType="INTEGER" property="status"/>
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, content, coach_id, business_id, price, coach_price, pic_id, capacity, course_date, 
+    time_slot_id, status, created_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from public_course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from public_course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.PublicCourse">
+    insert into public_course (id, name, content, 
+      coach_id, business_id, price, 
+      coach_price, pic_id, capacity, 
+      course_date, time_slot_id, status, 
+      created_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{coachId,jdbcType=INTEGER}, #{businessId,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, 
+      #{coachPrice,jdbcType=DECIMAL}, #{picId,jdbcType=INTEGER}, #{capacity,jdbcType=INTEGER}, 
+      #{courseDate,jdbcType=DATE}, #{timeSlotId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{createdTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.PublicCourse">
+    insert into public_course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="coachId != null">
+        coach_id,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="coachPrice != null">
+        coach_price,
+      </if>
+      <if test="picId != null">
+        pic_id,
+      </if>
+      <if test="capacity != null">
+        capacity,
+      </if>
+      <if test="courseDate != null">
+        course_date,
+      </if>
+      <if test="timeSlotId != null">
+        time_slot_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="coachId != null">
+        #{coachId,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="coachPrice != null">
+        #{coachPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="picId != null">
+        #{picId,jdbcType=INTEGER},
+      </if>
+      <if test="capacity != null">
+        #{capacity,jdbcType=INTEGER},
+      </if>
+      <if test="courseDate != null">
+        #{courseDate,jdbcType=DATE},
+      </if>
+      <if test="timeSlotId != null">
+        #{timeSlotId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective"
+    parameterType="com.zju.se.nohair.fitness.dao.po.PublicCourse">
+    update public_course
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="coachId != null">
+        coach_id = #{coachId,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="coachPrice != null">
+        coach_price = #{coachPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="picId != null">
+        pic_id = #{picId,jdbcType=INTEGER},
+      </if>
+      <if test="capacity != null">
+        capacity = #{capacity,jdbcType=INTEGER},
+      </if>
+      <if test="courseDate != null">
+        course_date = #{courseDate,jdbcType=DATE},
+      </if>
+      <if test="timeSlotId != null">
+        time_slot_id = #{timeSlotId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.PublicCourse">
+    update public_course
+    set name = #{name,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      coach_id = #{coachId,jdbcType=INTEGER},
+      business_id = #{businessId,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      coach_price = #{coachPrice,jdbcType=DECIMAL},
+      pic_id = #{picId,jdbcType=INTEGER},
+      capacity = #{capacity,jdbcType=INTEGER},
+      course_date = #{courseDate,jdbcType=DATE},
+      time_slot_id = #{timeSlotId,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

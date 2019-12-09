@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+  <!-- mysql 连接数据库jar 这里选择自己本地位置 -->
+  <classPathEntry
+    location="C:\Users\sourd\.m2\repository\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar"/>
+  <context id="testTables" targetRuntime="MyBatis3">
+    <commentGenerator>
+      <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+      <property name="suppressAllComments" value="true"/>
+    </commentGenerator>
+    <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+      connectionURL="jdbc:mysql://10.82.82.229:3306/nohair_dev"
+      userId="root"
+      password="123456@NoHair.com">
+    </jdbcConnection>
+    <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true
+     时把JDBC DECIMAL 和
+       NUMERIC 类型解析为java.math.BigDecimal -->
+    <javaTypeResolver>
+      <property name="forceBigDecimals" value="false"/>
+    </javaTypeResolver>
+
+    <!-- 生成模型(PO)的包名和位置 -->
+    <javaModelGenerator targetPackage="com.zju.se.nohair.fitness.dao.po"
+      targetProject="src/main/java">
+      <!-- enableSubPackages:是否让schema作为包的后缀 -->
+      <property name="enableSubPackages" value="false"/>
+      <!-- 从数据库返回的值被清理前后的空格 -->
+      <property name="trimStrings" value="true"/>
+    </javaModelGenerator>
+
+    <!-- 生成映射文件的包名和位置-->
+    <sqlMapGenerator targetPackage="main.resources.mapper"
+      targetProject="src">
+      <!-- enableSubPackages:是否让schema作为包的后缀 -->
+      <property name="enableSubPackages" value="false"/>
+    </sqlMapGenerator>
+
+    <!-- 生成DAO的包名和位置-->
+    <javaClientGenerator type="XMLMAPPER"
+      targetPackage="com.zju.se.nohair.fitness.dao.mapper"
+      targetProject="src/main/java">
+      <!-- enableSubPackages:是否让schema作为包的后缀 -->
+      <property name="enableSubPackages" value="false"/>
+    </javaClientGenerator>
+
+    <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是
+  实体类名-->
+    <table tableName="business" domainObjectName="Business" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="coach" domainObjectName="Coach" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="customer" domainObjectName="Customer" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="gym" domainObjectName="Gym" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="notifies" domainObjectName="Notifies" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="owns_gym" domainObjectName="OwnsGym" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="picture" domainObjectName="Picture" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="private_course" domainObjectName="PrivateCourse" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="private_order" domainObjectName="PrivateOrder" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="public_course" domainObjectName="PublicCourse" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="public_order" domainObjectName="PublicOrder" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="rates" domainObjectName="Rates" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="receive_record" domainObjectName="ReceiveRecord" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="responses_private" domainObjectName="ResponsesPrivate"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="responses_public" domainObjectName="ResponsesPublic"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="rotation_pic" domainObjectName="RotationPic" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="takes_private" domainObjectName="TakesPrivate" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="takes_public" domainObjectName="TakesPublic" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="time_slot" domainObjectName="TimeSlot" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="verifies" domainObjectName="Verifies" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="vip_card" domainObjectName="VipCard" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="vip_order" domainObjectName="VipOrder" enableCountByExample="false"
+      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+  </context>
+</generatorConfiguration>

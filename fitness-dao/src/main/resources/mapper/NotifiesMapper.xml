@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zju.se.nohair.fitness.dao.mapper.NotifiesMapper">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.Notifies">
+    <id column="from_id" jdbcType="INTEGER" property="fromId"/>
+    <id column="to_id" jdbcType="INTEGER" property="toId"/>
+    <id column="time" jdbcType="TIMESTAMP" property="time"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="content" jdbcType="VARCHAR" property="content"/>
+    <result column="type" jdbcType="INTEGER" property="type"/>
+    <result column="status" jdbcType="INTEGER" property="status"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    from_id, to_id, time, name, content, type, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesKey"
+    resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from notifies
+    where from_id = #{fromId,jdbcType=INTEGER}
+    and to_id = #{toId,jdbcType=INTEGER}
+    and time = #{time,jdbcType=TIMESTAMP}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesKey">
+    delete from notifies
+    where from_id = #{fromId,jdbcType=INTEGER}
+      and to_id = #{toId,jdbcType=INTEGER}
+      and time = #{time,jdbcType=TIMESTAMP}
+  </delete>
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.Notifies">
+    insert into notifies (from_id, to_id, time, 
+      name, content, type, 
+      status)
+    values (#{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, 
+      #{name,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.Notifies">
+    insert into notifies
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fromId != null">
+        from_id,
+      </if>
+      <if test="toId != null">
+        to_id,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fromId != null">
+        #{fromId,jdbcType=INTEGER},
+      </if>
+      <if test="toId != null">
+        #{toId,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective"
+    parameterType="com.zju.se.nohair.fitness.dao.po.Notifies">
+    update notifies
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where from_id = #{fromId,jdbcType=INTEGER}
+    and to_id = #{toId,jdbcType=INTEGER}
+    and time = #{time,jdbcType=TIMESTAMP}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.Notifies">
+    update notifies
+    set name = #{name,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where from_id = #{fromId,jdbcType=INTEGER}
+      and to_id = #{toId,jdbcType=INTEGER}
+      and time = #{time,jdbcType=TIMESTAMP}
+  </update>
+</mapper>

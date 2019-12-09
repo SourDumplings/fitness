@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zju.se.nohair.fitness.dao.mapper.TakesPublicMapper">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.TakesPublicKey">
+    <id column="customer_id" jdbcType="INTEGER" property="customerId"/>
+    <id column="course_id" jdbcType="INTEGER" property="courseId"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPublicKey">
+    delete from takes_public
+    where customer_id = #{customerId,jdbcType=INTEGER}
+      and course_id = #{courseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPublicKey">
+    insert into takes_public (customer_id, course_id)
+    values (#{customerId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPublicKey">
+    insert into takes_public
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="customerId != null">
+        customer_id,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="customerId != null">
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

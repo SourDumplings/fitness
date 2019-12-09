@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zju.se.nohair.fitness.dao.mapper.GymMapper">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.Gym">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="address" jdbcType="VARCHAR" property="address"/>
+    <result column="content" jdbcType="VARCHAR" property="content"/>
+    <result column="bussiness_id" jdbcType="INTEGER" property="bussinessId"/>
+    <result column="pic_group_id" jdbcType="INTEGER" property="picGroupId"/>
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, address, content, bussiness_id, pic_group_id, created_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from gym
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from gym
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.Gym">
+    insert into gym (id, address, content, 
+      bussiness_id, pic_group_id, created_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{bussinessId,jdbcType=INTEGER}, #{picGroupId,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.Gym">
+    insert into gym
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="bussinessId != null">
+        bussiness_id,
+      </if>
+      <if test="picGroupId != null">
+        pic_group_id,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinessId != null">
+        #{bussinessId,jdbcType=INTEGER},
+      </if>
+      <if test="picGroupId != null">
+        #{picGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zju.se.nohair.fitness.dao.po.Gym">
+    update gym
+    <set>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinessId != null">
+        bussiness_id = #{bussinessId,jdbcType=INTEGER},
+      </if>
+      <if test="picGroupId != null">
+        pic_group_id = #{picGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.Gym">
+    update gym
+    set address = #{address,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      bussiness_id = #{bussinessId,jdbcType=INTEGER},
+      pic_group_id = #{picGroupId,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

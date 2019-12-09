@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zju.se.nohair.fitness.dao.mapper.CoachMapper">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.Coach">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="username" jdbcType="VARCHAR" property="username"/>
+    <result column="password" jdbcType="VARCHAR" property="password"/>
+    <result column="adeptness" jdbcType="VARCHAR" property="adeptness"/>
+    <result column="gender" jdbcType="INTEGER" property="gender"/>
+    <result column="pic_id" jdbcType="INTEGER" property="picId"/>
+    <result column="phone" jdbcType="VARCHAR" property="phone"/>
+    <result column="birthday" jdbcType="DATE" property="birthday"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="id_number" jdbcType="VARCHAR" property="idNumber"/>
+    <result column="certification_pic_id" jdbcType="INTEGER" property="certificationPicId"/>
+    <result column="ps" jdbcType="VARCHAR" property="ps"/>
+    <result column="height" jdbcType="INTEGER" property="height"/>
+    <result column="weight" jdbcType="INTEGER" property="weight"/>
+    <result column="balance" jdbcType="DECIMAL" property="balance"/>
+    <result column="status" jdbcType="INTEGER" property="status"/>
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, password, adeptness, gender, pic_id, phone, birthday, name, id_number, 
+    certification_pic_id, ps, height, weight, balance, status, created_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from coach
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from coach
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.Coach">
+    insert into coach (id, username, password, 
+      adeptness, gender, pic_id, 
+      phone, birthday, name, 
+      id_number, certification_pic_id, ps, 
+      height, weight, balance, 
+      status, created_time)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{adeptness,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{picId,jdbcType=INTEGER}, 
+      #{phone,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{name,jdbcType=VARCHAR}, 
+      #{idNumber,jdbcType=VARCHAR}, #{certificationPicId,jdbcType=INTEGER}, #{ps,jdbcType=VARCHAR}, 
+      #{height,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, #{balance,jdbcType=DECIMAL}, 
+      #{status,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.Coach">
+    insert into coach
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="adeptness != null">
+        adeptness,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="picId != null">
+        pic_id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="idNumber != null">
+        id_number,
+      </if>
+      <if test="certificationPicId != null">
+        certification_pic_id,
+      </if>
+      <if test="ps != null">
+        ps,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="balance != null">
+        balance,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="adeptness != null">
+        #{adeptness,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="picId != null">
+        #{picId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null">
+        #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationPicId != null">
+        #{certificationPicId,jdbcType=INTEGER},
+      </if>
+      <if test="ps != null">
+        #{ps,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zju.se.nohair.fitness.dao.po.Coach">
+    update coach
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="adeptness != null">
+        adeptness = #{adeptness,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="picId != null">
+        pic_id = #{picId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null">
+        id_number = #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationPicId != null">
+        certification_pic_id = #{certificationPicId,jdbcType=INTEGER},
+      </if>
+      <if test="ps != null">
+        ps = #{ps,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.Coach">
+    update coach
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      adeptness = #{adeptness,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      pic_id = #{picId,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      name = #{name,jdbcType=VARCHAR},
+      id_number = #{idNumber,jdbcType=VARCHAR},
+      certification_pic_id = #{certificationPicId,jdbcType=INTEGER},
+      ps = #{ps,jdbcType=VARCHAR},
+      height = #{height,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=INTEGER},
+      balance = #{balance,jdbcType=DECIMAL},
+      status = #{status,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
