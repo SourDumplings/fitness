@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.TimeSlotMapper">
-  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.TimeSlot">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.TimeSlotPo">
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="begin_time" jdbcType="TIME" property="beginTime"/>
     <result column="end_time" jdbcType="TIME" property="endTime"/>
@@ -21,13 +21,13 @@
     delete from time_slot
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.TimeSlot">
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.TimeSlotPo">
     insert into time_slot (id, begin_time, end_time, 
       created_time)
     values (#{id,jdbcType=INTEGER}, #{beginTime,jdbcType=TIME}, #{endTime,jdbcType=TIME}, 
       #{createdTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.TimeSlot">
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.TimeSlotPo">
     insert into time_slot
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -59,7 +59,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective"
-    parameterType="com.zju.se.nohair.fitness.dao.po.TimeSlot">
+    parameterType="com.zju.se.nohair.fitness.dao.po.TimeSlotPo">
     update time_slot
     <set>
       <if test="beginTime != null">
@@ -74,7 +74,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.TimeSlot">
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.TimeSlotPo">
     update time_slot
     set begin_time = #{beginTime,jdbcType=TIME},
       end_time = #{endTime,jdbcType=TIME},

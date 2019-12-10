@@ -1,19 +1,19 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.ResponsesPrivate;
-import com.zju.se.nohair.fitness.dao.po.ResponsesPrivateKey;
+import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo;
+import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePoKey;
 
 public interface ResponsesPrivateMapper {
 
-  int deleteByPrimaryKey(ResponsesPrivateKey key);
+  int deleteByPrimaryKey(ResponsesPrivatePoKey key);
 
-  int insert(ResponsesPrivate record);
+  int insert(ResponsesPrivatePo record);
 
-  int insertSelective(ResponsesPrivate record);
+  int insertSelective(ResponsesPrivatePo record);
 
-  ResponsesPrivate selectByPrimaryKey(ResponsesPrivateKey key);
+  ResponsesPrivatePo selectByPrimaryKey(ResponsesPrivatePoKey key);
 
-  int updateByPrimaryKeySelective(ResponsesPrivate record);
+  int updateByPrimaryKeySelective(ResponsesPrivatePo record);
 
-  int updateByPrimaryKey(ResponsesPrivate record);
+  int updateByPrimaryKey(ResponsesPrivatePo record);
 }

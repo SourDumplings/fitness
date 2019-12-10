@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.NotifiesMapper">
-  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.Notifies">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.NotifiesPo">
     <id column="from_id" jdbcType="INTEGER" property="fromId"/>
     <id column="to_id" jdbcType="INTEGER" property="toId"/>
     <id column="time" jdbcType="TIMESTAMP" property="time"/>
@@ -14,7 +14,7 @@
   <sql id="Base_Column_List">
     from_id, to_id, time, name, content, type, status
   </sql>
-  <select id="selectByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesKey"
+  <select id="selectByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPoKey"
     resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
@@ -23,13 +23,13 @@
     and to_id = #{toId,jdbcType=INTEGER}
     and time = #{time,jdbcType=TIMESTAMP}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesKey">
+  <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPoKey">
     delete from notifies
     where from_id = #{fromId,jdbcType=INTEGER}
       and to_id = #{toId,jdbcType=INTEGER}
       and time = #{time,jdbcType=TIMESTAMP}
   </delete>
-  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.Notifies">
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPo">
     insert into notifies (from_id, to_id, time, 
       name, content, type, 
       status)
@@ -37,7 +37,7 @@
       #{name,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.Notifies">
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPo">
     insert into notifies
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="fromId != null">
@@ -87,7 +87,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective"
-    parameterType="com.zju.se.nohair.fitness.dao.po.Notifies">
+    parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPo">
     update notifies
     <set>
       <if test="name != null">
@@ -107,7 +107,7 @@
     and to_id = #{toId,jdbcType=INTEGER}
     and time = #{time,jdbcType=TIMESTAMP}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.Notifies">
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPo">
     update notifies
     set name = #{name,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},

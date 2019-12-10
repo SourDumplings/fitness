@@ -1,7 +1,7 @@
 package com.zju.se.nohair.fitness.web.admin.service.impl;
 
 import com.zju.se.nohair.fitness.dao.mapper.CustomerMapper;
-import com.zju.se.nohair.fitness.dao.po.Customer;
+import com.zju.se.nohair.fitness.dao.po.CustomerPo;
 import com.zju.se.nohair.fitness.web.admin.service.AdminCustomerService;
 import java.util.List;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class AdminCustomerServiceImpl implements AdminCustomerService {
   }
 
   @Override
-  public List<Customer> listAll() {
+  public List<CustomerPo> listAll() {
     return customerMapper.selectAll();
   }
 }

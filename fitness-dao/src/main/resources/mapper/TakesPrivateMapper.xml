@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.TakesPrivateMapper">
-  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.TakesPrivate">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.TakesPrivatePo">
     <id column="customer_id" jdbcType="INTEGER" property="customerId"/>
     <id column="course_id" jdbcType="INTEGER" property="courseId"/>
     <result column="time_slot_id" jdbcType="INTEGER" property="timeSlotId"/>
@@ -10,7 +10,7 @@
   <sql id="Base_Column_List">
     customer_id, course_id, time_slot_id
   </sql>
-  <select id="selectByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivateKey"
+  <select id="selectByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivatePoKey"
     resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
@@ -18,18 +18,19 @@
     where customer_id = #{customerId,jdbcType=INTEGER}
     and course_id = #{courseId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivateKey">
+  <delete id="deleteByPrimaryKey"
+    parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivatePoKey">
     delete from takes_private
     where customer_id = #{customerId,jdbcType=INTEGER}
       and course_id = #{courseId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivate">
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivatePo">
     insert into takes_private (customer_id, course_id, time_slot_id
       )
     values (#{customerId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{timeSlotId,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivate">
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivatePo">
     insert into takes_private
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="customerId != null">
@@ -55,7 +56,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective"
-    parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivate">
+    parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivatePo">
     update takes_private
     <set>
       <if test="timeSlotId != null">
@@ -65,7 +66,7 @@
     where customer_id = #{customerId,jdbcType=INTEGER}
     and course_id = #{courseId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivate">
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivatePo">
     update takes_private
     set time_slot_id = #{timeSlotId,jdbcType=INTEGER}
     where customer_id = #{customerId,jdbcType=INTEGER}

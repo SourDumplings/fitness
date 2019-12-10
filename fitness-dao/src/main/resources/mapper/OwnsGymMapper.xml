@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.OwnsGymMapper">
-  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.OwnsGymKey">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.OwnsGymPoKey">
     <id column="bussiness_id" jdbcType="INTEGER" property="bussinessId"/>
     <id column="gym_id" jdbcType="INTEGER" property="gymId"/>
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.OwnsGymKey">
+  <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.OwnsGymPoKey">
     delete from owns_gym
     where bussiness_id = #{bussinessId,jdbcType=INTEGER}
       and gym_id = #{gymId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.OwnsGymKey">
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.OwnsGymPoKey">
     insert into owns_gym (bussiness_id, gym_id)
     values (#{bussinessId,jdbcType=INTEGER}, #{gymId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.OwnsGymKey">
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.OwnsGymPoKey">
     insert into owns_gym
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="bussinessId != null">

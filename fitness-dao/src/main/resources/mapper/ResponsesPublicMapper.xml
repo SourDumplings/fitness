@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.ResponsesPublicMapper">
-  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.ResponsesPublic">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo">
     <id column="course_id" jdbcType="INTEGER" property="courseId"/>
     <id column="coach_id" jdbcType="INTEGER" property="coachId"/>
     <result column="price" jdbcType="DECIMAL" property="price"/>
@@ -12,7 +12,7 @@
     course_id, coach_id, price, status
   </sql>
   <select id="selectByPrimaryKey"
-    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPublicKey" resultMap="BaseResultMap">
+    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPublicPoKey" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from responses_public
@@ -20,18 +20,18 @@
     and coach_id = #{coachId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey"
-    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPublicKey">
+    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPublicPoKey">
     delete from responses_public
     where course_id = #{courseId,jdbcType=INTEGER}
       and coach_id = #{coachId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPublic">
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo">
     insert into responses_public (course_id, coach_id, price, 
       status)
     values (#{courseId,jdbcType=INTEGER}, #{coachId,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, 
       #{status,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPublic">
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo">
     insert into responses_public
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="courseId != null">
@@ -63,7 +63,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective"
-    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPublic">
+    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo">
     update responses_public
     <set>
       <if test="price != null">
@@ -76,7 +76,8 @@
     where course_id = #{courseId,jdbcType=INTEGER}
     and coach_id = #{coachId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPublic">
+  <update id="updateByPrimaryKey"
+    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo">
     update responses_public
     set price = #{price,jdbcType=DECIMAL},
       status = #{status,jdbcType=INTEGER}

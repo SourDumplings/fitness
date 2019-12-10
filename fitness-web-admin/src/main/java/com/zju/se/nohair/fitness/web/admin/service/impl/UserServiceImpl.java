@@ -2,7 +2,7 @@ package com.zju.se.nohair.fitness.web.admin.service.impl;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.dao.mapper.UserMapper;
-import com.zju.se.nohair.fitness.dao.po.User;
+import com.zju.se.nohair.fitness.dao.po.UserPo;
 import com.zju.se.nohair.fitness.web.admin.dto.CreateUserDto;
 import com.zju.se.nohair.fitness.web.admin.service.UserService;
 import java.util.Date;
@@ -34,12 +34,12 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public List<User> listAll() {
+  public List<UserPo> listAll() {
     return userMapper.listAll();
   }
 
   @Override
-  public void insert(User entity) {
+  public void insert(UserPo entity) {
 
   }
 
@@ -49,12 +49,12 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User getById(Long id) {
+  public UserPo getById(Long id) {
     return null;
   }
 
   @Override
-  public void update(User entity) {
+  public void update(UserPo entity) {
 
   }
 
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public BaseResult getUserByPhone(String phone) {
-    User resultUser = userMapper.getUserByPhone(phone);
+    UserPo resultUser = userMapper.getUserByPhone(phone);
     BaseResult res = null;
 
     if (resultUser == null) {
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
     BaseResult res = null;
 
     try {
-      User newUser = new User();
+      UserPo newUser = new UserPo();
       newUser.setUsername(createUserDto.getUsername());
       newUser.setEmail(createUserDto.getEmail());
       newUser.setPhone(createUserDto.getPhone());

@@ -2,7 +2,7 @@ package com.zju.se.nohair.fitness.web.admin.service;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.persistence.BaseService;
-import com.zju.se.nohair.fitness.dao.po.User;
+import com.zju.se.nohair.fitness.dao.po.UserPo;
 import com.zju.se.nohair.fitness.web.admin.dto.CreateUserDto;
 
 /**
@@ -13,7 +13,7 @@ import com.zju.se.nohair.fitness.web.admin.dto.CreateUserDto;
  * @projectName fitness
  * @date 2019/11/21 15:27
  */
-public interface UserService extends BaseService<User> {
+public interface UserService extends BaseService<UserPo> {
 
   BaseResult getUserByPhone(String phone);
 

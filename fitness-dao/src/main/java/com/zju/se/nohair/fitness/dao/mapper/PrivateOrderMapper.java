@@ -1,18 +1,18 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.PrivateOrder;
+import com.zju.se.nohair.fitness.dao.po.PrivateOrderPo;
 
 public interface PrivateOrderMapper {
 
   int deleteByPrimaryKey(Integer id);
 
-  int insert(PrivateOrder record);
+  int insert(PrivateOrderPo record);
 
-  int insertSelective(PrivateOrder record);
+  int insertSelective(PrivateOrderPo record);
 
-  PrivateOrder selectByPrimaryKey(Integer id);
+  PrivateOrderPo selectByPrimaryKey(Integer id);
 
-  int updateByPrimaryKeySelective(PrivateOrder record);
+  int updateByPrimaryKeySelective(PrivateOrderPo record);
 
-  int updateByPrimaryKey(PrivateOrder record);
+  int updateByPrimaryKey(PrivateOrderPo record);
 }

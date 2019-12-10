@@ -1,19 +1,19 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.Rates;
-import com.zju.se.nohair.fitness.dao.po.RatesKey;
+import com.zju.se.nohair.fitness.dao.po.RatesPo;
+import com.zju.se.nohair.fitness.dao.po.RatesPoKey;
 
 public interface RatesMapper {
 
-  int deleteByPrimaryKey(RatesKey key);
+  int deleteByPrimaryKey(RatesPoKey key);
 
-  int insert(Rates record);
+  int insert(RatesPo record);
 
-  int insertSelective(Rates record);
+  int insertSelective(RatesPo record);
 
-  Rates selectByPrimaryKey(RatesKey key);
+  RatesPo selectByPrimaryKey(RatesPoKey key);
 
-  int updateByPrimaryKeySelective(Rates record);
+  int updateByPrimaryKeySelective(RatesPo record);
 
-  int updateByPrimaryKey(Rates record);
+  int updateByPrimaryKey(RatesPo record);
 }

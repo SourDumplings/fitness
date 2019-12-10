@@ -1,6 +1,6 @@
 package com.zju.se.nohair.fitness.dao.po;
 
-public class Rates extends RatesKey {
+public class RatesPo extends RatesPoKey {
 
   private Integer ratingPoints;
 

@@ -1,6 +1,6 @@
 package com.zju.se.nohair.fitness.dao.po;
 
-public class TakesPrivate extends TakesPrivateKey {
+public class TakesPrivatePo extends TakesPrivatePoKey {
 
   private Integer timeSlotId;
 

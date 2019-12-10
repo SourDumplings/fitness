@@ -1,6 +1,6 @@
 package com.zju.se.nohair.fitness.web.admin.controller;
 
-import com.zju.se.nohair.fitness.dao.po.Customer;
+import com.zju.se.nohair.fitness.dao.po.CustomerPo;
 import com.zju.se.nohair.fitness.web.admin.service.AdminCustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,7 +38,7 @@ public class AdminCustomerController {
   @ApiOperation(value = "获取顾客列表", httpMethod = "GET")
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ResponseBody
-  public List<Customer> listAll() {
+  public List<CustomerPo> listAll() {
     return adminCustomerService.listAll();
   }
 }

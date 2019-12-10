@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.UserMapper">
-  <select id="listAll" resultType="com.zju.se.nohair.fitness.dao.po.User">
+  <select id="listAll" resultType="com.zju.se.nohair.fitness.dao.po.UserPo">
     SELECT
     *
     FROM
@@ -10,7 +10,7 @@
   </select>
 
   <select id="getUserByPhone" parameterType="java.lang.String"
-    resultType="com.zju.se.nohair.fitness.dao.po.User">
+    resultType="com.zju.se.nohair.fitness.dao.po.UserPo">
     SELECT
     *
     FROM
@@ -19,7 +19,7 @@
     phone=#{phone}
   </select>
 
-  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.User">
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.UserPo">
     INSERT INTO
     user(id, username, password, phone, email, created, updated)
     VALUES

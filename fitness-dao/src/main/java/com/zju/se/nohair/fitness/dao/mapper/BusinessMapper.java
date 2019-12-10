@@ -1,18 +1,18 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.Business;
+import com.zju.se.nohair.fitness.dao.po.BusinessPo;
 
 public interface BusinessMapper {
 
   int deleteByPrimaryKey(Integer id);
 
-  int insert(Business record);
+  int insert(BusinessPo record);
 
-  int insertSelective(Business record);
+  int insertSelective(BusinessPo record);
 
-  Business selectByPrimaryKey(Integer id);
+  BusinessPo selectByPrimaryKey(Integer id);
 
-  int updateByPrimaryKeySelective(Business record);
+  int updateByPrimaryKeySelective(BusinessPo record);
 
-  int updateByPrimaryKey(Business record);
+  int updateByPrimaryKey(BusinessPo record);
 }

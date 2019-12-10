@@ -1,7 +1,7 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
 import com.zju.se.nohair.fitness.commons.persistence.BaseMapper;
-import com.zju.se.nohair.fitness.dao.po.User;
+import com.zju.se.nohair.fitness.dao.po.UserPo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
  */
 @Mapper
 @Component(value = "UserMapper")
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper extends BaseMapper<UserPo> {
 
-  User getUserByPhone(String phone);
+  UserPo getUserByPhone(String phone);
 
 }

@@ -2,10 +2,8 @@ package com.zju.se.nohair.fitness.dao.po;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import org.springframework.stereotype.Component;
 
-@Component
-public class Customer {
+public class BusinessPo {
 
   private Integer id;
 
@@ -13,19 +11,19 @@ public class Customer {
 
   private String password;
 
-  private Integer gender;
-
   private Integer picId;
 
   private String phone;
 
-  private Date birthday;
+  private String personName;
 
-  private Integer height;
+  private String idNumber;
 
-  private Integer weight;
+  private Integer certificationPicId;
 
   private BigDecimal balance;
+
+  private Integer status;
 
   private Date createdTime;
 
@@ -53,14 +51,6 @@ public class Customer {
     this.password = password == null ? null : password.trim();
   }
 
-  public Integer getGender() {
-    return gender;
-  }
-
-  public void setGender(Integer gender) {
-    this.gender = gender;
-  }
-
   public Integer getPicId() {
     return picId;
   }
@@ -77,28 +67,28 @@ public class Customer {
     this.phone = phone == null ? null : phone.trim();
   }
 
-  public Date getBirthday() {
-    return birthday;
+  public String getPersonName() {
+    return personName;
   }
 
-  public void setBirthday(Date birthday) {
-    this.birthday = birthday;
+  public void setPersonName(String personName) {
+    this.personName = personName == null ? null : personName.trim();
   }
 
-  public Integer getHeight() {
-    return height;
+  public String getIdNumber() {
+    return idNumber;
   }
 
-  public void setHeight(Integer height) {
-    this.height = height;
+  public void setIdNumber(String idNumber) {
+    this.idNumber = idNumber == null ? null : idNumber.trim();
   }
 
-  public Integer getWeight() {
-    return weight;
+  public Integer getCertificationPicId() {
+    return certificationPicId;
   }
 
-  public void setWeight(Integer weight) {
-    this.weight = weight;
+  public void setCertificationPicId(Integer certificationPicId) {
+    this.certificationPicId = certificationPicId;
   }
 
   public BigDecimal getBalance() {
@@ -107,6 +97,14 @@ public class Customer {
 
   public void setBalance(BigDecimal balance) {
     this.balance = balance;
+  }
+
+  public Integer getStatus() {
+    return status;
+  }
+
+  public void setStatus(Integer status) {
+    this.status = status;
   }
 
   public Date getCreatedTime() {

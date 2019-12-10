@@ -2,7 +2,7 @@ package com.zju.se.nohair.fitness.dao.po;
 
 import java.util.Date;
 
-public class TimeSlot {
+public class TimeSlotPo {
 
   private Integer id;
 

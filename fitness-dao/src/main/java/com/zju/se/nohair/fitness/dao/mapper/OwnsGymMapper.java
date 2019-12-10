@@ -1,12 +1,12 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.OwnsGymKey;
+import com.zju.se.nohair.fitness.dao.po.OwnsGymPoKey;
 
 public interface OwnsGymMapper {
 
-  int deleteByPrimaryKey(OwnsGymKey key);
+  int deleteByPrimaryKey(OwnsGymPoKey key);
 
-  int insert(OwnsGymKey record);
+  int insert(OwnsGymPoKey record);
 
-  int insertSelective(OwnsGymKey record);
+  int insertSelective(OwnsGymPoKey record);
 }

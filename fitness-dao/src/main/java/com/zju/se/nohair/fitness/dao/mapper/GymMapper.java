@@ -1,18 +1,18 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.Gym;
+import com.zju.se.nohair.fitness.dao.po.GymPo;
 
 public interface GymMapper {
 
   int deleteByPrimaryKey(Integer id);
 
-  int insert(Gym record);
+  int insert(GymPo record);
 
-  int insertSelective(Gym record);
+  int insertSelective(GymPo record);
 
-  Gym selectByPrimaryKey(Integer id);
+  GymPo selectByPrimaryKey(Integer id);
 
-  int updateByPrimaryKeySelective(Gym record);
+  int updateByPrimaryKeySelective(GymPo record);
 
-  int updateByPrimaryKey(Gym record);
+  int updateByPrimaryKey(GymPo record);
 }

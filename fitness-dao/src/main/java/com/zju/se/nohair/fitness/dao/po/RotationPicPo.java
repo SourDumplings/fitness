@@ -2,7 +2,7 @@ package com.zju.se.nohair.fitness.dao.po;
 
 import java.util.Date;
 
-public class RotationPic {
+public class RotationPicPo {
 
   private Integer id;
 

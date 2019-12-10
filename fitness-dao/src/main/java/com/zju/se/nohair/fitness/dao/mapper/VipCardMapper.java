@@ -1,18 +1,18 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.VipCard;
+import com.zju.se.nohair.fitness.dao.po.VipCardPo;
 
 public interface VipCardMapper {
 
   int deleteByPrimaryKey(Integer id);
 
-  int insert(VipCard record);
+  int insert(VipCardPo record);
 
-  int insertSelective(VipCard record);
+  int insertSelective(VipCardPo record);
 
-  VipCard selectByPrimaryKey(Integer id);
+  VipCardPo selectByPrimaryKey(Integer id);
 
-  int updateByPrimaryKeySelective(VipCard record);
+  int updateByPrimaryKeySelective(VipCardPo record);
 
-  int updateByPrimaryKey(VipCard record);
+  int updateByPrimaryKey(VipCardPo record);
 }

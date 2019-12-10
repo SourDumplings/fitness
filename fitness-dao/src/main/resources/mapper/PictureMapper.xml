@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.PictureMapper">
-  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.Picture">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.PicturePo">
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="pic_group_id" jdbcType="INTEGER" property="picGroupId"/>
     <result column="pic_link" jdbcType="VARCHAR" property="picLink"/>
@@ -22,13 +22,13 @@
     delete from picture
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.Picture">
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.PicturePo">
     insert into picture (id, pic_group_id, pic_link, 
       file_path, created_time)
     values (#{id,jdbcType=INTEGER}, #{picGroupId,jdbcType=INTEGER}, #{picLink,jdbcType=VARCHAR}, 
       #{filePath,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.Picture">
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.PicturePo">
     insert into picture
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -65,7 +65,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zju.se.nohair.fitness.dao.po.Picture">
+  <update id="updateByPrimaryKeySelective"
+    parameterType="com.zju.se.nohair.fitness.dao.po.PicturePo">
     update picture
     <set>
       <if test="picGroupId != null">
@@ -83,7 +84,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.Picture">
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.PicturePo">
     update picture
     set pic_group_id = #{picGroupId,jdbcType=INTEGER},
       pic_link = #{picLink,jdbcType=VARCHAR},

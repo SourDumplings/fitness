@@ -1,18 +1,18 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.TimeSlot;
+import com.zju.se.nohair.fitness.dao.po.TimeSlotPo;
 
 public interface TimeSlotMapper {
 
   int deleteByPrimaryKey(Integer id);
 
-  int insert(TimeSlot record);
+  int insert(TimeSlotPo record);
 
-  int insertSelective(TimeSlot record);
+  int insertSelective(TimeSlotPo record);
 
-  TimeSlot selectByPrimaryKey(Integer id);
+  TimeSlotPo selectByPrimaryKey(Integer id);
 
-  int updateByPrimaryKeySelective(TimeSlot record);
+  int updateByPrimaryKeySelective(TimeSlotPo record);
 
-  int updateByPrimaryKey(TimeSlot record);
+  int updateByPrimaryKey(TimeSlotPo record);
 }

@@ -3,7 +3,7 @@ package com.zju.se.nohair.fitness.dao.po;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class PrivateOrder {
+public class PrivateOrderPo {
 
   private Integer id;
 

@@ -1,18 +1,18 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.VipOrder;
+import com.zju.se.nohair.fitness.dao.po.VipOrderPo;
 
 public interface VipOrderMapper {
 
   int deleteByPrimaryKey(Integer id);
 
-  int insert(VipOrder record);
+  int insert(VipOrderPo record);
 
-  int insertSelective(VipOrder record);
+  int insertSelective(VipOrderPo record);
 
-  VipOrder selectByPrimaryKey(Integer id);
+  VipOrderPo selectByPrimaryKey(Integer id);
 
-  int updateByPrimaryKeySelective(VipOrder record);
+  int updateByPrimaryKeySelective(VipOrderPo record);
 
-  int updateByPrimaryKey(VipOrder record);
+  int updateByPrimaryKey(VipOrderPo record);
 }

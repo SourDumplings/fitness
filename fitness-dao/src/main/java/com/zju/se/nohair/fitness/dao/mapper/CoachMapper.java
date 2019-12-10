@@ -1,18 +1,18 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.Coach;
+import com.zju.se.nohair.fitness.dao.po.CoachPo;
 
 public interface CoachMapper {
 
   int deleteByPrimaryKey(Integer id);
 
-  int insert(Coach record);
+  int insert(CoachPo record);
 
-  int insertSelective(Coach record);
+  int insertSelective(CoachPo record);
 
-  Coach selectByPrimaryKey(Integer id);
+  CoachPo selectByPrimaryKey(Integer id);
 
-  int updateByPrimaryKeySelective(Coach record);
+  int updateByPrimaryKeySelective(CoachPo record);
 
-  int updateByPrimaryKey(Coach record);
+  int updateByPrimaryKey(CoachPo record);
 }

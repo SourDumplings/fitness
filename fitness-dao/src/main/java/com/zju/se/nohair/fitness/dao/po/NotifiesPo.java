@@ -1,6 +1,6 @@
 package com.zju.se.nohair.fitness.dao.po;
 
-public class Notifies extends NotifiesKey {
+public class NotifiesPo extends NotifiesPoKey {
 
   private String name;
 

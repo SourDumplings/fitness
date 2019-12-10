@@ -1,18 +1,18 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.RotationPic;
+import com.zju.se.nohair.fitness.dao.po.RotationPicPo;
 
 public interface RotationPicMapper {
 
   int deleteByPrimaryKey(Integer id);
 
-  int insert(RotationPic record);
+  int insert(RotationPicPo record);
 
-  int insertSelective(RotationPic record);
+  int insertSelective(RotationPicPo record);
 
-  RotationPic selectByPrimaryKey(Integer id);
+  RotationPicPo selectByPrimaryKey(Integer id);
 
-  int updateByPrimaryKeySelective(RotationPic record);
+  int updateByPrimaryKeySelective(RotationPicPo record);
 
-  int updateByPrimaryKey(RotationPic record);
+  int updateByPrimaryKey(RotationPicPo record);
 }

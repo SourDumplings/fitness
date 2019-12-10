@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class User extends BaseEntity implements Serializable {
+public class UserPo extends BaseEntity implements Serializable {
 
   private String username;
 

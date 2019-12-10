@@ -1,6 +1,6 @@
 package com.zju.se.nohair.fitness.web.admin.service;
 
-import com.zju.se.nohair.fitness.dao.po.User;
+import com.zju.se.nohair.fitness.dao.po.UserPo;
 import com.zju.se.nohair.fitness.web.admin.TestApplication;
 import java.util.List;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class UserServiceTest {
   @Test
   public void testListAll() {
     if (userService != null) {
-      final List<User> users = userService.listAll();
+      final List<UserPo> users = userService.listAll();
       System.out.println(users);
     }
   }

@@ -1,19 +1,19 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.TakesPrivate;
-import com.zju.se.nohair.fitness.dao.po.TakesPrivateKey;
+import com.zju.se.nohair.fitness.dao.po.TakesPrivatePo;
+import com.zju.se.nohair.fitness.dao.po.TakesPrivatePoKey;
 
 public interface TakesPrivateMapper {
 
-  int deleteByPrimaryKey(TakesPrivateKey key);
+  int deleteByPrimaryKey(TakesPrivatePoKey key);
 
-  int insert(TakesPrivate record);
+  int insert(TakesPrivatePo record);
 
-  int insertSelective(TakesPrivate record);
+  int insertSelective(TakesPrivatePo record);
 
-  TakesPrivate selectByPrimaryKey(TakesPrivateKey key);
+  TakesPrivatePo selectByPrimaryKey(TakesPrivatePoKey key);
 
-  int updateByPrimaryKeySelective(TakesPrivate record);
+  int updateByPrimaryKeySelective(TakesPrivatePo record);
 
-  int updateByPrimaryKey(TakesPrivate record);
+  int updateByPrimaryKey(TakesPrivatePo record);
 }

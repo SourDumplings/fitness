@@ -1,18 +1,18 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.Picture;
+import com.zju.se.nohair.fitness.dao.po.PicturePo;
 
 public interface PictureMapper {
 
   int deleteByPrimaryKey(Integer id);
 
-  int insert(Picture record);
+  int insert(PicturePo record);
 
-  int insertSelective(Picture record);
+  int insertSelective(PicturePo record);
 
-  Picture selectByPrimaryKey(Integer id);
+  PicturePo selectByPrimaryKey(Integer id);
 
-  int updateByPrimaryKeySelective(Picture record);
+  int updateByPrimaryKeySelective(PicturePo record);
 
-  int updateByPrimaryKey(Picture record);
+  int updateByPrimaryKey(PicturePo record);
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.PrivateCourseMapper">
-  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.PrivateCourse">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.PrivateCoursePo">
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="name" jdbcType="VARCHAR" property="name"/>
     <result column="content" jdbcType="VARCHAR" property="content"/>
@@ -30,7 +30,7 @@
     delete from private_course
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.PrivateCourse">
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.PrivateCoursePo">
     insert into private_course (id, name, content, 
       coach_id, business_id, price, 
       gym_price, pic_id, course_date, 
@@ -42,7 +42,7 @@
       #{timeSlots,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.PrivateCourse">
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.PrivateCoursePo">
     insert into private_course
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -122,7 +122,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective"
-    parameterType="com.zju.se.nohair.fitness.dao.po.PrivateCourse">
+    parameterType="com.zju.se.nohair.fitness.dao.po.PrivateCoursePo">
     update private_course
     <set>
       <if test="name != null">
@@ -161,7 +161,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.PrivateCourse">
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.PrivateCoursePo">
     update private_course
     set name = #{name,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},

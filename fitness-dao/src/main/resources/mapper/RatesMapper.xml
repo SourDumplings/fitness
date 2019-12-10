@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.RatesMapper">
-  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.Rates">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.RatesPo">
     <id column="from_id" jdbcType="INTEGER" property="fromId"/>
     <id column="to_id" jdbcType="INTEGER" property="toId"/>
     <id column="time" jdbcType="TIMESTAMP" property="time"/>
@@ -14,7 +14,7 @@
   <sql id="Base_Column_List">
     from_id, to_id, time, rating_points, content, pic_group_id, type
   </sql>
-  <select id="selectByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.RatesKey"
+  <select id="selectByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.RatesPoKey"
     resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
@@ -23,13 +23,13 @@
     and to_id = #{toId,jdbcType=INTEGER}
     and time = #{time,jdbcType=TIMESTAMP}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.RatesKey">
+  <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.RatesPoKey">
     delete from rates
     where from_id = #{fromId,jdbcType=INTEGER}
       and to_id = #{toId,jdbcType=INTEGER}
       and time = #{time,jdbcType=TIMESTAMP}
   </delete>
-  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.Rates">
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.RatesPo">
     insert into rates (from_id, to_id, time, 
       rating_points, content, pic_group_id, 
       type)
@@ -37,7 +37,7 @@
       #{ratingPoints,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{picGroupId,jdbcType=INTEGER}, 
       #{type,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.Rates">
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.RatesPo">
     insert into rates
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="fromId != null">
@@ -86,7 +86,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zju.se.nohair.fitness.dao.po.Rates">
+  <update id="updateByPrimaryKeySelective" parameterType="com.zju.se.nohair.fitness.dao.po.RatesPo">
     update rates
     <set>
       <if test="ratingPoints != null">
@@ -106,7 +106,7 @@
     and to_id = #{toId,jdbcType=INTEGER}
     and time = #{time,jdbcType=TIMESTAMP}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.Rates">
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.RatesPo">
     update rates
     set rating_points = #{ratingPoints,jdbcType=INTEGER},
       content = #{content,jdbcType=VARCHAR},

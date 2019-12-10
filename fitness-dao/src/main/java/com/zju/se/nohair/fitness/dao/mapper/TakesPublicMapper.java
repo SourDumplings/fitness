@@ -1,12 +1,12 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.TakesPublicKey;
+import com.zju.se.nohair.fitness.dao.po.TakesPublicPoKey;
 
 public interface TakesPublicMapper {
 
-  int deleteByPrimaryKey(TakesPublicKey key);
+  int deleteByPrimaryKey(TakesPublicPoKey key);
 
-  int insert(TakesPublicKey record);
+  int insert(TakesPublicPoKey record);
 
-  int insertSelective(TakesPublicKey record);
+  int insertSelective(TakesPublicPoKey record);
 }

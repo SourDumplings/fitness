@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.VipCardMapper">
-  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.VipCard">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.VipCardPo">
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="customer_id" jdbcType="INTEGER" property="customerId"/>
     <result column="gym_id" jdbcType="INTEGER" property="gymId"/>
@@ -23,7 +23,7 @@
     delete from vip_card
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.VipCard">
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.VipCardPo">
     insert into vip_card (id, customer_id, gym_id, 
       price, type, created_time
       )
@@ -31,7 +31,7 @@
       #{price,jdbcType=DECIMAL}, #{type,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.VipCard">
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.VipCardPo">
     insert into vip_card
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -74,7 +74,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zju.se.nohair.fitness.dao.po.VipCard">
+  <update id="updateByPrimaryKeySelective"
+    parameterType="com.zju.se.nohair.fitness.dao.po.VipCardPo">
     update vip_card
     <set>
       <if test="customerId != null">
@@ -95,7 +96,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.VipCard">
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.VipCardPo">
     update vip_card
     set customer_id = #{customerId,jdbcType=INTEGER},
       gym_id = #{gymId,jdbcType=INTEGER},

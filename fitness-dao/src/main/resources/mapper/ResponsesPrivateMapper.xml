@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.ResponsesPrivateMapper">
-  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.ResponsesPrivate">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo">
     <id column="course_id" jdbcType="INTEGER" property="courseId"/>
     <id column="business_id" jdbcType="INTEGER" property="businessId"/>
     <result column="price" jdbcType="DECIMAL" property="price"/>
@@ -12,7 +12,8 @@
     course_id, business_id, price, status
   </sql>
   <select id="selectByPrimaryKey"
-    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPrivateKey" resultMap="BaseResultMap">
+    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePoKey"
+    resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from responses_private
@@ -20,18 +21,18 @@
     and business_id = #{businessId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey"
-    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPrivateKey">
+    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePoKey">
     delete from responses_private
     where course_id = #{courseId,jdbcType=INTEGER}
       and business_id = #{businessId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPrivate">
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo">
     insert into responses_private (course_id, business_id, price, 
       status)
     values (#{courseId,jdbcType=INTEGER}, #{businessId,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, 
       #{status,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPrivate">
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo">
     insert into responses_private
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="courseId != null">
@@ -63,7 +64,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective"
-    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPrivate">
+    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo">
     update responses_private
     <set>
       <if test="price != null">
@@ -76,7 +77,8 @@
     where course_id = #{courseId,jdbcType=INTEGER}
     and business_id = #{businessId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPrivate">
+  <update id="updateByPrimaryKey"
+    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo">
     update responses_private
     set price = #{price,jdbcType=DECIMAL},
       status = #{status,jdbcType=INTEGER}

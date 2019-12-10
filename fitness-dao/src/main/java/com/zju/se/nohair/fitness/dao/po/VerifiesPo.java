@@ -2,7 +2,7 @@ package com.zju.se.nohair.fitness.dao.po;
 
 import java.util.Date;
 
-public class Verifies {
+public class VerifiesPo {
 
   private Integer applicantId;
 

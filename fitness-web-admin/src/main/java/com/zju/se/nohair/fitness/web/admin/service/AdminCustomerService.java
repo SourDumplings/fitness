@@ -1,6 +1,6 @@
 package com.zju.se.nohair.fitness.web.admin.service;
 
-import com.zju.se.nohair.fitness.dao.po.Customer;
+import com.zju.se.nohair.fitness.dao.po.CustomerPo;
 import java.util.List;
 
 /**
@@ -13,5 +13,5 @@ import java.util.List;
  */
 public interface AdminCustomerService {
 
-  List<Customer> listAll();
+  List<CustomerPo> listAll();
 }

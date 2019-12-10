@@ -1,19 +1,19 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.Notifies;
-import com.zju.se.nohair.fitness.dao.po.NotifiesKey;
+import com.zju.se.nohair.fitness.dao.po.NotifiesPo;
+import com.zju.se.nohair.fitness.dao.po.NotifiesPoKey;
 
 public interface NotifiesMapper {
 
-  int deleteByPrimaryKey(NotifiesKey key);
+  int deleteByPrimaryKey(NotifiesPoKey key);
 
-  int insert(Notifies record);
+  int insert(NotifiesPo record);
 
-  int insertSelective(Notifies record);
+  int insertSelective(NotifiesPo record);
 
-  Notifies selectByPrimaryKey(NotifiesKey key);
+  NotifiesPo selectByPrimaryKey(NotifiesPoKey key);
 
-  int updateByPrimaryKeySelective(Notifies record);
+  int updateByPrimaryKeySelective(NotifiesPo record);
 
-  int updateByPrimaryKey(Notifies record);
+  int updateByPrimaryKey(NotifiesPo record);
 }

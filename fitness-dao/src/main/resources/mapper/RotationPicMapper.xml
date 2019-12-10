@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.RotationPicMapper">
-  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.RotationPic">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.RotationPicPo">
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="pic_id" jdbcType="INTEGER" property="picId"/>
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
@@ -20,13 +20,13 @@
     delete from rotation_pic
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.RotationPic">
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.RotationPicPo">
     insert into rotation_pic (id, pic_id, created_time
       )
     values (#{id,jdbcType=INTEGER}, #{picId,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.RotationPic">
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.RotationPicPo">
     insert into rotation_pic
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -52,7 +52,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective"
-    parameterType="com.zju.se.nohair.fitness.dao.po.RotationPic">
+    parameterType="com.zju.se.nohair.fitness.dao.po.RotationPicPo">
     update rotation_pic
     <set>
       <if test="picId != null">
@@ -64,7 +64,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.RotationPic">
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.RotationPicPo">
     update rotation_pic
     set pic_id = #{picId,jdbcType=INTEGER},
       created_time = #{createdTime,jdbcType=TIMESTAMP}

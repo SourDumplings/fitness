@@ -1,6 +1,6 @@
 package com.zju.se.nohair.fitness.dao.po;
 
-public class TakesPrivateKey {
+public class TakesPrivatePoKey {
 
   private Integer customerId;
 

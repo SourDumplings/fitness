@@ -1,18 +1,18 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.PublicCourse;
+import com.zju.se.nohair.fitness.dao.po.PublicCoursePo;
 
 public interface PublicCourseMapper {
 
   int deleteByPrimaryKey(Integer id);
 
-  int insert(PublicCourse record);
+  int insert(PublicCoursePo record);
 
-  int insertSelective(PublicCourse record);
+  int insertSelective(PublicCoursePo record);
 
-  PublicCourse selectByPrimaryKey(Integer id);
+  PublicCoursePo selectByPrimaryKey(Integer id);
 
-  int updateByPrimaryKeySelective(PublicCourse record);
+  int updateByPrimaryKeySelective(PublicCoursePo record);
 
-  int updateByPrimaryKey(PublicCourse record);
+  int updateByPrimaryKey(PublicCoursePo record);
 }

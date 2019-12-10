@@ -3,15 +3,13 @@ package com.zju.se.nohair.fitness.dao.po;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Coach {
+public class CustomerPo {
 
   private Integer id;
 
   private String username;
 
   private String password;
-
-  private String adeptness;
 
   private Integer gender;
 
@@ -21,21 +19,11 @@ public class Coach {
 
   private Date birthday;
 
-  private String name;
-
-  private String idNumber;
-
-  private Integer certificationPicId;
-
-  private String ps;
-
   private Integer height;
 
   private Integer weight;
 
   private BigDecimal balance;
-
-  private Integer status;
 
   private Date createdTime;
 
@@ -61,14 +49,6 @@ public class Coach {
 
   public void setPassword(String password) {
     this.password = password == null ? null : password.trim();
-  }
-
-  public String getAdeptness() {
-    return adeptness;
-  }
-
-  public void setAdeptness(String adeptness) {
-    this.adeptness = adeptness == null ? null : adeptness.trim();
   }
 
   public Integer getGender() {
@@ -103,38 +83,6 @@ public class Coach {
     this.birthday = birthday;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name == null ? null : name.trim();
-  }
-
-  public String getIdNumber() {
-    return idNumber;
-  }
-
-  public void setIdNumber(String idNumber) {
-    this.idNumber = idNumber == null ? null : idNumber.trim();
-  }
-
-  public Integer getCertificationPicId() {
-    return certificationPicId;
-  }
-
-  public void setCertificationPicId(Integer certificationPicId) {
-    this.certificationPicId = certificationPicId;
-  }
-
-  public String getPs() {
-    return ps;
-  }
-
-  public void setPs(String ps) {
-    this.ps = ps == null ? null : ps.trim();
-  }
-
   public Integer getHeight() {
     return height;
   }
@@ -157,14 +105,6 @@ public class Coach {
 
   public void setBalance(BigDecimal balance) {
     this.balance = balance;
-  }
-
-  public Integer getStatus() {
-    return status;
-  }
-
-  public void setStatus(Integer status) {
-    this.status = status;
   }
 
   public Date getCreatedTime() {

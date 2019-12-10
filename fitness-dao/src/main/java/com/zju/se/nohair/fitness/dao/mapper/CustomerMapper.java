@@ -1,25 +1,21 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.Customer;
+import com.zju.se.nohair.fitness.dao.po.CustomerPo;
 import java.util.List;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 
-@Mapper
-@Component(value = "CustomerMapper")
 public interface CustomerMapper {
 
   int deleteByPrimaryKey(Integer id);
 
-  int insert(Customer record);
+  int insert(CustomerPo record);
 
-  int insertSelective(Customer record);
+  int insertSelective(CustomerPo record);
 
-  Customer selectByPrimaryKey(Integer id);
+  CustomerPo selectByPrimaryKey(Integer id);
 
-  int updateByPrimaryKeySelective(Customer record);
+  List<CustomerPo> selectAll();
 
-  int updateByPrimaryKey(Customer record);
+  int updateByPrimaryKeySelective(CustomerPo record);
 
-  List<Customer> selectAll();
+  int updateByPrimaryKey(CustomerPo record);
 }

@@ -2,7 +2,7 @@ package com.zju.se.nohair.fitness.dao.po;
 
 import java.math.BigDecimal;
 
-public class ResponsesPrivate extends ResponsesPrivateKey {
+public class ResponsesPublicPo extends ResponsesPublicPoKey {
 
   private BigDecimal price;
 

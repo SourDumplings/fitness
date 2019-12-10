@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.ReceiveRecordMapper">
-  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.ReceiveRecord">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo">
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="from_id" jdbcType="INTEGER" property="fromId"/>
     <result column="to_id" jdbcType="INTEGER" property="toId"/>
@@ -23,7 +23,7 @@
     delete from receive_record
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.ReceiveRecord">
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo">
     insert into receive_record (id, from_id, to_id, 
       amount, type, created_time
       )
@@ -31,7 +31,7 @@
       #{amount,jdbcType=DECIMAL}, #{type,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.ReceiveRecord">
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo">
     insert into receive_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -75,7 +75,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective"
-    parameterType="com.zju.se.nohair.fitness.dao.po.ReceiveRecord">
+    parameterType="com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo">
     update receive_record
     <set>
       <if test="fromId != null">
@@ -96,7 +96,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.ReceiveRecord">
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo">
     update receive_record
     set from_id = #{fromId,jdbcType=INTEGER},
       to_id = #{toId,jdbcType=INTEGER},

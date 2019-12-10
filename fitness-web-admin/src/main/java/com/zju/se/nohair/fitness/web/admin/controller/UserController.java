@@ -1,7 +1,7 @@
 package com.zju.se.nohair.fitness.web.admin.controller;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
-import com.zju.se.nohair.fitness.dao.po.User;
+import com.zju.se.nohair.fitness.dao.po.UserPo;
 import com.zju.se.nohair.fitness.web.admin.dto.CreateUserDto;
 import com.zju.se.nohair.fitness.web.admin.service.UserService;
 import io.swagger.annotations.Api;
@@ -50,7 +50,7 @@ public class UserController {
   @ApiOperation(value = "数据 mapper 测试", httpMethod = "GET")
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ResponseBody
-  public List<User> listAll() {
+  public List<UserPo> listAll() {
     return userService.listAll();
   }
 

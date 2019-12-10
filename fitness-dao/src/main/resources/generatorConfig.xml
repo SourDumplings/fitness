@@ -41,81 +41,91 @@
       <property name="enableSubPackages" value="false"/>
     </sqlMapGenerator>
 
-    <!-- 生成DAO的包名和位置-->
+    <!-- 生成DAO的包名和位置 -->
     <javaClientGenerator type="XMLMAPPER"
       targetPackage="com.zju.se.nohair.fitness.dao.mapper"
       targetProject="src/main/java">
       <!-- enableSubPackages:是否让schema作为包的后缀 -->
       <property name="enableSubPackages" value="false"/>
     </javaClientGenerator>
+    <!-- 要生成的表 tableName 是数据库中的表名或视图名 domainObjectName是
+  实体类名 -->
+    <table tableName="business" domainObjectName="BusinessPo" mapperName="BusinessMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="coach" domainObjectName="CoachPo" mapperName="CoachMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="customer" domainObjectName="CustomerPo" mapperName="CustomerMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="gym" domainObjectName="GymPo" mapperName="GymMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="notifies" domainObjectName="NotifiesPo" mapperName="NotifiesMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="owns_gym" domainObjectName="OwnsGymPo" mapperName="OwnsGymMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="picture" domainObjectName="PicturePo" mapperName="PictureMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="private_course" domainObjectName="PrivateCoursePo"
+      mapperName="PrivateCourseMapper" enableCountByExample="false" enableUpdateByExample="false"
+      enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="private_order" domainObjectName="PrivateOrderPo"
+      mapperName="PrivateOrderMapper" enableCountByExample="false" enableUpdateByExample="false"
+      enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="public_course" domainObjectName="PublicCoursePo"
+      mapperName="PublicCourseMapper" enableCountByExample="false" enableUpdateByExample="false"
+      enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="public_order" domainObjectName="PublicOrderPo" mapperName="PublicOrderMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="rates" domainObjectName="RatesPo" mapperName="RatesMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="receive_record" domainObjectName="ReceiveRecordPo"
+      mapperName="ReceiveRecordMapper" enableCountByExample="false" enableUpdateByExample="false"
+      enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="responses_private" domainObjectName="ResponsesPrivatePo"
+      mapperName="ResponsesPrivateMapper" enableCountByExample="false" enableUpdateByExample="false"
+      enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="responses_public" domainObjectName="ResponsesPublicPo"
+      mapperName="ResponsesPublicMapper" enableCountByExample="false" enableUpdateByExample="false"
+      enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="rotation_pic" domainObjectName="RotationPicPo" mapperName="RotationPicMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="takes_private" domainObjectName="TakesPrivatePo"
+      mapperName="TakesPrivateMapper" enableCountByExample="false" enableUpdateByExample="false"
+      enableDeleteByExample="false" enableSelectByExample="false"
+      selectByExampleQueryId="false"></table>
+    <table tableName="takes_public" domainObjectName="TakesPublicPo" mapperName="TakesPublicMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="time_slot" domainObjectName="TimeSlotPo" mapperName="TimeSlotMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="user" domainObjectName="UserPo" mapperName="UserMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="verifies" domainObjectName="VerifiesPo" mapperName="VerifiesMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="vip_card" domainObjectName="VipCardPo" mapperName="VipCardMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="vip_order" domainObjectName="VipOrderPo" mapperName="VipOrderMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
 
-    <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是
-  实体类名-->
-    <table tableName="business" domainObjectName="Business" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="coach" domainObjectName="Coach" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="customer" domainObjectName="Customer" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="gym" domainObjectName="Gym" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="notifies" domainObjectName="Notifies" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="owns_gym" domainObjectName="OwnsGym" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="picture" domainObjectName="Picture" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="private_course" domainObjectName="PrivateCourse" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="private_order" domainObjectName="PrivateOrder" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="public_course" domainObjectName="PublicCourse" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="public_order" domainObjectName="PublicOrder" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="rates" domainObjectName="Rates" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="receive_record" domainObjectName="ReceiveRecord" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="responses_private" domainObjectName="ResponsesPrivate"
-      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-      enableSelectByExample="false" selectByExampleQueryId="false"></table>
-    <table tableName="responses_public" domainObjectName="ResponsesPublic"
-      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-      enableSelectByExample="false" selectByExampleQueryId="false"></table>
-    <table tableName="rotation_pic" domainObjectName="RotationPic" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="takes_private" domainObjectName="TakesPrivate" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="takes_public" domainObjectName="TakesPublic" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="time_slot" domainObjectName="TimeSlot" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="verifies" domainObjectName="Verifies" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="vip_card" domainObjectName="VipCard" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
-    <table tableName="vip_order" domainObjectName="VipOrder" enableCountByExample="false"
-      enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-      selectByExampleQueryId="false"></table>
   </context>
 </generatorConfiguration>

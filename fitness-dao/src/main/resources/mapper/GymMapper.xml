@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.GymMapper">
-  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.Gym">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.GymPo">
     <id column="id" jdbcType="INTEGER" property="id"/>
     <result column="address" jdbcType="VARCHAR" property="address"/>
     <result column="content" jdbcType="VARCHAR" property="content"/>
@@ -23,7 +23,7 @@
     delete from gym
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.Gym">
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.GymPo">
     insert into gym (id, address, content, 
       bussiness_id, pic_group_id, created_time
       )
@@ -31,7 +31,7 @@
       #{bussinessId,jdbcType=INTEGER}, #{picGroupId,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.Gym">
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.GymPo">
     insert into gym
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -74,7 +74,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zju.se.nohair.fitness.dao.po.Gym">
+  <update id="updateByPrimaryKeySelective" parameterType="com.zju.se.nohair.fitness.dao.po.GymPo">
     update gym
     <set>
       <if test="address != null">
@@ -95,7 +95,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.Gym">
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.GymPo">
     update gym
     set address = #{address,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},

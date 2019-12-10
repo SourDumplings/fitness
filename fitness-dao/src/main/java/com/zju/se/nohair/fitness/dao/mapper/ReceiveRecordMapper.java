@@ -1,18 +1,18 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
-import com.zju.se.nohair.fitness.dao.po.ReceiveRecord;
+import com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo;
 
 public interface ReceiveRecordMapper {
 
   int deleteByPrimaryKey(Integer id);
 
-  int insert(ReceiveRecord record);
+  int insert(ReceiveRecordPo record);
 
-  int insertSelective(ReceiveRecord record);
+  int insertSelective(ReceiveRecordPo record);
 
-  ReceiveRecord selectByPrimaryKey(Integer id);
+  ReceiveRecordPo selectByPrimaryKey(Integer id);
 
-  int updateByPrimaryKeySelective(ReceiveRecord record);
+  int updateByPrimaryKeySelective(ReceiveRecordPo record);
 
-  int updateByPrimaryKey(ReceiveRecord record);
+  int updateByPrimaryKey(ReceiveRecordPo record);
 }

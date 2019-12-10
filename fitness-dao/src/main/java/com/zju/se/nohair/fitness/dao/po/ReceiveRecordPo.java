@@ -3,15 +3,15 @@ package com.zju.se.nohair.fitness.dao.po;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class VipCard {
+public class ReceiveRecordPo {
 
   private Integer id;
 
-  private Integer customerId;
+  private Integer fromId;
 
-  private Integer gymId;
+  private Integer toId;
 
-  private BigDecimal price;
+  private BigDecimal amount;
 
   private Integer type;
 
@@ -25,28 +25,28 @@ public class VipCard {
     this.id = id;
   }
 
-  public Integer getCustomerId() {
-    return customerId;
+  public Integer getFromId() {
+    return fromId;
   }
 
-  public void setCustomerId(Integer customerId) {
-    this.customerId = customerId;
+  public void setFromId(Integer fromId) {
+    this.fromId = fromId;
   }
 
-  public Integer getGymId() {
-    return gymId;
+  public Integer getToId() {
+    return toId;
   }
 
-  public void setGymId(Integer gymId) {
-    this.gymId = gymId;
+  public void setToId(Integer toId) {
+    this.toId = toId;
   }
 
-  public BigDecimal getPrice() {
-    return price;
+  public BigDecimal getAmount() {
+    return amount;
   }
 
-  public void setPrice(BigDecimal price) {
-    this.price = price;
+  public void setAmount(BigDecimal amount) {
+    this.amount = amount;
   }
 
   public Integer getType() {

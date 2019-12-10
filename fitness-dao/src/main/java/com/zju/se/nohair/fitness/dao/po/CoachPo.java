@@ -3,7 +3,7 @@ package com.zju.se.nohair.fitness.dao.po;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Business {
+public class CoachPo {
 
   private Integer id;
 
@@ -11,15 +11,27 @@ public class Business {
 
   private String password;
 
+  private String adeptness;
+
+  private Integer gender;
+
   private Integer picId;
 
   private String phone;
 
-  private String personName;
+  private Date birthday;
+
+  private String name;
 
   private String idNumber;
 
   private Integer certificationPicId;
+
+  private String ps;
+
+  private Integer height;
+
+  private Integer weight;
 
   private BigDecimal balance;
 
@@ -51,6 +63,22 @@ public class Business {
     this.password = password == null ? null : password.trim();
   }
 
+  public String getAdeptness() {
+    return adeptness;
+  }
+
+  public void setAdeptness(String adeptness) {
+    this.adeptness = adeptness == null ? null : adeptness.trim();
+  }
+
+  public Integer getGender() {
+    return gender;
+  }
+
+  public void setGender(Integer gender) {
+    this.gender = gender;
+  }
+
   public Integer getPicId() {
     return picId;
   }
@@ -67,12 +95,20 @@ public class Business {
     this.phone = phone == null ? null : phone.trim();
   }
 
-  public String getPersonName() {
-    return personName;
+  public Date getBirthday() {
+    return birthday;
   }
 
-  public void setPersonName(String personName) {
-    this.personName = personName == null ? null : personName.trim();
+  public void setBirthday(Date birthday) {
+    this.birthday = birthday;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name == null ? null : name.trim();
   }
 
   public String getIdNumber() {
@@ -89,6 +125,30 @@ public class Business {
 
   public void setCertificationPicId(Integer certificationPicId) {
     this.certificationPicId = certificationPicId;
+  }
+
+  public String getPs() {
+    return ps;
+  }
+
+  public void setPs(String ps) {
+    this.ps = ps == null ? null : ps.trim();
+  }
+
+  public Integer getHeight() {
+    return height;
+  }
+
+  public void setHeight(Integer height) {
+    this.height = height;
+  }
+
+  public Integer getWeight() {
+    return weight;
+  }
+
+  public void setWeight(Integer weight) {
+    this.weight = weight;
   }
 
   public BigDecimal getBalance() {

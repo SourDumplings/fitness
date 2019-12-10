@@ -1,10 +1,10 @@
 package com.zju.se.nohair.fitness.dao.po;
 
-public class ResponsesPublicKey {
+public class ResponsesPrivatePoKey {
 
   private Integer courseId;
 
-  private Integer coachId;
+  private Integer businessId;
 
   public Integer getCourseId() {
     return courseId;
@@ -14,11 +14,11 @@ public class ResponsesPublicKey {
     this.courseId = courseId;
   }
 
-  public Integer getCoachId() {
-    return coachId;
+  public Integer getBusinessId() {
+    return businessId;
   }
 
-  public void setCoachId(Integer coachId) {
-    this.coachId = coachId;
+  public void setBusinessId(Integer businessId) {
+    this.businessId = businessId;
   }
 }
