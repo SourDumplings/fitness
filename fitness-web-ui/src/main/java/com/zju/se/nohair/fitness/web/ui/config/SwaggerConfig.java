@@ -73,7 +73,7 @@ public class SwaggerConfig {
   private ApiInfo apiInfo() {
     //http://localhost:8888/swagger-ui.html
     return new ApiInfoBuilder()
-        .title("接口文档")
+        .title("fitness 接口文档")
         .contact(new Contact("nohair", "no url", "nohair@no_email.com"))
         .description("没有头发也能学 fitness 项目后端接口")
         .version("1.0.0")
