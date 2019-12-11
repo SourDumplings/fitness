@@ -29,7 +29,6 @@
   <properties>
     <java.version>1.8</java.version>
     <spring-boot-mybatis.version>1.3.2</spring-boot-mybatis.version>
-    <spirng-boot-starter.version>2.2.1.RELEASE</spirng-boot-starter.version>
     <spring-boot-starter-test.version>2.2.1.RELEASE</spring-boot-starter-test.version>
     <mysql.version>5.1.46</mysql.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
