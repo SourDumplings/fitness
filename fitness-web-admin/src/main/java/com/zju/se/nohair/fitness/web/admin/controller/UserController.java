@@ -11,6 +11,8 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,24 +59,26 @@ public class UserController {
   @ApiOperation(value = "根据手机号获取用户信息", httpMethod = "GET")
   @RequestMapping(value = "phone", method = RequestMethod.GET)
   @ResponseBody
-  public Object getUserByPhone(@RequestParam(name = "phone") String phone) {
+  public ResponseEntity<Object> getUserByPhone(@RequestParam(name = "phone") String phone) {
     BaseResult baseResult = userService.getUserByPhone(phone);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
-      return baseResult.getData();
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
     } else {
-      return baseResult.getMessage();
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
     }
   }
 
   @ApiOperation(value = "创建新用户", httpMethod = "POST")
   @RequestMapping(value = "", method = RequestMethod.POST)
   @ResponseBody
-  public Object createUser(@RequestBody @Valid CreateUserDto createUserDto) {
+  public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserDto createUserDto) {
     BaseResult baseResult = userService.createUser(createUserDto);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
-      return baseResult.getMessage();
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.CREATED);
     } else {
-      return baseResult.getMessage();
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
     }
   }
 }
