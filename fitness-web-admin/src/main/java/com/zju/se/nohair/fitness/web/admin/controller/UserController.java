@@ -42,21 +42,21 @@ public class UserController {
     this.userService = userService;
   }
 
-  @ApiOperation(value = "hello world 测试", httpMethod = "GET")
+  @ApiOperation(value = "hello world 测试（测试用）", httpMethod = "GET")
   @RequestMapping(value = "hello", method = RequestMethod.GET)
   public String sayHi() {
     logger.warn("say hihihihihi..................");
     return "hello";
   }
 
-  @ApiOperation(value = "数据 mapper 测试", httpMethod = "GET")
+  @ApiOperation(value = "数据 mapper 测试（测试用）", httpMethod = "GET")
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ResponseBody
   public List<UserPo> listAll() {
     return userService.listAll();
   }
 
-  @ApiOperation(value = "根据手机号获取用户信息", httpMethod = "GET")
+  @ApiOperation(value = "根据手机号获取用户信息（测试用）", httpMethod = "GET")
   @RequestMapping(value = "phone", method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<Object> getUserByPhone(@RequestParam(name = "phone") String phone) {
@@ -69,7 +69,7 @@ public class UserController {
     }
   }
 
-  @ApiOperation(value = "创建新用户", httpMethod = "POST")
+  @ApiOperation(value = "创建新用户（测试用）", httpMethod = "POST")
   @RequestMapping(value = "", method = RequestMethod.POST)
   @ResponseBody
   public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserDto createUserDto) {

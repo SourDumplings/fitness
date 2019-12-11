@@ -22,20 +22,58 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-  @Bean
-  public Docket api() {
+  @Bean("后台模块")
+  public Docket adminApi() {
     return new Docket(DocumentationType.SWAGGER_2)
+        .groupName("后台模块")
         .apiInfo(apiInfo())
         .pathMapping("/")
         .select()
-        //匹配那些访问的方法
-        .paths(PathSelectors.regex("/.*"))
+        //匹配哪些访问的方法
+        .paths(PathSelectors.regex("/admin/.*"))
+        .build();
+  }
+
+  @Bean("商家模块")
+  public Docket businessApi() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .groupName("商家模块")
+        .apiInfo(apiInfo())
+        .pathMapping("/")
+        .select()
+        //匹配哪些访问的方法
+        .paths(PathSelectors.regex("/business/.*"))
+        .build();
+  }
+
+  @Bean("教练模块")
+  public Docket coachApi() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .groupName("教练模块")
+        .apiInfo(apiInfo())
+        .pathMapping("/")
+        .select()
+        //匹配哪些访问的方法
+        .paths(PathSelectors.regex("/coach/.*"))
+        .build();
+  }
+
+  @Bean("顾客模块")
+  public Docket customerApi() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .groupName("顾客模块")
+        .apiInfo(apiInfo())
+        .pathMapping("/")
+        .select()
+        //匹配哪些访问的方法
+        .paths(PathSelectors.regex("/customer/.*"))
         .build();
   }
 
   private ApiInfo apiInfo() {
     //http://localhost:8888/swagger-ui.html
-    return new ApiInfoBuilder().title("接口文档")
+    return new ApiInfoBuilder()
+        .title("接口文档")
         .contact(new Contact("nohair", "no url", "nohair@no_email.com"))
         .description("没有头发也能学 fitness 项目后端接口")
         .version("1.0.0")

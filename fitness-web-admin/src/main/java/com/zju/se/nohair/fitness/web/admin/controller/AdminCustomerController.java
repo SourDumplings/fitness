@@ -35,7 +35,7 @@ public class AdminCustomerController {
     this.adminCustomerService = adminCustomerService;
   }
 
-  @ApiOperation(value = "获取顾客列表", httpMethod = "GET")
+  @ApiOperation(value = "获取顾客列表（测试用）", httpMethod = "GET")
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ResponseBody
   public List<CustomerPo> listAll() {
