@@ -2,6 +2,7 @@ package com.zju.se.nohair.fitness.dao.mapper;
 
 import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPoKey;
+import java.util.List;
 
 public interface ResponsesPublicMapper {
 
@@ -12,6 +13,8 @@ public interface ResponsesPublicMapper {
   int insertSelective(ResponsesPublicPo record);
 
   ResponsesPublicPo selectByPrimaryKey(ResponsesPublicPoKey key);
+
+  List<ResponsesPublicPo> selectByCourseId(Integer courseId);
 
   int updateByPrimaryKeySelective(ResponsesPublicPo record);
 

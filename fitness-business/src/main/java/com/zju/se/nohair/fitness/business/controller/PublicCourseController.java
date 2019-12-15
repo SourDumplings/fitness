@@ -11,9 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,6 +49,48 @@ public class PublicCourseController {
     BaseResult baseResult = publicCourseService.createPublicCourse(createPublicCourseDto);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "查看发布的团课列表", httpMethod = "GET")
+  @RequestMapping(value = "", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> listPublicCoursesByBusinessId(
+      @RequestParam(name = "businessId") Integer businessId) {
+    BaseResult baseResult = publicCourseService.listPublicCoursesByBusinessId(businessId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "查看发布的团课详情", httpMethod = "GET")
+  @RequestMapping(value = "{courseId}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> getPublicCourseDetailByCourseId(
+      @PathVariable("courseId") Integer courseId) {
+    BaseResult baseResult = publicCourseService.getPublicCourseDetailByCourseId(courseId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "查看发布的课程的响应列表", httpMethod = "GET")
+  @RequestMapping(value = "{courseId}/response", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> listPublicCourseResponsesByCourseId(
+      @PathVariable("courseId") Integer courseId) {
+    BaseResult baseResult = publicCourseService.listPublicCourseResponsesByCourseId(courseId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
     } else {
       return new ResponseEntity<>(baseResult.getMessage(),
           HttpStatus.valueOf(baseResult.getStatus()));

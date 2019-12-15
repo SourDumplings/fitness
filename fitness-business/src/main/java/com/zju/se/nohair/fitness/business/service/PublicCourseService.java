@@ -14,4 +14,12 @@ import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 public interface PublicCourseService {
 
   BaseResult createPublicCourse(CreatePublicCourseDto createPublicCourseDto);
+
+  BaseResult deletePublicCourseByCourseId(Integer courseId);
+
+  BaseResult listPublicCoursesByBusinessId(Integer businessId);
+
+  BaseResult getPublicCourseDetailByCourseId(Integer courseId);
+
+  BaseResult listPublicCourseResponsesByCourseId(Integer courseId);
 }

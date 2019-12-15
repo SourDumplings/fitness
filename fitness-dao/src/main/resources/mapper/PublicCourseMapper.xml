@@ -21,6 +21,12 @@
     id, name, content, coach_id, business_id, price, coach_price, pic_id, capacity, course_date, 
     time_slot_id, status, created_time
   </sql>
+  <select id="selectByBusinessId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from public_course
+    where business_id = #{businessId,jdbcType=INTEGER}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
