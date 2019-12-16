@@ -55,7 +55,21 @@ public class PublicCourseController {
     }
   }
 
-  @ApiOperation(value = "查看发布的团课列表", httpMethod = "GET")
+  @ApiOperation(value = "删除发布的团课", httpMethod = "DELETE")
+  @RequestMapping(value = "{courseId}", method = RequestMethod.DELETE)
+  @ResponseBody
+  public ResponseEntity<Object> deletePublicCourseByCourseId(
+      @PathVariable("courseId") Integer courseId) {
+    BaseResult baseResult = publicCourseService.deletePublicCourseByCourseId(courseId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.NO_CONTENT);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "查看发布的团课列表；课程状态（0代表商家已发布，1代表教练已选定，2代表至少一个顾客选定并已付款，3代表课程结束未评价，4代表已满，5代表课程结束已评价）", httpMethod = "GET")
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<Object> listPublicCoursesByBusinessId(
@@ -69,7 +83,7 @@ public class PublicCourseController {
     }
   }
 
-  @ApiOperation(value = "查看发布的团课详情", httpMethod = "GET")
+  @ApiOperation(value = "查看发布的团课详情；课程状态（0代表商家已发布，1代表教练已选定，2代表至少一个顾客选定并已付款，3代表课程结束未评价，4代表已满，5代表课程结束已评价）", httpMethod = "GET")
   @RequestMapping(value = "{courseId}", method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<Object> getPublicCourseDetailByCourseId(
@@ -83,7 +97,7 @@ public class PublicCourseController {
     }
   }
 
-  @ApiOperation(value = "查看发布的课程的响应列表", httpMethod = "GET")
+  @ApiOperation(value = "查看发布的课程的响应列表；响应状态（0代表未接受，1代表已接受，2代表已拒绝）", httpMethod = "GET")
   @RequestMapping(value = "{courseId}/response", method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<Object> listPublicCourseResponsesByCourseId(

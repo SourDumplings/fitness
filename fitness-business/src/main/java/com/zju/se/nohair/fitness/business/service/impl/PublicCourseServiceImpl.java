@@ -89,7 +89,17 @@ public class PublicCourseServiceImpl implements PublicCourseService {
 
   @Override
   public BaseResult deletePublicCourseByCourseId(Integer courseId) {
-    return null;
+    BaseResult res = null;
+
+    try {
+      publicCourseMapper.deleteByPrimaryKey(courseId);
+      res = BaseResult.success("删除该发布的课程成功");
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("删除该发布的课程失败");
+    }
+
+    return res;
   }
 
   @Override
