@@ -81,6 +81,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
       for (PrivateCoursePo privateCourse : privateCourses) {
         PrivateCourseListItemDto privateCourseListItemDto = new PrivateCourseListItemDto();
         BeanUtils.copyProperties(privateCourse, privateCourseListItemDto);
+        privateCourseListItemDtoList.add(privateCourseListItemDto);
       }
       res = BaseResult.success("查询等待商家响应的私教课程列表成功");
       res.setData(privateCourseListItemDtoList);
