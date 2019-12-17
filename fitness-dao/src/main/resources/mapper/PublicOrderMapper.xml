@@ -4,13 +4,14 @@
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.PublicOrderMapper">
   <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.PublicOrderPo">
     <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="customer_id" jdbcType="INTEGER" property="customerId"/>
     <result column="course_id" jdbcType="INTEGER" property="courseId"/>
     <result column="order_price" jdbcType="DECIMAL" property="orderPrice"/>
     <result column="status" jdbcType="INTEGER" property="status"/>
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
   </resultMap>
   <sql id="Base_Column_List">
-    id, course_id, order_price, status, created_time
+    id, customer_id, course_id, order_price, status, created_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -23,16 +24,21 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.PublicOrderPo">
-    insert into public_order (id, course_id, order_price, 
-      status, created_time)
-    values (#{id,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{orderPrice,jdbcType=DECIMAL}, 
-      #{status,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP})
+    insert into public_order (id, customer_id, course_id, 
+      order_price, status, created_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, 
+      #{orderPrice,jdbcType=DECIMAL}, #{status,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.PublicOrderPo">
     insert into public_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="customerId != null">
+        customer_id,
       </if>
       <if test="courseId != null">
         course_id,
@@ -50,6 +56,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
+      </if>
+      <if test="customerId != null">
+        #{customerId,jdbcType=INTEGER},
       </if>
       <if test="courseId != null">
         #{courseId,jdbcType=INTEGER},
@@ -69,6 +78,9 @@
     parameterType="com.zju.se.nohair.fitness.dao.po.PublicOrderPo">
     update public_order
     <set>
+      <if test="customerId != null">
+        customer_id = #{customerId,jdbcType=INTEGER},
+      </if>
       <if test="courseId != null">
         course_id = #{courseId,jdbcType=INTEGER},
       </if>
@@ -86,7 +98,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.PublicOrderPo">
     update public_order
-    set course_id = #{courseId,jdbcType=INTEGER},
+    set customer_id = #{customerId,jdbcType=INTEGER},
+      course_id = #{courseId,jdbcType=INTEGER},
       order_price = #{orderPrice,jdbcType=DECIMAL},
       status = #{status,jdbcType=INTEGER},
       created_time = #{createdTime,jdbcType=TIMESTAMP}

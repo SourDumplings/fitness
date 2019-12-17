@@ -4,53 +4,63 @@ import java.util.Date;
 
 public class VerifiesPo {
 
-  private Integer applicantId;
+    private Integer applicantId;
 
-  private Integer adminId;
+    private Integer adminId;
 
-  private String content;
+    private Integer result;
 
-  private Integer type;
+    private String content;
 
-  private Date time;
+    private Integer type;
 
-  public Integer getApplicantId() {
-    return applicantId;
-  }
+    private Date time;
 
-  public void setApplicantId(Integer applicantId) {
-    this.applicantId = applicantId;
-  }
+    public Integer getApplicantId() {
+        return applicantId;
+    }
 
-  public Integer getAdminId() {
-    return adminId;
-  }
+    public void setApplicantId(Integer applicantId) {
+        this.applicantId = applicantId;
+    }
 
-  public void setAdminId(Integer adminId) {
-    this.adminId = adminId;
-  }
+    public Integer getAdminId() {
+        return adminId;
+    }
 
-  public String getContent() {
-    return content;
-  }
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
+    }
 
-  public void setContent(String content) {
-    this.content = content == null ? null : content.trim();
-  }
+    public Integer getResult() {
+        return result;
+    }
 
-  public Integer getType() {
-    return type;
-  }
+    public void setResult(Integer result) {
+        this.result = result;
+    }
 
-  public void setType(Integer type) {
-    this.type = type;
-  }
+    public String getContent() {
+        return content;
+    }
 
-  public Date getTime() {
-    return time;
-  }
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
 
-  public void setTime(Date time) {
-    this.time = time;
-  }
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
 }

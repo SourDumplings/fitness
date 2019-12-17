@@ -5,53 +5,63 @@ import java.util.Date;
 
 public class PrivateOrderPo {
 
-  private Integer id;
+    private Integer id;
 
-  private Integer courseId;
+    private Integer customerId;
 
-  private BigDecimal orderPrice;
+    private Integer courseId;
 
-  private Integer status;
+    private BigDecimal orderPrice;
 
-  private Date createdTime;
+    private Integer status;
 
-  public Integer getId() {
-    return id;
-  }
+    private Date createdTime;
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+    public Integer getId() {
+        return id;
+    }
 
-  public Integer getCourseId() {
-    return courseId;
-  }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-  public void setCourseId(Integer courseId) {
-    this.courseId = courseId;
-  }
+    public Integer getCustomerId() {
+        return customerId;
+    }
 
-  public BigDecimal getOrderPrice() {
-    return orderPrice;
-  }
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
 
-  public void setOrderPrice(BigDecimal orderPrice) {
-    this.orderPrice = orderPrice;
-  }
+    public Integer getCourseId() {
+        return courseId;
+    }
 
-  public Integer getStatus() {
-    return status;
-  }
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
 
-  public void setStatus(Integer status) {
-    this.status = status;
-  }
+    public BigDecimal getOrderPrice() {
+        return orderPrice;
+    }
 
-  public Date getCreatedTime() {
-    return createdTime;
-  }
+    public void setOrderPrice(BigDecimal orderPrice) {
+        this.orderPrice = orderPrice;
+    }
 
-  public void setCreatedTime(Date createdTime) {
-    this.createdTime = createdTime;
-  }
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
+    }
 }

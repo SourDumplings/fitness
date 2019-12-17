@@ -5,15 +5,18 @@
   <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.VerifiesPo">
     <result column="applicant_id" jdbcType="INTEGER" property="applicantId"/>
     <result column="admin_id" jdbcType="INTEGER" property="adminId"/>
+    <result column="result" jdbcType="INTEGER" property="result"/>
     <result column="content" jdbcType="VARCHAR" property="content"/>
     <result column="type" jdbcType="INTEGER" property="type"/>
     <result column="time" jdbcType="TIMESTAMP" property="time"/>
   </resultMap>
   <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.VerifiesPo">
-    insert into verifies (applicant_id, admin_id, content, 
-      type, time)
-    values (#{applicantId,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
-      #{type,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP})
+    insert into verifies (applicant_id, admin_id, result, 
+      content, type, time
+      )
+    values (#{applicantId,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}, #{result,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.VerifiesPo">
     insert into verifies
@@ -23,6 +26,9 @@
       </if>
       <if test="adminId != null">
         admin_id,
+      </if>
+      <if test="result != null">
+        result,
       </if>
       <if test="content != null">
         content,
@@ -40,6 +46,9 @@
       </if>
       <if test="adminId != null">
         #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=INTEGER},
       </if>
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
