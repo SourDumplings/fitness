@@ -13,7 +13,10 @@ import java.io.Serializable;
 public class BaseResult implements Serializable {
 
   public static final int STATUS_SUCCESS = 200;
+
   public static final int STATUS_FAIL = 500;
+
+  public static final int STATUS_BAD_REQUEST = 400;
 
   private int status;
   private String message;

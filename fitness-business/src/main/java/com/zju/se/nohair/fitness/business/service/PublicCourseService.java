@@ -22,4 +22,6 @@ public interface PublicCourseService {
   BaseResult getPublicCourseDetailByCourseId(Integer courseId);
 
   BaseResult listPublicCourseResponsesByCourseId(Integer courseId);
+
+  BaseResult acceptResponse(Integer courseId, Integer coachId);
 }

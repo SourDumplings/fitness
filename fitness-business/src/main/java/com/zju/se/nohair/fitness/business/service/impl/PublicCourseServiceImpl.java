@@ -5,6 +5,7 @@ import com.zju.se.nohair.fitness.business.dto.PublicCourseDetailDto;
 import com.zju.se.nohair.fitness.business.dto.PublicCourseListItemDto;
 import com.zju.se.nohair.fitness.business.dto.PublicCourseResponseDto;
 import com.zju.se.nohair.fitness.business.service.PublicCourseService;
+import com.zju.se.nohair.fitness.commons.constant.PublicCourseStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
@@ -75,7 +76,7 @@ public class PublicCourseServiceImpl implements PublicCourseService {
       publicCoursePo.setCreatedTime(new Date());
       publicCoursePo.setId(null);
       publicCoursePo.setCoachId(null);
-      publicCoursePo.setStatus(0);
+      publicCoursePo.setStatus(PublicCourseStatus.NEW_PUBLISH);
 
       publicCourseMapper.insert(publicCoursePo);
       res = BaseResult.success("发布课程成功");
@@ -92,8 +93,15 @@ public class PublicCourseServiceImpl implements PublicCourseService {
     BaseResult res = null;
 
     try {
-      publicCourseMapper.deleteByPrimaryKey(courseId);
-      res = BaseResult.success("删除该发布的课程成功");
+      final PublicCoursePo publicCoursePo = publicCourseMapper.selectByPrimaryKey(courseId);
+      final Integer status = publicCoursePo.getStatus();
+      if (PublicCourseStatus.NEW_PUBLISH.equals(status) || status
+          .equals(PublicCourseStatus.COACH_SELECTED)) {
+        publicCourseMapper.deleteByPrimaryKey(courseId);
+        res = BaseResult.success("删除该发布的课程成功");
+      } else {
+        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "不能删除已经有顾客选定的课程");
+      }
     } catch (Exception e) {
       logger.error(e.getMessage());
       res = BaseResult.fail("删除该发布的课程失败");
@@ -169,6 +177,20 @@ public class PublicCourseServiceImpl implements PublicCourseService {
       }
       res = BaseResult.success("查询课程的响应列表成功");
       res.setData(publicCourseResponseDtoList);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查询课程的响应列表失败");
+    }
+
+    return res;
+  }
+
+  @Override
+  public BaseResult acceptResponse(Integer courseId, Integer coachId) {
+    BaseResult res = null;
+
+    try {
+      res = BaseResult.success("查询课程的响应列表成功");
     } catch (Exception e) {
       logger.error(e.getMessage());
       res = BaseResult.fail("查询课程的响应列表失败");

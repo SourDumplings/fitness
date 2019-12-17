@@ -1,6 +1,7 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
 import com.zju.se.nohair.fitness.dao.po.PrivateCoursePo;
+import java.util.List;
 
 public interface PrivateCourseMapper {
 
@@ -11,6 +12,10 @@ public interface PrivateCourseMapper {
   int insertSelective(PrivateCoursePo record);
 
   PrivateCoursePo selectByPrimaryKey(Integer id);
+
+  List<PrivateCoursePo> selectForResponsing();
+
+  List<PrivateCoursePo> selectByBusinessId(Integer businessId);
 
   int updateByPrimaryKeySelective(PrivateCoursePo record);
 
