@@ -46,11 +46,11 @@ public class AdminBusinessUserServiceImpl implements AdminBusinessUserService {
         BeanUtils.copyProperties(businessPo, adminBusinessUserListItemDto);
         adminBusinessUserListItemDtoList.add(adminBusinessUserListItemDto);
       }
-      res = BaseResult.success("查询课程列表成功");
+      res = BaseResult.success("查询商家列表成功");
       res.setData(adminBusinessUserListItemDtoList);
     } catch (Exception e) {
       logger.error(e.getMessage());
-      res = BaseResult.fail("查询课程列表失败");
+      res = BaseResult.fail("查询商家列表失败");
     }
 
     return res;

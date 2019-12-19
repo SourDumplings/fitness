@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/11/21 11:50
  */
 @RestController
-@RequestMapping("admin/users")
+@RequestMapping("test/admin/users")
 @Api
 public class UserController {
 

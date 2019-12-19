@@ -1,6 +1,7 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
 import com.zju.se.nohair.fitness.dao.po.CoachPo;
+import java.util.List;
 
 public interface CoachMapper {
 
@@ -11,6 +12,8 @@ public interface CoachMapper {
   int insertSelective(CoachPo record);
 
   CoachPo selectByPrimaryKey(Integer id);
+
+  List<CoachPo> selectAll();
 
   int updateByPrimaryKeySelective(CoachPo record);
 
