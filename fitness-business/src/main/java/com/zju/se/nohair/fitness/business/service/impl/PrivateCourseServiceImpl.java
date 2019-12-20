@@ -2,7 +2,7 @@ package com.zju.se.nohair.fitness.business.service.impl;
 
 import com.zju.se.nohair.fitness.business.dto.PrivateCourseDetailDto;
 import com.zju.se.nohair.fitness.business.dto.PrivateCourseListItemDto;
-import com.zju.se.nohair.fitness.business.dto.PrivateCourseResponseDto;
+import com.zju.se.nohair.fitness.business.dto.PrivateCourseResponseListItemDto;
 import com.zju.se.nohair.fitness.business.dto.ResponseToPrivateCourseDto;
 import com.zju.se.nohair.fitness.business.service.PrivateCourseService;
 import com.zju.se.nohair.fitness.commons.constant.ResponseStatus;
@@ -52,13 +52,21 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
     BaseResult res = null;
 
     try {
-      List<PrivateCourseResponseDto> privateCourseResponseDtoList = new ArrayList<>();
+      List<PrivateCourseResponseListItemDto> privateCourseResponseDtoList = new ArrayList<>();
       final List<ResponsesPrivatePo> responsesPrivatePos = responsesPrivateMapper
           .selectByBusinessId(businessId);
       for (ResponsesPrivatePo responsesPrivatePo : responsesPrivatePos) {
-        PrivateCourseResponseDto privateCourseResponseDto = new PrivateCourseResponseDto();
-        BeanUtils.copyProperties(responsesPrivatePo, privateCourseResponseDto);
-        privateCourseResponseDtoList.add(privateCourseResponseDto);
+        PrivateCourseResponseListItemDto privateCourseResponseListItemDto = new PrivateCourseResponseListItemDto();
+        BeanUtils.copyProperties(responsesPrivatePo, privateCourseResponseListItemDto);
+        final PrivateCoursePo privateCoursePo = privateCourseMapper
+            .selectByPrimaryKey(privateCourseResponseListItemDto.getCourseId());
+
+        privateCourseResponseListItemDto.setCourseDate(privateCoursePo.getCourseDate());
+        privateCourseResponseListItemDto.setCourseName(privateCoursePo.getName());
+        privateCourseResponseListItemDto.setCoursePrice(privateCoursePo.getPrice());
+        privateCourseResponseListItemDto.setGymPrice(responsesPrivatePo.getPrice());
+
+        privateCourseResponseDtoList.add(privateCourseResponseListItemDto);
       }
       res = BaseResult.success("查询商家对于私教课的响应列表成功");
       res.setData(privateCourseResponseDtoList);
@@ -156,6 +164,37 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
     } catch (Exception e) {
       logger.error(e.getMessage());
       res = BaseResult.fail("响应私教课程失败");
+    }
+
+    return res;
+  }
+
+  @Override
+  public BaseResult changeResponsePrice(ResponseToPrivateCourseDto responseToPrivateCourseDto) {
+    BaseResult res = null;
+
+    try {
+      final Integer businessId = responseToPrivateCourseDto.getBusinessId();
+      final Integer courseId = responseToPrivateCourseDto.getCourseId();
+
+      ResponsesPrivatePoKey responsesPrivatePoKey = new ResponsesPrivatePoKey();
+      BeanUtils.copyProperties(responseToPrivateCourseDto, responsesPrivatePoKey);
+      ResponsesPrivatePo responsesPrivatePo = responsesPrivateMapper
+          .selectByPrimaryKey(responsesPrivatePoKey);
+
+      if (responsesPrivatePo.getStatus().equals(ResponseStatus.ACCEPTED)) {
+        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "不能更改已经被接受的响应");
+        return res;
+      }
+
+      responsesPrivatePo.setPrice(responseToPrivateCourseDto.getPrice());
+      responsesPrivatePo.setStatus(ResponseStatus.NEW_PUBLISH);
+
+      responsesPrivateMapper.updateByPrimaryKey(responsesPrivatePo);
+      res = BaseResult.success("更改响应成功");
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("更改响应失败");
     }
 
     return res;

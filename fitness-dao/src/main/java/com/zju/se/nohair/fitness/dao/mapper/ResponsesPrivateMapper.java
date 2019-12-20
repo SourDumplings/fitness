@@ -16,7 +16,5 @@ public interface ResponsesPrivateMapper {
 
   List<ResponsesPrivatePo> selectByBusinessId(Integer businessId);
 
-  int updateByPrimaryKeySelective(ResponsesPrivatePo record);
-
   int updateByPrimaryKey(ResponsesPrivatePo record);
 }

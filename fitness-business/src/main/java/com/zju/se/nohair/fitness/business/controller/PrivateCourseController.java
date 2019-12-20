@@ -55,6 +55,20 @@ public class PrivateCourseController {
     }
   }
 
+  @ApiOperation(value = "更改对于私教课的响应价格", httpMethod = "PUT")
+  @RequestMapping(value = "response", method = RequestMethod.PUT)
+  @ResponseBody
+  public ResponseEntity<Object> changeResponsePrice(
+      @RequestBody ResponseToPrivateCourseDto responseToPrivateCourseDto) {
+    BaseResult baseResult = privateCourseService.changeResponsePrice(responseToPrivateCourseDto);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
   @ApiOperation(value = "删除对于私教课的响应", httpMethod = "DELETE")
   @RequestMapping(value = "response", method = RequestMethod.DELETE)
   @ResponseBody

@@ -71,20 +71,6 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective"
-    parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo">
-    update responses_private
-    <set>
-      <if test="price != null">
-        price = #{price,jdbcType=DECIMAL},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
-      </if>
-    </set>
-    where course_id = #{courseId,jdbcType=INTEGER}
-    and business_id = #{businessId,jdbcType=INTEGER}
-  </update>
   <update id="updateByPrimaryKey"
     parameterType="com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo">
     update responses_private

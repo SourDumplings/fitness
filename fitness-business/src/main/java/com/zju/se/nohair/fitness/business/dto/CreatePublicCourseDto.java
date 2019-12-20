@@ -32,7 +32,7 @@ public class CreatePublicCourseDto {
   @Range(min = 0, max = 1000000)
   private BigDecimal coachPrice;
 
-  private Integer picId;
+//  private Integer picId;
 
   @Range(min = 1, max = 1000)
   private Integer capacity;

@@ -1,6 +1,7 @@
 package com.zju.se.nohair.fitness.business.dto;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +15,17 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Data
-public class PrivateCourseResponseDto {
+public class PrivateCourseResponseListItemDto {
 
   private Integer courseId;
 
-  private BigDecimal price;
+  private String courseName;
+
+  private Date courseDate;
+
+  private BigDecimal coursePrice;
+
+  private BigDecimal gymPrice;
 
   private Integer status;
 }

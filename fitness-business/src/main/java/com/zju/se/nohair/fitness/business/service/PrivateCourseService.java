@@ -23,5 +23,7 @@ public interface PrivateCourseService {
 
   BaseResult responseToPrivateCourse(ResponseToPrivateCourseDto responseToPrivateCourseDto);
 
+  BaseResult changeResponsePrice(ResponseToPrivateCourseDto responseToPrivateCourseDto);
+
   BaseResult deleteResponse(Integer courseId, Integer businessId);
 }
