@@ -4,6 +4,7 @@
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.GymMapper">
   <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.GymPo">
     <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
     <result column="address" jdbcType="VARCHAR" property="address"/>
     <result column="content" jdbcType="VARCHAR" property="content"/>
     <result column="bussiness_id" jdbcType="INTEGER" property="bussinessId"/>
@@ -11,7 +12,7 @@
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
   </resultMap>
   <sql id="Base_Column_List">
-    id, address, content, bussiness_id, pic_group_id, created_time
+    id, name, address, content, bussiness_id, pic_group_id, created_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -24,18 +25,21 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.GymPo">
-    insert into gym (id, address, content, 
-      bussiness_id, pic_group_id, created_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
-      #{bussinessId,jdbcType=INTEGER}, #{picGroupId,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}
-      )
+    insert into gym (id, name, address, 
+      content, bussiness_id, pic_group_id, 
+      created_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{bussinessId,jdbcType=INTEGER}, #{picGroupId,jdbcType=INTEGER}, 
+      #{createdTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.GymPo">
     insert into gym
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="name != null">
+        name,
       </if>
       <if test="address != null">
         address,
@@ -57,6 +61,9 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
@@ -77,6 +84,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.zju.se.nohair.fitness.dao.po.GymPo">
     update gym
     <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
       <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
@@ -97,7 +107,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.GymPo">
     update gym
-    set address = #{address,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
       bussiness_id = #{bussinessId,jdbcType=INTEGER},
       pic_group_id = #{picGroupId,jdbcType=INTEGER},

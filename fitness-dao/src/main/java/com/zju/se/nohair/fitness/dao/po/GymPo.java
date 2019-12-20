@@ -4,63 +4,73 @@ import java.util.Date;
 
 public class GymPo {
 
-  private Integer id;
+    private Integer id;
 
-  private String address;
+    private String name;
 
-  private String content;
+    private String address;
 
-  private Integer bussinessId;
+    private String content;
 
-  private Integer picGroupId;
+    private Integer bussinessId;
 
-  private Date createdTime;
+    private Integer picGroupId;
 
-  public Integer getId() {
-    return id;
-  }
+    private Date createdTime;
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+    public Integer getId() {
+        return id;
+    }
 
-  public String getAddress() {
-    return address;
-  }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-  public void setAddress(String address) {
-    this.address = address == null ? null : address.trim();
-  }
+    public String getName() {
+        return name;
+    }
 
-  public String getContent() {
-    return content;
-  }
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
 
-  public void setContent(String content) {
-    this.content = content == null ? null : content.trim();
-  }
+    public String getAddress() {
+        return address;
+    }
 
-  public Integer getBussinessId() {
-    return bussinessId;
-  }
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
+    }
 
-  public void setBussinessId(Integer bussinessId) {
-    this.bussinessId = bussinessId;
-  }
+    public String getContent() {
+        return content;
+    }
 
-  public Integer getPicGroupId() {
-    return picGroupId;
-  }
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
 
-  public void setPicGroupId(Integer picGroupId) {
-    this.picGroupId = picGroupId;
-  }
+    public Integer getBussinessId() {
+        return bussinessId;
+    }
 
-  public Date getCreatedTime() {
-    return createdTime;
-  }
+    public void setBussinessId(Integer bussinessId) {
+        this.bussinessId = bussinessId;
+    }
 
-  public void setCreatedTime(Date createdTime) {
-    this.createdTime = createdTime;
-  }
+    public Integer getPicGroupId() {
+        return picGroupId;
+    }
+
+    public void setPicGroupId(Integer picGroupId) {
+        this.picGroupId = picGroupId;
+    }
+
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
+    }
 }
