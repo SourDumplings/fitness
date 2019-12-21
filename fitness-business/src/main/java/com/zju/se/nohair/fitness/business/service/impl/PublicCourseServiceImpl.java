@@ -6,6 +6,7 @@ import com.zju.se.nohair.fitness.business.dto.PublicCourseListItemDto;
 import com.zju.se.nohair.fitness.business.dto.PublicCourseResponseDto;
 import com.zju.se.nohair.fitness.business.service.PublicCourseService;
 import com.zju.se.nohair.fitness.commons.constant.PublicCourseStatus;
+import com.zju.se.nohair.fitness.commons.constant.ResponseStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
@@ -15,6 +16,7 @@ import com.zju.se.nohair.fitness.dao.po.CoachPo;
 import com.zju.se.nohair.fitness.dao.po.PicturePo;
 import com.zju.se.nohair.fitness.dao.po.PublicCoursePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo;
+import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPoKey;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -190,10 +192,60 @@ public class PublicCourseServiceImpl implements PublicCourseService {
     BaseResult res = null;
 
     try {
-      res = BaseResult.success("查询课程的响应列表成功");
+      ResponsesPublicPoKey responsesPublicPoKey = new ResponsesPublicPoKey();
+      responsesPublicPoKey.setCourseId(courseId);
+      responsesPublicPoKey.setCoachId(coachId);
+      ResponsesPublicPo responsesPublicPo = responsesPublicMapper
+          .selectByPrimaryKey(responsesPublicPoKey);
+
+      if (responsesPublicPo.getStatus().equals(ResponseStatus.ACCEPTED)) {
+        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "该响应已经被接受");
+      } else {
+        PublicCoursePo publicCoursePo = publicCourseMapper.selectByPrimaryKey(courseId);
+
+        if (!publicCoursePo.getStatus().equals(PublicCourseStatus.NEW_PUBLISH)) {
+          res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "该课程的教练已经确定");
+        } else {
+          responsesPublicPo.setStatus(ResponseStatus.ACCEPTED);
+          responsesPublicMapper.updateByPrimaryKey(responsesPublicPo);
+
+          publicCoursePo.setStatus(PublicCourseStatus.COACH_SELECTED);
+          publicCoursePo.setCoachId(coachId);
+          publicCoursePo.setCoachPrice(responsesPublicPo.getPrice());
+          publicCourseMapper.updateByPrimaryKey(publicCoursePo);
+
+          res = BaseResult.success("接受响应成功");
+        }
+      }
     } catch (Exception e) {
       logger.error(e.getMessage());
-      res = BaseResult.fail("查询课程的响应列表失败");
+      res = BaseResult.fail("接受响应失败");
+    }
+
+    return res;
+  }
+
+  @Override
+  public BaseResult denyResponse(Integer courseId, Integer coachId) {
+    BaseResult res = null;
+
+    try {
+      ResponsesPublicPoKey responsesPublicPoKey = new ResponsesPublicPoKey();
+      responsesPublicPoKey.setCourseId(courseId);
+      responsesPublicPoKey.setCoachId(coachId);
+      ResponsesPublicPo responsesPublicPo = responsesPublicMapper
+          .selectByPrimaryKey(responsesPublicPoKey);
+
+      if (!responsesPublicPo.getStatus().equals(ResponseStatus.DENIED)) {
+        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "该响应已经被处理");
+      } else {
+        responsesPublicPo.setStatus(ResponseStatus.DENIED);
+        responsesPublicMapper.updateByPrimaryKey(responsesPublicPo);
+        res = BaseResult.success("拒绝响应成功");
+      }
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("拒绝响应失败");
     }
 
     return res;

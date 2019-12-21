@@ -110,4 +110,33 @@ public class PublicCourseController {
           HttpStatus.valueOf(baseResult.getStatus()));
     }
   }
+
+  @ApiOperation(value = "接受对于团课的响应", httpMethod = "PUT")
+  @RequestMapping(value = "response/accept/{courseId}/{coachId}", method = RequestMethod.PUT)
+  @ResponseBody
+  public ResponseEntity<Object> acceptResponse(
+      @PathVariable("courseId") Integer courseId, @PathVariable("coachId") Integer coachId) {
+    BaseResult baseResult = publicCourseService.acceptResponse(courseId, coachId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "拒绝对于团课的响应", httpMethod = "PUT")
+  @RequestMapping(value = "response/deny/{courseId}/{coachId}", method = RequestMethod.PUT)
+  @ResponseBody
+  public ResponseEntity<Object> denyResponse(
+      @PathVariable("courseId") Integer courseId, @PathVariable("coachId") Integer coachId) {
+    BaseResult baseResult = publicCourseService.denyResponse(courseId, coachId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
 }
