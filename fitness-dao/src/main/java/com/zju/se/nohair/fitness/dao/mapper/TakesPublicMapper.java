@@ -9,4 +9,6 @@ public interface TakesPublicMapper {
   int insert(TakesPublicPoKey record);
 
   int insertSelective(TakesPublicPoKey record);
+
+  int selectRecordExistOrNot(TakesPublicPoKey record);
 }

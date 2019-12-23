@@ -18,4 +18,6 @@ public interface PublicCourseMapper {
   int updateByPrimaryKeySelective(PublicCoursePo record);
 
   int updateByPrimaryKey(PublicCoursePo record);
+
+  List<PublicCoursePo> getListForCustomer();
 }

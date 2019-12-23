@@ -33,6 +33,12 @@
     from public_course
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getListForCustomer"  resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List"/>
+    from public_course
+    where status = 1 or status = 2 or status = 4
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from public_course
     where id = #{id,jdbcType=INTEGER}

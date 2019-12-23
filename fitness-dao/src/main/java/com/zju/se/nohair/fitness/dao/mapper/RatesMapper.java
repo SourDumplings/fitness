@@ -2,6 +2,7 @@ package com.zju.se.nohair.fitness.dao.mapper;
 
 import com.zju.se.nohair.fitness.dao.po.RatesPo;
 import com.zju.se.nohair.fitness.dao.po.RatesPoKey;
+import java.util.List;
 
 public interface RatesMapper {
 
@@ -16,4 +17,8 @@ public interface RatesMapper {
   int updateByPrimaryKeySelective(RatesPo record);
 
   int updateByPrimaryKey(RatesPo record);
+
+  List<RatesPo> selectByCoachId(Integer coachId);
+
+  List<RatesPo> selectByGymId(Integer gymId);
 }
