@@ -15,4 +15,8 @@ public interface PublicOrderMapper {
   int updateByPrimaryKeySelective(PublicOrderPo record);
 
   int updateByPrimaryKey(PublicOrderPo record);
+
+  int getChosenCount(Integer courseId);
+
+  int updateToCancelStatus(PublicOrderPo record);
 }

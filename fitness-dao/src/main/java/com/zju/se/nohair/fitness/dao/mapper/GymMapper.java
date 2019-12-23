@@ -1,6 +1,7 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
 import com.zju.se.nohair.fitness.dao.po.GymPo;
+import java.util.List;
 
 public interface GymMapper {
 
@@ -15,4 +16,6 @@ public interface GymMapper {
   int updateByPrimaryKeySelective(GymPo record);
 
   int updateByPrimaryKey(GymPo record);
+
+  List<String> getGymNameListHasPublicCourse();
 }

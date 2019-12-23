@@ -20,6 +20,15 @@
     from gym
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getGymNameListHasPublicCourse"  resultType="String">
+    select
+    name
+    from gym
+    where id in
+		(select gym_id from owns_gym where bussiness_id in
+			(select bussiness_id from public_course where status = 1 or status = 2 or status = 4)
+		)
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from gym
     where id = #{id,jdbcType=INTEGER}

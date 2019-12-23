@@ -1,6 +1,7 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
 import com.zju.se.nohair.fitness.dao.po.VipCardPo;
+import java.util.List;
 
 public interface VipCardMapper {
 
@@ -15,4 +16,6 @@ public interface VipCardMapper {
   int updateByPrimaryKeySelective(VipCardPo record);
 
   int updateByPrimaryKey(VipCardPo record);
+
+  List<VipCardPo> selectByGymId(Integer gymId);
 }
