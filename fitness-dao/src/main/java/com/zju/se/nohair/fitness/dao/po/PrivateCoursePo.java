@@ -23,8 +23,6 @@ public class PrivateCoursePo {
 
   private Date courseDate;
 
-  private String timeSlots;
-
   private Integer status;
 
   private Date createdTime;
@@ -99,14 +97,6 @@ public class PrivateCoursePo {
 
   public void setCourseDate(Date courseDate) {
     this.courseDate = courseDate;
-  }
-
-  public String getTimeSlots() {
-    return timeSlots;
-  }
-
-  public void setTimeSlots(String timeSlots) {
-    this.timeSlots = timeSlots == null ? null : timeSlots.trim();
   }
 
   public Integer getStatus() {

@@ -126,6 +126,10 @@
     <table tableName="vip_order" domainObjectName="VipOrderPo" mapperName="VipOrderMapper"
       enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
       enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="private_time_slot" domainObjectName="PrivateTimeSlotPo"
+      mapperName="PrivateTimeSlotMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
 
   </context>
 </generatorConfiguration>

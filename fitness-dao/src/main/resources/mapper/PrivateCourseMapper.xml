@@ -12,13 +12,12 @@
     <result column="gym_price" jdbcType="DECIMAL" property="gymPrice"/>
     <result column="pic_id" jdbcType="INTEGER" property="picId"/>
     <result column="course_date" jdbcType="DATE" property="courseDate"/>
-    <result column="time_slots" jdbcType="VARCHAR" property="timeSlots"/>
     <result column="status" jdbcType="INTEGER" property="status"/>
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
   </resultMap>
   <sql id="Base_Column_List">
     id, name, content, coach_id, business_id, price, gym_price, pic_id, course_date, 
-    time_slots, status, created_time
+    status, created_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -46,13 +45,11 @@
     insert into private_course (id, name, content, 
       coach_id, business_id, price, 
       gym_price, pic_id, course_date, 
-      time_slots, status, created_time
-      )
+      status, created_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
       #{coachId,jdbcType=INTEGER}, #{businessId,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, 
       #{gymPrice,jdbcType=DECIMAL}, #{picId,jdbcType=INTEGER}, #{courseDate,jdbcType=DATE}, 
-      #{timeSlots,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}
-      )
+      #{status,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.PrivateCoursePo">
     insert into private_course
@@ -83,9 +80,6 @@
       </if>
       <if test="courseDate != null">
         course_date,
-      </if>
-      <if test="timeSlots != null">
-        time_slots,
       </if>
       <if test="status != null">
         status,
@@ -121,9 +115,6 @@
       </if>
       <if test="courseDate != null">
         #{courseDate,jdbcType=DATE},
-      </if>
-      <if test="timeSlots != null">
-        #{timeSlots,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -161,9 +152,6 @@
       <if test="courseDate != null">
         course_date = #{courseDate,jdbcType=DATE},
       </if>
-      <if test="timeSlots != null">
-        time_slots = #{timeSlots,jdbcType=VARCHAR},
-      </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
@@ -183,7 +171,6 @@
       gym_price = #{gymPrice,jdbcType=DECIMAL},
       pic_id = #{picId,jdbcType=INTEGER},
       course_date = #{courseDate,jdbcType=DATE},
-      time_slots = #{timeSlots,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       created_time = #{createdTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

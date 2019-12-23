@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zju.se.nohair.fitness.dao.mapper.PrivateTimeSlotMapper">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.PrivateTimeSlotPoKey">
+    <id column="course_id" jdbcType="INTEGER" property="courseId"/>
+    <id column="time_slot_id" jdbcType="INTEGER" property="timeSlotId"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey"
+    parameterType="com.zju.se.nohair.fitness.dao.po.PrivateTimeSlotPoKey">
+    delete from private_time_slot
+    where course_id = #{courseId,jdbcType=INTEGER}
+      and time_slot_id = #{timeSlotId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.PrivateTimeSlotPoKey">
+    insert into private_time_slot (course_id, time_slot_id)
+    values (#{courseId,jdbcType=INTEGER}, #{timeSlotId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective"
+    parameterType="com.zju.se.nohair.fitness.dao.po.PrivateTimeSlotPoKey">
+    insert into private_time_slot
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="timeSlotId != null">
+        time_slot_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="timeSlotId != null">
+        #{timeSlotId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>
