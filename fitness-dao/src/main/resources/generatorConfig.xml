@@ -130,6 +130,9 @@
       mapperName="PrivateTimeSlotMapper"
       enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
       enableSelectByExample="false" selectByExampleQueryId="false"></table>
-
+    <table tableName="gym_vip_card" domainObjectName="GymVipCardPo"
+      mapperName="GymVipCardMapper"
+      enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+      enableSelectByExample="false" selectByExampleQueryId="false"></table>
   </context>
 </generatorConfiguration>

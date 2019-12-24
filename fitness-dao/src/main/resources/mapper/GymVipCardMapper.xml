@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zju.se.nohair.fitness.dao.mapper.GymVipCardMapper">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.GymVipCardPo">
+    <id column="gym_id" jdbcType="INTEGER" property="gymId"/>
+    <id column="type" jdbcType="INTEGER" property="type"/>
+    <result column="price" jdbcType="DECIMAL" property="price"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    gym_id, type, price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.GymVipCardPoKey"
+    resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from gym_vip_card
+    where gym_id = #{gymId,jdbcType=INTEGER}
+    and type = #{type,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.GymVipCardPoKey">
+    delete from gym_vip_card
+    where gym_id = #{gymId,jdbcType=INTEGER}
+      and type = #{type,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.GymVipCardPo">
+    insert into gym_vip_card (gym_id, type, price
+      )
+    values (#{gymId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.GymVipCardPo">
+    insert into gym_vip_card
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="gymId != null">
+        gym_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="gymId != null">
+        #{gymId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective"
+    parameterType="com.zju.se.nohair.fitness.dao.po.GymVipCardPo">
+    update gym_vip_card
+    <set>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where gym_id = #{gymId,jdbcType=INTEGER}
+    and type = #{type,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.GymVipCardPo">
+    update gym_vip_card
+    set price = #{price,jdbcType=DECIMAL}
+    where gym_id = #{gymId,jdbcType=INTEGER}
+      and type = #{type,jdbcType=INTEGER}
+  </update>
+</mapper>
