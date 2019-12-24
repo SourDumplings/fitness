@@ -4,6 +4,8 @@ import com.zju.se.nohair.fitness.dao.po.OwnsGymPoKey;
 
 public interface OwnsGymMapper {
 
+  int selectGymIdByBusinessId(Integer businessId);
+
   int deleteByPrimaryKey(OwnsGymPoKey key);
 
   int insert(OwnsGymPoKey record);

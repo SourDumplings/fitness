@@ -2,16 +2,16 @@ package com.zju.se.nohair.fitness.dao.po;
 
 public class OwnsGymPoKey {
 
-  private Integer bussinessId;
+  private Integer businessId;
 
   private Integer gymId;
 
-  public Integer getBussinessId() {
-    return bussinessId;
+  public Integer getBusinessId() {
+    return businessId;
   }
 
-  public void setBussinessId(Integer bussinessId) {
-    this.bussinessId = bussinessId;
+  public void setBusinessId(Integer businessId) {
+    this.businessId = businessId;
   }
 
   public Integer getGymId() {
