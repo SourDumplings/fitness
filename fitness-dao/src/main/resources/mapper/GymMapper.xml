@@ -7,12 +7,12 @@
     <result column="name" jdbcType="VARCHAR" property="name"/>
     <result column="address" jdbcType="VARCHAR" property="address"/>
     <result column="content" jdbcType="VARCHAR" property="content"/>
-    <result column="bussiness_id" jdbcType="INTEGER" property="bussinessId"/>
+    <result column="business_id" jdbcType="INTEGER" property="businessId"/>
     <result column="pic_group_id" jdbcType="INTEGER" property="picGroupId"/>
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, address, content, bussiness_id, pic_group_id, created_time
+    id, name, address, content, business_id, pic_group_id, created_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -20,13 +20,13 @@
     from gym
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="getGymNameListHasPublicCourse"  resultType="String">
+  <select id="getGymNameListHasPublicCourse" resultType="String">
     select
     name
     from gym
     where id in
-		(select gym_id from owns_gym where bussiness_id in
-			(select bussiness_id from public_course where status = 1 or status = 2 or status = 4)
+		(select gym_id from owns_gym where business_id in
+			(select business_id from public_course where status = 1 or status = 2 or status = 4)
 		)
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -35,10 +35,10 @@
   </delete>
   <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.GymPo">
     insert into gym (id, name, address, 
-      content, bussiness_id, pic_group_id, 
+      content, business_id, pic_group_id,
       created_time)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{bussinessId,jdbcType=INTEGER}, #{picGroupId,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{businessId,jdbcType=INTEGER}, #{picGroupId,jdbcType=INTEGER},
       #{createdTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.GymPo">
@@ -56,8 +56,8 @@
       <if test="content != null">
         content,
       </if>
-      <if test="bussinessId != null">
-        bussiness_id,
+      <if test="businessId != null">
+        business_id,
       </if>
       <if test="picGroupId != null">
         pic_group_id,
@@ -79,8 +79,8 @@
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="bussinessId != null">
-        #{bussinessId,jdbcType=INTEGER},
+      <if test="businessId != null">
+        #{businessId,jdbcType=INTEGER},
       </if>
       <if test="picGroupId != null">
         #{picGroupId,jdbcType=INTEGER},
@@ -102,8 +102,8 @@
       <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="bussinessId != null">
-        bussiness_id = #{bussinessId,jdbcType=INTEGER},
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=INTEGER},
       </if>
       <if test="picGroupId != null">
         pic_group_id = #{picGroupId,jdbcType=INTEGER},
@@ -119,7 +119,7 @@
     set name = #{name,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
-      bussiness_id = #{bussinessId,jdbcType=INTEGER},
+      business_id = #{businessId,jdbcType=INTEGER},
       pic_group_id = #{picGroupId,jdbcType=INTEGER},
       created_time = #{createdTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
