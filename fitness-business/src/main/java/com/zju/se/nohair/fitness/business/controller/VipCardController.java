@@ -40,14 +40,14 @@ public class VipCardController {
     this.vipCardService = vipCardService;
   }
 
-  @ApiOperation(value = "发布新会员卡；会员卡类型（0代表年卡，1代表季卡，2代表月卡）", httpMethod = "POST")
-  @RequestMapping(value = "", method = RequestMethod.POST)
+  @ApiOperation(value = "保存会员卡信息；会员卡类型（0代表年卡，1代表季卡，2代表月卡）；price 字段为0代表删除该卡", httpMethod = "PUT")
+  @RequestMapping(value = "", method = RequestMethod.PUT)
   @ResponseBody
-  public ResponseEntity<Object> pushNewCardService(
+  public ResponseEntity<Object> saveCardService(
       @RequestBody @Valid CreateVipCardDto createVipCardDto) {
-    BaseResult baseResult = vipCardService.pushNewCardService(createVipCardDto);
+    BaseResult baseResult = vipCardService.saveCardService(createVipCardDto);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
-      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
     } else {
       return new ResponseEntity<>(baseResult.getMessage(),
           HttpStatus.valueOf(baseResult.getStatus()));

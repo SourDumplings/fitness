@@ -3,6 +3,7 @@ package com.zju.se.nohair.fitness.business.service.impl;
 import com.zju.se.nohair.fitness.business.dto.BusinessVipCardListItemDto;
 import com.zju.se.nohair.fitness.business.dto.CreateVipCardDto;
 import com.zju.se.nohair.fitness.business.service.VipCardService;
+import com.zju.se.nohair.fitness.commons.constant.VipCardType;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.dao.mapper.GymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.GymVipCardMapper;
@@ -10,6 +11,8 @@ import com.zju.se.nohair.fitness.dao.mapper.OwnsGymMapper;
 import com.zju.se.nohair.fitness.dao.po.GymPo;
 import com.zju.se.nohair.fitness.dao.po.GymVipCardPo;
 import com.zju.se.nohair.fitness.dao.po.GymVipCardPoKey;
+import com.zju.se.nohair.fitness.dao.po.OwnsGymPoKey;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -57,7 +60,13 @@ public class VipCardServiceImpl implements VipCardService {
     BaseResult res = null;
 
     try {
-      final int gymId = ownsGymMapper.selectGymIdByBusinessId(businessId);
+      final OwnsGymPoKey ownsGymPoKey = ownsGymMapper.selectByBusinessId(businessId);
+
+      if (ownsGymPoKey == null) {
+        return BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "错误，无此商家！");
+      }
+
+      Integer gymId = ownsGymPoKey.getGymId();
       final GymPo gymPo = gymMapper.selectByPrimaryKey(gymId);
       final String gymName = gymPo.getName();
       final List<GymVipCardPo> gymVipCardPos = gymVipCardMapper.selectAllByGymId(gymId);
@@ -79,30 +88,48 @@ public class VipCardServiceImpl implements VipCardService {
   }
 
   @Override
-  public BaseResult pushNewCardService(CreateVipCardDto createVipCardDto) {
+  public BaseResult saveCardService(CreateVipCardDto createVipCardDto) {
     BaseResult res = null;
 
     try {
-      final int gymId = ownsGymMapper.selectGymIdByBusinessId(createVipCardDto.getBusinessId());
+      final OwnsGymPoKey ownsGymPoKey = ownsGymMapper
+          .selectByBusinessId(createVipCardDto.getBusinessId());
+
+      if (ownsGymPoKey == null) {
+        return BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "错误，无此商家！");
+      }
+      if (!createVipCardDto.getType().equals(VipCardType.YEARLY)
+          && !createVipCardDto.getType().equals(VipCardType.MONTHLY)
+          && !createVipCardDto.getType().equals(VipCardType.SESSIONLY)) {
+        return BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "错误，无此类型！");
+      }
+
       final Integer type = createVipCardDto.getType();
 
       GymVipCardPoKey gymVipCardPoKey = new GymVipCardPoKey();
-      gymVipCardPoKey.setGymId(gymId);
+      gymVipCardPoKey.setGymId(ownsGymPoKey.getGymId());
       gymVipCardPoKey.setType(type);
 
-      if (gymVipCardMapper.selectByPrimaryKey(gymVipCardPoKey) != null) {
-        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "不能重复添加会员卡");
-      } else {
-        GymVipCardPo gymVipCardPo = new GymVipCardPo();
-        BeanUtils.copyProperties(gymVipCardPoKey, gymVipCardPo);
-        gymVipCardPo.setPrice(createVipCardDto.getPrice());
-        gymVipCardMapper.insert(gymVipCardPo);
-      }
+      GymVipCardPo gymVipCardPo = new GymVipCardPo();
+      BeanUtils.copyProperties(gymVipCardPoKey, gymVipCardPo);
+      gymVipCardPo.setPrice(createVipCardDto.getPrice());
 
-      res = BaseResult.success("发布会员卡信息成功");
+      if (createVipCardDto.getPrice().equals(BigDecimal.valueOf(0))) {
+        // 删除
+        gymVipCardMapper.deleteByPrimaryKey(gymVipCardPoKey);
+        res = BaseResult.success("删除会员卡信息成功");
+      } else if (gymVipCardMapper.selectByPrimaryKey(gymVipCardPoKey) == null) {
+        // 新增
+        gymVipCardMapper.insert(gymVipCardPo);
+        res = BaseResult.success("新增会员卡信息成功");
+      } else {
+        // 修改
+        gymVipCardMapper.updateByPrimaryKey(gymVipCardPo);
+        res = BaseResult.success("修改会员卡信息成功");
+      }
     } catch (Exception e) {
       logger.error(e.getMessage());
-      res = BaseResult.fail("发布会员卡信息失败");
+      res = BaseResult.fail("保存会员卡信息失败");
     }
 
     return res;
