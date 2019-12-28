@@ -2,8 +2,10 @@ package com.zju.se.nohair.fitness.coach.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.stereotype.Component;
 
 /**
  * 教练发布私教课的 dto.
@@ -13,6 +15,8 @@ import org.hibernate.validator.constraints.Range;
  * @projectName fitness
  * @date 2019/12/19
  */
+@Component
+@Data
 public class CreatePrivateCourse_Dto {
 
   @Length(min = 3, max = 20, message = "课程名的长度不符合要求")

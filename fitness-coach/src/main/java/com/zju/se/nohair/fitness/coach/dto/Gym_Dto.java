@@ -1,5 +1,8 @@
 package com.zju.se.nohair.fitness.coach.dto;
 
+import lombok.Data;
+import org.springframework.stereotype.Component;
+
 /**
  * 教练端查看附近健身房
  * @author Miss.Hu
@@ -7,6 +10,8 @@ package com.zju.se.nohair.fitness.coach.dto;
  * @projectName fitness
  * @date 2019-12-20
  */
+@Component
+@Data
 public class Gym_Dto {
 
   private String name;//健身房名字

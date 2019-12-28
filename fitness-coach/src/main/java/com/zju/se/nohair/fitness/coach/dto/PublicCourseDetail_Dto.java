@@ -2,6 +2,8 @@ package com.zju.se.nohair.fitness.coach.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import lombok.Data;
+import org.springframework.stereotype.Component;
 
 /**
  * 团课详情（教练查看团课）
@@ -10,6 +12,8 @@ import java.util.Date;
  * @projectName fitness
  * @date 2019-12-20
  */
+@Component
+@Data
 public class PublicCourseDetail_Dto {
 
   private String name;

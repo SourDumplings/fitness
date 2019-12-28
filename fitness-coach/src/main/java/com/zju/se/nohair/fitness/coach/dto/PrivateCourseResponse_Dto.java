@@ -2,6 +2,8 @@ package com.zju.se.nohair.fitness.coach.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import lombok.Data;
+import org.springframework.stereotype.Component;
 
 /**
  * 教练查看商家对私教课的响应
@@ -10,6 +12,8 @@ import java.util.Date;
  * @projectName fitness
  * @date 2019-12-20
  */
+@Component
+@Data
 public class PrivateCourseResponse_Dto {
 //响应商家id，健身房名字，地址，健身房价格，健身房图片，响应健身房数量，开课时间
   private String name;//健身房名字
