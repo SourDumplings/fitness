@@ -1,5 +1,6 @@
 package com.zju.se.nohair.fitness.customer.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,7 @@ public class PublicCourseDetailsForCustomerDto {
 
   private Integer coachId;
 
-  private Double price;
+  private BigDecimal price;
 
   private Integer picId;
 
@@ -79,11 +80,11 @@ public class PublicCourseDetailsForCustomerDto {
     this.coachId = coachId;
   }
 
-  public Double getPrice() {
+  public BigDecimal getPrice() {
     return price;
   }
 
-  public void setPrice(Double price) {
+  public void setPrice(BigDecimal price) {
     this.price = price;
   }
 

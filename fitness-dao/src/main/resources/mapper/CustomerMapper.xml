@@ -171,13 +171,13 @@
   <update id="addBalance" >
     update customer
     set
-      balance = balance + #{balance,jdbcType=DECIMAL}
+      balance = balance + #{price,jdbcType=DECIMAL}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="reduceBalance" >
     update customer
     set
-      balance = balance - #{balance,jdbcType=DECIMAL}
+      balance = balance - #{price,jdbcType=DECIMAL}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
