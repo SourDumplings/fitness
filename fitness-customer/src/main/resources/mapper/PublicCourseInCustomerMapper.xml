@@ -26,8 +26,8 @@
     select
     p.*,g.id gym_id ,g.name gym_name
     from public_course as p , gym as g
-    where status = 1 or status = 2 or status = 4
-    and p.business_id =  g.business_id
+    where p.business_id =  g.business_id and
+		(status = 1 or status = 2 or status = 4)
   </select>
 
 </mapper>
