@@ -1,7 +1,7 @@
 package com.zju.se.nohair.fitness.coach.service.impl;
 
-import com.zju.se.nohair.fitness.coach.dto.CreatePrivateCourse_Dto;
-import com.zju.se.nohair.fitness.coach.service.PrivateCourse_Service;
+import com.zju.se.nohair.fitness.coach.dto.CreatePrivateCourseDto;
+import com.zju.se.nohair.fitness.coach.service.PrivateCourseService;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.dao.mapper.PrivateCourseMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ResponsesPrivateMapper;
@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
  * @date 2019-12-24
  */
 @Service
-public class PrivateCourse_ServiceImpl implements PrivateCourse_Service {
-  private static Logger logger = LoggerFactory.getLogger(PrivateCourse_ServiceImpl.class);
+public class PrivateCourseServiceImpl implements PrivateCourseService {
+  private static Logger logger = LoggerFactory.getLogger(PrivateCourseServiceImpl.class);
 
   private PrivateCourseMapper privateCourseMapper;
 
@@ -35,7 +35,7 @@ public class PrivateCourse_ServiceImpl implements PrivateCourse_Service {
   }
 
   @Override
-  public BaseResult createPrivateCourse(CreatePrivateCourse_Dto createPrivateCourseDto) {
+  public BaseResult createPrivateCourse(CreatePrivateCourseDto createPrivateCourseDto) {
     return null;
   }
 }

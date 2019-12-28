@@ -1,7 +1,7 @@
 package com.zju.se.nohair.fitness.coach.controller;
 
-import com.zju.se.nohair.fitness.coach.dto.ResponseToPublicCourse_Dto;
-import com.zju.se.nohair.fitness.coach.service.PublicCourse_Service;
+import com.zju.se.nohair.fitness.coach.dto.ResponseToPublicCourseDto;
+import com.zju.se.nohair.fitness.coach.service.PublicCourseService;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,13 +29,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("coach/public_course")
 @Api
-public class PublicCoach_Controller {
-  private static Logger logger = LoggerFactory.getLogger(PublicCoach_Controller.class);
+public class CoachPublicCourseController {
+  private static Logger logger = LoggerFactory.getLogger(CoachPublicCourseController.class);
 
-  private PublicCourse_Service publicCourseService;
+  private PublicCourseService publicCourseService;
 
   @Autowired
-  public void setPublicCourseService(PublicCourse_Service publicCourseService) {
+  public void setPublicCourseService(PublicCourseService publicCourseService) {
     this.publicCourseService = publicCourseService;
   }
 
@@ -43,7 +43,7 @@ public class PublicCoach_Controller {
   @RequestMapping(value = "response", method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<Object> responseToPublicCourse(
-      @RequestBody ResponseToPublicCourse_Dto responseToPublicCourseDto) {
+      @RequestBody ResponseToPublicCourseDto responseToPublicCourseDto) {
     BaseResult baseResult = publicCourseService
         .responseToPublicCourse(responseToPublicCourseDto);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {

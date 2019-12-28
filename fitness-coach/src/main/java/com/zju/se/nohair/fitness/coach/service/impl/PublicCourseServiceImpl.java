@@ -1,9 +1,9 @@
 package com.zju.se.nohair.fitness.coach.service.impl;
 
-import com.zju.se.nohair.fitness.coach.dto.PublicCourseDetail_Dto;
-import com.zju.se.nohair.fitness.coach.dto.PublicCourseListItem_Dto;
-import com.zju.se.nohair.fitness.coach.dto.ResponseToPublicCourse_Dto;
-import com.zju.se.nohair.fitness.coach.service.PublicCourse_Service;
+import com.zju.se.nohair.fitness.coach.dto.PublicCourseDetailDto;
+import com.zju.se.nohair.fitness.coach.dto.PublicCourseListItemDto;
+import com.zju.se.nohair.fitness.coach.dto.ResponseToPublicCourseDto;
+import com.zju.se.nohair.fitness.coach.service.PublicCourseService;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
@@ -26,8 +26,8 @@ import org.springframework.stereotype.Service;
  * @date 2019-12-24
  */
 @Service
-public class PublicCourse_ServiceImpl implements PublicCourse_Service {
-  private static Logger logger = LoggerFactory.getLogger(PublicCourse_ServiceImpl.class);
+public class PublicCourseServiceImpl implements PublicCourseService {
+  private static Logger logger = LoggerFactory.getLogger(PublicCourseServiceImpl.class);
 
   private PublicCourseMapper publicCourseMapper;
 
@@ -63,9 +63,9 @@ public class PublicCourse_ServiceImpl implements PublicCourse_Service {
 
     try {
       final List<PublicCoursePo> publicCourses = publicCourseMapper.selectByBusinessId(businessId);
-      List<PublicCourseListItem_Dto> publicCourseListItemDtoList = new ArrayList<>();
+      List<PublicCourseListItemDto> publicCourseListItemDtoList = new ArrayList<>();
       for (PublicCoursePo publicCoursePo : publicCourses) {
-        PublicCourseListItem_Dto publicCourseListItemDto = new PublicCourseListItem_Dto();
+        PublicCourseListItemDto publicCourseListItemDto = new PublicCourseListItemDto();
         BeanUtils.copyProperties(publicCoursePo, publicCourseListItemDto);
         publicCourseListItemDtoList.add(publicCourseListItemDto);
       }
@@ -85,7 +85,7 @@ public class PublicCourse_ServiceImpl implements PublicCourse_Service {
 
     try {
       final PublicCoursePo publicCoursePo = publicCourseMapper.selectByPrimaryKey(courseId);
-      PublicCourseDetail_Dto publicCourseDetailDto = new PublicCourseDetail_Dto();
+      PublicCourseDetailDto publicCourseDetailDto = new PublicCourseDetailDto();
       BeanUtils.copyProperties(publicCoursePo, publicCourseDetailDto);
       res = BaseResult.success("查询发布的课程详情成功");
       res.setData(publicCourseDetailDto);
@@ -98,7 +98,7 @@ public class PublicCourse_ServiceImpl implements PublicCourse_Service {
   }
 
   @Override
-  public BaseResult responseToPublicCourse(ResponseToPublicCourse_Dto responseToPublicCourseDto) {
+  public BaseResult responseToPublicCourse(ResponseToPublicCourseDto responseToPublicCourseDto) {
     return null;
   }
 

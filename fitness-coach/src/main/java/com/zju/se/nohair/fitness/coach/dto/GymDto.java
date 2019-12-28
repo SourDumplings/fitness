@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Data
-public class Gym_Dto {
+public class GymDto {
 
   private String name;//健身房名字
 

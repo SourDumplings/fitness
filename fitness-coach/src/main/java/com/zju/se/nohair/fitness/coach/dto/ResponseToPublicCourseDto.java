@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Data
-public class ResponseToPublicCourse_Dto {
+public class ResponseToPublicCourseDto {
 
   private Integer courseId;
 

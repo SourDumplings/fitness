@@ -1,6 +1,6 @@
 package com.zju.se.nohair.fitness.coach.controller;
 
-import com.zju.se.nohair.fitness.coach.service.PrivateCourse_Service;
+import com.zju.se.nohair.fitness.coach.service.PrivateCourseService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("coach/private_course")
 @Api
-public class PrivateCourse_Controller {
-  private static Logger logger = LoggerFactory.getLogger(PrivateCourse_Controller.class);
+public class CoachPrivateCourseController {
+  private static Logger logger = LoggerFactory.getLogger(CoachPrivateCourseController.class);
 
-  private PrivateCourse_Service privateCourseService;
+  private PrivateCourseService privateCourseService;
 
   @Autowired
-  public void setPrivatteCourseService(PrivateCourse_Service privateCourseService) {
+  public void setPrivatteCourseService(PrivateCourseService privateCourseService) {
     this.privateCourseService = privateCourseService;
   }
 

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Data
-public class PublicCourseDetail_Dto {
+public class PublicCourseDetailDto {
 
   private String name;
 

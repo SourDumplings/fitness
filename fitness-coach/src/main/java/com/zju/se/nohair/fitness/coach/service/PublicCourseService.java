@@ -1,6 +1,6 @@
 package com.zju.se.nohair.fitness.coach.service;
 
-import com.zju.se.nohair.fitness.coach.dto.ResponseToPublicCourse_Dto;
+import com.zju.se.nohair.fitness.coach.dto.ResponseToPublicCourseDto;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 
 /**
@@ -10,12 +10,12 @@ import com.zju.se.nohair.fitness.commons.dto.BaseResult;
  * @projectName fitness
  * @date 2019-12-24
  */
-public interface PublicCourse_Service {
+public interface PublicCourseService {
   BaseResult listPublicCoursesByBusinessId(Integer BusinessId);//通过商家id查看商家已发布的团课
 
   BaseResult getPublicCourseDetailByCourseId(Integer courseId);//
 
-  BaseResult responseToPublicCourse(ResponseToPublicCourse_Dto responseToPublicCourseDto);
+  BaseResult responseToPublicCourse(ResponseToPublicCourseDto responseToPublicCourseDto);
 
   //BaseResult listPublicCoursesForResponsing();//查看团课列表，不传 coachId 表示查看待响应的，
 
