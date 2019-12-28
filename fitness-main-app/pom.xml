@@ -32,9 +32,16 @@
     <!-- Project Begin -->
     <dependency>
       <groupId>com.zju.se.nohair</groupId>
+      <artifactId>fitness-coach</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.zju.se.nohair</groupId>
       <artifactId>fitness-customer</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
+
     <dependency>
       <groupId>com.zju.se.nohair</groupId>
       <artifactId>fitness-business</artifactId>

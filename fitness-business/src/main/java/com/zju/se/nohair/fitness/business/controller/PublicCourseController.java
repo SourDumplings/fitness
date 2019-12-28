@@ -1,7 +1,7 @@
 package com.zju.se.nohair.fitness.business.controller;
 
-import com.zju.se.nohair.fitness.business.dto.CreatePublicCourseDto;
 import com.zju.se.nohair.fitness.business.service.PublicCourseService;
+import com.zju.se.nohair.fitness.business.dto.CreatePublicCourseDto;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
