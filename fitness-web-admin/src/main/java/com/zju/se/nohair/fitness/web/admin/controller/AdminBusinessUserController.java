@@ -1,7 +1,7 @@
 package com.zju.se.nohair.fitness.web.admin.controller;
 
-import com.zju.se.nohair.fitness.web.admin.service.AdminBusinessUserService;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.web.admin.service.AdminBusinessUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

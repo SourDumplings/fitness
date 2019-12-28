@@ -13,7 +13,6 @@
     <module>fitness-customer</module>
     <module>fitness-business</module>
     <module>fitness-coach</module>
-    <module>fitness-coach</module>
   </modules>
   <parent>
     <groupId>org.springframework.boot</groupId>
