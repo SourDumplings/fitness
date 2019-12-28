@@ -1,7 +1,7 @@
 package com.zju.se.nohair.fitness.web.admin.controller;
 
-import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.dao.po.UserPo;
+import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.web.admin.dto.CreateUserDto;
 import com.zju.se.nohair.fitness.web.admin.service.UserService;
 import io.swagger.annotations.Api;
