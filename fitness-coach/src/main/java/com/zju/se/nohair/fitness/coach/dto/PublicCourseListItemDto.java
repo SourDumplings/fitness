@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Data
-public class PublicCourseListItem_Dto {
+public class PublicCourseListItemDto {
 
   private Integer id;
 

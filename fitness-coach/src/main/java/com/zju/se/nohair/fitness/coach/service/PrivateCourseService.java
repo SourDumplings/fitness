@@ -1,6 +1,6 @@
 package com.zju.se.nohair.fitness.coach.service;
 
-import com.zju.se.nohair.fitness.coach.dto.CreatePrivateCourse_Dto;
+import com.zju.se.nohair.fitness.coach.dto.CreatePrivateCourseDto;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 
 /**
@@ -10,9 +10,9 @@ import com.zju.se.nohair.fitness.commons.dto.BaseResult;
  * @projectName fitness
  * @date 2019-12-24
  */
-public interface PrivateCourse_Service {
+public interface PrivateCourseService {
 
-  BaseResult createPrivateCourse(CreatePrivateCourse_Dto createPrivateCourseDto);
+  BaseResult createPrivateCourse(CreatePrivateCourseDto createPrivateCourseDto);
 
 
 }

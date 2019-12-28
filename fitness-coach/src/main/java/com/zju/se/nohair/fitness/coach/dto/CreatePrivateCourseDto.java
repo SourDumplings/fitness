@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Data
-public class CreatePrivateCourse_Dto {
+public class CreatePrivateCourseDto {
 
   @Length(min = 3, max = 20, message = "课程名的长度不符合要求")
   private String name;

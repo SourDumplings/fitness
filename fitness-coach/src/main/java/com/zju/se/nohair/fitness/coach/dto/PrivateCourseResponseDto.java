@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Data
-public class PrivateCourseResponse_Dto {
+public class PrivateCourseResponseDto {
 //响应商家id，健身房名字，地址，健身房价格，健身房图片，响应健身房数量，开课时间
   private String name;//健身房名字
 
