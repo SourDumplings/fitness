@@ -15,5 +15,5 @@ public interface VipCardService {
 
   BaseResult listVipCardInfo(Integer businessId);
 
-  BaseResult pushNewCardService(CreateVipCardDto createVipCardDto);
+  BaseResult saveCardService(CreateVipCardDto createVipCardDto);
 }

@@ -72,4 +72,9 @@
     where customer_id = #{customerId,jdbcType=INTEGER}
       and course_id = #{courseId,jdbcType=INTEGER}
   </update>
+  <select id="selectRecordExistOrNot" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivatePo" resultType="Integer">
+    select count(*)
+    from takes_private
+    where customer_id = #{customerId,jdbcType=INTEGER} and course_Id = #{courseId,jdbcType=INTEGER}
+  </select>
 </mapper>

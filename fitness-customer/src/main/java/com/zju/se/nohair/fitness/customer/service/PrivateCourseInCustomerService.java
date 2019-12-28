@@ -14,7 +14,15 @@ import com.zju.se.nohair.fitness.customer.dto.SelectPublicCourseDto;
 
 public interface PrivateCourseInCustomerService {
 
-   BaseResult selectPublicCourse(SelectPublicCourseDto selectPublicCourseDto) ;
+   BaseResult selectPrivateCourse(Integer courseId, Integer customerId) ;
 
    BaseResult getPrivateCourseList();
+
+   BaseResult getPrivateCourseDetail(Integer courseId, Integer customerId);
+
+   BaseResult getGymNameList();
+
+   BaseResult checkCustomerChosenPrivateOrNot(Integer courseId, Integer customerId);
+
+   BaseResult cancelPrivateCourse(Integer courseId, Integer customerId);
 }

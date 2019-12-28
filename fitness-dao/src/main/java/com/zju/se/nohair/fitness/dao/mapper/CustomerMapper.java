@@ -1,7 +1,9 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
 import com.zju.se.nohair.fitness.dao.po.CustomerPo;
+import java.math.BigDecimal;
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface CustomerMapper {
 
@@ -18,4 +20,8 @@ public interface CustomerMapper {
   int updateByPrimaryKeySelective(CustomerPo record);
 
   int updateByPrimaryKey(CustomerPo record);
+
+  int addBalance(@Param("id")Integer id,@Param("price") BigDecimal price);
+
+  int reduceBalance(@Param("id")Integer id,@Param("price") BigDecimal price);
 }

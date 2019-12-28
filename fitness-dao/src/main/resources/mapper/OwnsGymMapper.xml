@@ -6,8 +6,8 @@
     <id column="business_id" jdbcType="INTEGER" property="businessId"/>
     <id column="gym_id" jdbcType="INTEGER" property="gymId"/>
   </resultMap>
-  <select id="selectGymIdByBusinessId" parameterType="java.lang.Integer"
-    resultType="java.lang.Integer">
+  <select id="selectByBusinessId" parameterType="java.lang.Integer"
+    resultMap="BaseResultMap">
     select
      gym_id
     from owns_gym
