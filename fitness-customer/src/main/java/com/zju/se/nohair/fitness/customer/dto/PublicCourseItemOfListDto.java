@@ -37,4 +37,8 @@ public class PublicCourseItemOfListDto {
   private Integer timeSlotId;
 
   private Integer status;
+
+  private Integer gymId;
+
+  private String gymName;
 }

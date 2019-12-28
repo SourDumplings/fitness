@@ -64,10 +64,10 @@ public class CourseController {
   }
 
   @ApiOperation(value = "客户查询团课详细信息", httpMethod = "GET")
-  @RequestMapping(value = "details/public_course/{courseId}", method = RequestMethod.GET)
+  @RequestMapping(value = "details/public_course/{courseId}/{customerId}", method = RequestMethod.GET)
   @ResponseBody
-  public ResponseEntity<Object> getPublicCourseDetail(@PathVariable("courseId") Integer courseId) {
-    BaseResult baseResult = publicCourseService.getPublicCourseDetail(courseId);
+  public ResponseEntity<Object> getPublicCourseDetail(@PathVariable("courseId") Integer courseId,@PathVariable("customerId") Integer customerId) {
+    BaseResult baseResult = publicCourseService.getPublicCourseDetail(courseId,customerId);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
     } else {
@@ -75,6 +75,7 @@ public class CourseController {
           HttpStatus.valueOf(baseResult.getStatus()));
     }
   }
+
 
 
   @ApiOperation(value = "查询客户是否已经报名过该团课", httpMethod = "GET")

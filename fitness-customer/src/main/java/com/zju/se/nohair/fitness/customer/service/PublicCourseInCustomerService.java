@@ -18,7 +18,7 @@ public interface PublicCourseInCustomerService {
 
    BaseResult getPublicCourseList();
 
-  BaseResult getPublicCourseDetail(Integer courseId);
+  BaseResult getPublicCourseDetail(Integer courseId, Integer customerId);
 
   BaseResult getGymNameList();
 

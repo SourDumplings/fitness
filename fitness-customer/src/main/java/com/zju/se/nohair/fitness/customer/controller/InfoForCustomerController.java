@@ -2,6 +2,7 @@ package com.zju.se.nohair.fitness.customer.controller;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.customer.service.CoachInCustomerService;
+import com.zju.se.nohair.fitness.customer.service.CustomerService;
 import com.zju.se.nohair.fitness.customer.service.GymInCustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +37,8 @@ public class InfoForCustomerController {
   private CoachInCustomerService coachService;
   @Autowired
   private GymInCustomerService gymService;
+  @Autowired
+  private CustomerService customerService;
 
   @ApiOperation(value = "查询教练详细信息", httpMethod = "GET")
   @RequestMapping(value = "details/coach/{coachId}", method = RequestMethod.GET)
@@ -58,6 +61,19 @@ public class InfoForCustomerController {
     BaseResult baseResult = gymService.getGymDetail(gymId);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "查询客户钱包余额", httpMethod = "GET")
+  @RequestMapping(value = "customer/balance/{customerId}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> getCustomerBalance(@PathVariable("customerId") Integer customerId) {
+    BaseResult baseResult = customerService.getCustomerBalance(customerId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
     } else {
       return new ResponseEntity<>(baseResult.getMessage(),
           HttpStatus.valueOf(baseResult.getStatus()));

@@ -24,7 +24,7 @@ public class GymDetailsForCustomerDto {
 
   private String content;
 
-  private Integer bussinessId;
+  private Integer businessId;
 
   private Integer picGroupId;
 
@@ -66,12 +66,12 @@ public class GymDetailsForCustomerDto {
     this.content = content;
   }
 
-  public Integer getBussinessId() {
-    return bussinessId;
+  public Integer getBusinessId() {
+    return businessId;
   }
 
-  public void setBussinessId(Integer bussinessId) {
-    this.bussinessId = bussinessId;
+  public void setBusinessId(Integer businessId) {
+    this.businessId = businessId;
   }
 
   public Integer getPicGroupId() {

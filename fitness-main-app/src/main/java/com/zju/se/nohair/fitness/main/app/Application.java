@@ -15,7 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2019/11/21 17:05
  */
 @ComponentScan(basePackages = "com.zju.se.nohair.fitness.*", nameGenerator = UniqueNameGenerator.class)
-@MapperScan("com.zju.se.nohair.fitness.dao.mapper")
+@MapperScan({"com.zju.se.nohair.fitness.dao.mapper","com.zju.se.nohair.fitness.customer.dao.mapper"})
 @SpringBootApplication
 public class Application {
 

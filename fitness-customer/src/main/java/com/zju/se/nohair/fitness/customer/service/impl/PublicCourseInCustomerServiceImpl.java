@@ -2,20 +2,34 @@ package com.zju.se.nohair.fitness.customer.service.impl;
 
 import com.zju.se.nohair.fitness.commons.constant.PublicCourseStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.customer.dao.mapper.PublicCourseInCustomerMapper;
+import com.zju.se.nohair.fitness.customer.dto.CoachDetailsForCustomerDto;
+import com.zju.se.nohair.fitness.customer.dto.GymDetailsForCustomerDto;
+import com.zju.se.nohair.fitness.customer.dto.PublicCourseDetailsForCustomerDto;
 import com.zju.se.nohair.fitness.customer.dto.PublicCourseItemOfListDto;
 import com.zju.se.nohair.fitness.customer.dto.SelectPublicCourseDto;
 import com.zju.se.nohair.fitness.customer.service.PublicCourseInCustomerService;
+import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
+import com.zju.se.nohair.fitness.dao.mapper.CustomerMapper;
 import com.zju.se.nohair.fitness.dao.mapper.GymMapper;
+import com.zju.se.nohair.fitness.dao.mapper.OwnsGymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PrivateCourseMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PublicCourseMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PublicOrderMapper;
+import com.zju.se.nohair.fitness.dao.mapper.RatesMapper;
 import com.zju.se.nohair.fitness.dao.mapper.TakesPublicMapper;
+import com.zju.se.nohair.fitness.dao.po.CoachPo;
+import com.zju.se.nohair.fitness.dao.po.CustomerPo;
+import com.zju.se.nohair.fitness.dao.po.GymPo;
+import com.zju.se.nohair.fitness.dao.po.OwnsGymPoKey;
 import com.zju.se.nohair.fitness.dao.po.PrivateCoursePo;
 import com.zju.se.nohair.fitness.dao.po.PublicCoursePo;
 import com.zju.se.nohair.fitness.dao.po.PublicOrderPo;
+import com.zju.se.nohair.fitness.dao.po.RatesPo;
 import com.zju.se.nohair.fitness.dao.po.TakesPrivatePo;
 import com.zju.se.nohair.fitness.dao.po.TakesPrivatePoKey;
 import com.zju.se.nohair.fitness.dao.po.TakesPublicPoKey;
+import com.zju.se.nohair.fitness.dao.po.VipCardPo;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,6 +61,16 @@ public class PublicCourseInCustomerServiceImpl implements PublicCourseInCustomer
   private PublicOrderMapper publicOrderMapper;
   @Autowired
   private GymMapper gymMapper;
+  @Autowired
+  private PublicCourseInCustomerMapper publicCourseInCustomerMapper;
+  @Autowired
+  private OwnsGymMapper ownsGymMapper;
+  @Autowired
+  private RatesMapper ratesMapper;
+  @Autowired
+  private CoachMapper coachMapper;
+  @Autowired
+  private CustomerMapper customerMapper;
 
   @Override
   public BaseResult selectPublicCourse(Integer courseId, Integer customerId) {
@@ -89,6 +113,7 @@ public class PublicCourseInCustomerServiceImpl implements PublicCourseInCustomer
         publicOrderPo.setCustomerId(customerId);
         publicOrderPo.setOrderPrice(publicCoursePo.getPrice());
 
+        customerMapper.reduceBalance(customerId,publicCoursePo.getPrice());
 
         publicOrderMapper.insert(publicOrderPo);
 
@@ -112,16 +137,10 @@ public class PublicCourseInCustomerServiceImpl implements PublicCourseInCustomer
     BaseResult res = null;
 
     try {
-      final List<PublicCoursePo> publicCourses = publicCourseMapper
-          .getListForCustomer();
-      List<PublicCourseItemOfListDto> publicCourseListItemDtoOfList = new ArrayList<>();
-      for (PublicCoursePo publicCoursePo : publicCourses) {
-        PublicCourseItemOfListDto publicCourseItemOfListDto = new PublicCourseItemOfListDto();
-        BeanUtils.copyProperties(publicCoursePo, publicCourseItemOfListDto);
-        publicCourseListItemDtoOfList.add(publicCourseItemOfListDto);
-      }
+     List<PublicCourseItemOfListDto> listDtos = publicCourseInCustomerMapper.getListForCustomerWithGymInfo();
+
       res = BaseResult.success("客户查询团课列表成功");
-      res.setData(publicCourseListItemDtoOfList);
+      res.setData(listDtos);
     } catch (Exception e) {
       logger.error(e.getMessage());
       res = BaseResult.fail("客户查询团课列表失败");
@@ -131,8 +150,55 @@ public class PublicCourseInCustomerServiceImpl implements PublicCourseInCustomer
   }
 
   @Override
-  public BaseResult getPublicCourseDetail(Integer courseId) {
-    return null;
+  public BaseResult getPublicCourseDetail(Integer courseId, Integer customerId) {
+    BaseResult res = null;
+
+    try {
+      PublicCoursePo publicCoursePo = publicCourseMapper.selectByPrimaryKey(courseId);
+      PublicCourseDetailsForCustomerDto publicCourseDetailsForCustomerDto = new PublicCourseDetailsForCustomerDto();
+      BeanUtils.copyProperties(publicCoursePo,publicCourseDetailsForCustomerDto);
+
+      int peopleCount = publicOrderMapper.getChosenCount(courseId);
+      publicCourseDetailsForCustomerDto.setChosenCount(peopleCount);
+
+      OwnsGymPoKey ownsGymPoKey = ownsGymMapper.selectByBusinessId(publicCoursePo.getBusinessId());
+
+      GymPo gymPo = gymMapper.selectByPrimaryKey(ownsGymPoKey.getGymId());
+      GymDetailsForCustomerDto gymDetailsForCustomerDto = new GymDetailsForCustomerDto();
+      BeanUtils.copyProperties(gymPo, gymDetailsForCustomerDto);
+
+      List<RatesPo> ratesPoList = ratesMapper.selectByGymId(ownsGymPoKey.getGymId());
+      double avg = 0;
+      for(RatesPo r : ratesPoList){
+        avg += r.getRatingPoints();
+      }
+      avg = ratesPoList.size()==0?0:avg/ratesPoList.size();
+      gymDetailsForCustomerDto.setAvgRating(avg);
+
+      publicCourseDetailsForCustomerDto.setGymDetail(gymDetailsForCustomerDto);
+
+      CoachPo coachPo = coachMapper.selectByPrimaryKey(publicCoursePo.getCoachId());
+      CoachDetailsForCustomerDto coachDetailsForCustomerDto = new CoachDetailsForCustomerDto();
+      BeanUtils.copyProperties(coachPo, coachDetailsForCustomerDto);
+
+      List<RatesPo> ratesList = ratesMapper.selectByCoachId(publicCoursePo.getCoachId());
+      avg = 0;
+      for(RatesPo r : ratesList){
+        avg += r.getRatingPoints();
+      }
+      avg = ratesList.size()==0?0:avg/ratesList.size();
+      coachDetailsForCustomerDto.setAvgRating(avg);
+
+      publicCourseDetailsForCustomerDto.setCoachDetail(coachDetailsForCustomerDto);
+
+      res = BaseResult.success("查询详情成功");
+      res.setData(publicCourseDetailsForCustomerDto);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查询详情失败");
+    }
+
+    return res;
   }
 
   @Override
@@ -204,6 +270,7 @@ public class PublicCourseInCustomerServiceImpl implements PublicCourseInCustomer
           temp.setStatus(PublicCourseStatus.CUSTOMER_PAID);
           publicCourseMapper.updateByPrimaryKeySelective(temp);
         }
+        customerMapper.addBalance(customerId,publicCoursePo.getPrice());
       }
       res = BaseResult.success("取消课程成功");
     } catch (Exception e) {

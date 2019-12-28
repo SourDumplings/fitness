@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zju.se.nohair.fitness.customer.dao.mapper.PublicCourseInCustomerMapper">
+  <resultMap id="PublicWithGymInfoResultMap" type="com.zju.se.nohair.fitness.customer.dto.PublicCourseItemOfListDto">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="content" jdbcType="VARCHAR" property="content"/>
+    <result column="coach_id" jdbcType="INTEGER" property="coachId"/>
+    <result column="business_id" jdbcType="INTEGER" property="businessId"/>
+    <result column="price" jdbcType="DECIMAL" property="price"/>
+    <result column="pic_id" jdbcType="INTEGER" property="picId"/>
+    <result column="capacity" jdbcType="INTEGER" property="capacity"/>
+    <result column="course_date" jdbcType="DATE" property="courseDate"/>
+    <result column="time_slot_id" jdbcType="INTEGER" property="timeSlotId"/>
+    <result column="status" jdbcType="INTEGER" property="status"/>
+    <result column="gym_id" jdbcType="INTEGER" property="gymId"/>
+    <result column="gym_name" jdbcType="VARCHAR" property="gymName"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, content, coach_id, business_id, price, coach_price, pic_id, capacity, course_date, 
+    time_slot_id, status, created_time
+  </sql>
+
+  <select id="getListForCustomerWithGymInfo"  resultMap="PublicWithGymInfoResultMap" >
+    select
+    p.*,g.id gym_id ,g.name gym_name
+    from public_course as p , gym as g
+    where status = 1 or status = 2 or status = 4
+    and p.business_id =  g.business_id
+  </select>
+
+</mapper>
