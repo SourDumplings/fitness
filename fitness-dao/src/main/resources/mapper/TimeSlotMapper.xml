@@ -17,6 +17,23 @@
     from time_slot
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getPrivateCourseBookableTimeSlots" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from time_slot
+    where id in
+    (select a.time_slot_id from private_time_slot a left join takes_private b on a.course_id=b.course_id and a.time_slot_id=b.time_slot_id
+    where customer_id is null and a.course_id=#{customerId,jdbcType=INTEGER} )
+  </select>
+  <select id="getPrivateCustomerChosenTimeSlots" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from time_slot
+    where id in
+    (select time_slot_id from takes_private
+    where course_id=#{courseId,jdbcType=INTEGER} and  customer_id=#{customerId,jdbcType=INTEGER}
+    )
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from time_slot
     where id = #{id,jdbcType=INTEGER}

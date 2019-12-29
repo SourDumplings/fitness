@@ -1,6 +1,7 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
 import com.zju.se.nohair.fitness.dao.po.PrivateTimeSlotPoKey;
+import java.util.List;
 
 public interface PrivateTimeSlotMapper {
 

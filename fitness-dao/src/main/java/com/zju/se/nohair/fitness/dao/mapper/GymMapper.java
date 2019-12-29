@@ -18,4 +18,6 @@ public interface GymMapper {
   int updateByPrimaryKey(GymPo record);
 
   List<String> getGymNameListHasPublicCourse();
+
+  List<String> getGymNameListHasPrivateCourse();
 }

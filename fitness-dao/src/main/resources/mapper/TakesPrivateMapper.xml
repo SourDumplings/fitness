@@ -24,6 +24,13 @@
     where customer_id = #{customerId,jdbcType=INTEGER}
       and course_id = #{courseId,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByPo"
+    parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivatePo">
+    delete from takes_private
+    where customer_id = #{customerId,jdbcType=INTEGER}
+      and course_id = #{courseId,jdbcType=INTEGER}
+      and time_slot_id = #{timeSlotId,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivatePo">
     insert into takes_private (customer_id, course_id, time_slot_id
       )
@@ -75,6 +82,15 @@
   <select id="selectRecordExistOrNot" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivatePo" resultType="Integer">
     select count(*)
     from takes_private
-    where customer_id = #{customerId,jdbcType=INTEGER} and course_Id = #{courseId,jdbcType=INTEGER}
+    where  1 = 1
+    <if test="customerId != null">
+      and customer_id = #{customerId,jdbcType=INTEGER}
+    </if>
+    <if test="courseId != null">
+      and course_id = #{courseId,jdbcType=INTEGER}
+    </if>
+    <if test="timeSlotId != null">
+      and time_slot_id = #{timeSlotId,jdbcType=INTEGER}
+    </if>
   </select>
 </mapper>

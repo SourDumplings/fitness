@@ -14,6 +14,7 @@ import com.zju.se.nohair.fitness.dao.mapper.CustomerMapper;
 import com.zju.se.nohair.fitness.dao.mapper.GymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.OwnsGymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PrivateCourseMapper;
+import com.zju.se.nohair.fitness.dao.mapper.PrivateTimeSlotMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PublicCourseMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PublicOrderMapper;
 import com.zju.se.nohair.fitness.dao.mapper.RatesMapper;
@@ -71,6 +72,8 @@ public class PublicCourseInCustomerServiceImpl implements PublicCourseInCustomer
   private CoachMapper coachMapper;
   @Autowired
   private CustomerMapper customerMapper;
+  @Autowired
+  private PrivateTimeSlotMapper privateTimeSlotMapper;
 
   @Override
   public BaseResult selectPublicCourse(Integer courseId, Integer customerId) {

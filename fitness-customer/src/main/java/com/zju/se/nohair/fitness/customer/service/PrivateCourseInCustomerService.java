@@ -2,6 +2,7 @@ package com.zju.se.nohair.fitness.customer.service;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.customer.dto.SelectPublicCourseDto;
+import io.swagger.models.auth.In;
 
 /**
  * 选团课 service 接口.
@@ -14,7 +15,7 @@ import com.zju.se.nohair.fitness.customer.dto.SelectPublicCourseDto;
 
 public interface PrivateCourseInCustomerService {
 
-   BaseResult selectPrivateCourse(Integer courseId, Integer customerId) ;
+   BaseResult selectPrivateCourse(Integer courseId, Integer customerId, Integer timeSlotId) ;
 
    BaseResult getPrivateCourseList();
 
@@ -22,7 +23,7 @@ public interface PrivateCourseInCustomerService {
 
    BaseResult getGymNameList();
 
-   BaseResult checkCustomerChosenPrivateOrNot(Integer courseId, Integer customerId);
+   BaseResult checkCustomerChosenPrivateOrNot(Integer courseId, Integer customerId, Integer timeSlotId);
 
-   BaseResult cancelPrivateCourse(Integer courseId, Integer customerId);
+   BaseResult cancelPrivateCourse(Integer courseId, Integer customerId, Integer timeSlotId);
 }

@@ -15,4 +15,6 @@ public interface PrivateOrderMapper {
   int updateByPrimaryKeySelective(PrivateOrderPo record);
 
   int updateByPrimaryKey(PrivateOrderPo record);
+
+  int updateToCancelStatus(PrivateOrderPo privateOrderPo);
 }

@@ -17,5 +17,7 @@ public interface TakesPrivateMapper {
 
   int updateByPrimaryKey(TakesPrivatePo record);
 
-  int selectRecordExistOrNot(TakesPrivatePoKey takesPrivatePoKey);
+  int selectRecordExistOrNot(TakesPrivatePo takesPrivatePo);
+
+  int deleteByPo(TakesPrivatePo takesPrivatePo);
 }
