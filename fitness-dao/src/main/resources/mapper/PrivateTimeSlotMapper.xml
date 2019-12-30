@@ -6,6 +6,7 @@
     <id column="course_id" jdbcType="INTEGER" property="courseId"/>
     <id column="time_slot_id" jdbcType="INTEGER" property="timeSlotId"/>
   </resultMap>
+
   <delete id="deleteByPrimaryKey"
     parameterType="com.zju.se.nohair.fitness.dao.po.PrivateTimeSlotPoKey">
     delete from private_time_slot

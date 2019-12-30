@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zju.se.nohair.fitness.customer.dao.mapper.PrivateCourseInCustomerMapper">
+  <resultMap id="PrivateWithGymInfoResultMap" type="com.zju.se.nohair.fitness.customer.dto.PrivateCourseItemOfListDto">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="content" jdbcType="VARCHAR" property="content"/>
+    <result column="coach_id" jdbcType="INTEGER" property="coachId"/>
+    <result column="business_id" jdbcType="INTEGER" property="businessId"/>
+    <result column="price" jdbcType="DECIMAL" property="price"/>
+    <result column="pic_id" jdbcType="INTEGER" property="picId"/>
+    <result column="course_date" jdbcType="DATE" property="courseDate"/>
+    <result column="status" jdbcType="INTEGER" property="status"/>
+    <result column="gym_id" jdbcType="INTEGER" property="gymId"/>
+    <result column="gym_name" jdbcType="VARCHAR" property="gymName"/>
+    <result column="coach_name" jdbcType="VARCHAR" property="coachName"/>
+    <result column="coach_pic_id" jdbcType="INTEGER" property="coachPicId"/>
+    <result column="avg" jdbcType="DECIMAL" property="avgRating"/>
+    <collection property="timeSlots" ofType="com.zju.se.nohair.fitness.dao.po.TimeSlotPo">
+      <id column="time_slot_id" jdbcType="INTEGER"  property="id"/>
+      <result column="begin_time" jdbcType="TIME" property="beginTime"/>
+      <result column="end_time" jdbcType="TIME" property="endTime"/>
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, content, coach_id, business_id, price, gym_price, pic_id, course_date,
+    status, created_time
+  </sql>
+
+  <select id="getListForCustomerWithGymInfo"  resultMap="PrivateWithGymInfoResultMap" >
+    select
+    p.*,g.id gym_id ,g.name gym_name,c.name coach_name,c.pic_id coach_pic_id,r.avg ,pt.time_slot_id,t.begin_time,t.end_time
+    from private_course as p , gym as g
+		, coach as c left join (select avg(rating_points) avg,to_id from rates where type=3 group by to_id) as r on c.id=r.to_id
+		,(select a.* from private_time_slot a left join takes_private b on a.course_id=b.course_id and a.time_slot_id=b.time_slot_id where customer_id is null) as pt left join time_slot as t on pt.time_slot_id=t.id
+    where p.business_id =  g.business_id and c.id=p.coach_id and pt.course_id=p.id
+		and (p.status = 1 or p.status=2);
+  </select>
+
+</mapper>

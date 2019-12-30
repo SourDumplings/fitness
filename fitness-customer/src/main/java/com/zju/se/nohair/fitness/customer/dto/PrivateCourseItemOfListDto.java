@@ -1,6 +1,9 @@
 package com.zju.se.nohair.fitness.customer.dto;
 
+import com.zju.se.nohair.fitness.dao.po.TimeSlotPo;
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -22,17 +25,28 @@ public class PrivateCourseItemOfListDto {
 
   private String content;
 
-  private Integer businessId;
-
   private Integer coachId;
 
-  private Double price;
+  private Integer businessId;
+
+  private BigDecimal price;
 
   private Integer picId;
 
   private Date courseDate;
 
-  private Integer timeSlotId;
-
   private Integer status;
+
+  private Integer gymId;
+
+  private String gymName;
+
+  private String coachName;
+
+  private Integer coachPicId;
+
+  private BigDecimal avgRating;
+
+  private List<TimeSlotPo> timeSlots;
+
 }

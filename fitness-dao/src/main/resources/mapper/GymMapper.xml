@@ -29,6 +29,15 @@
 			(select business_id from public_course where status = 1 or status = 2 or status = 4)
 		)
   </select>
+  <select id="getGymNameListHasPrivateCourse" resultType="String">
+    select
+    name
+    from gym
+    where id in
+		(select gym_id from owns_gym where business_id in
+			(select business_id from private_course where status = 1 or status = 2 )
+		)
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from gym
     where id = #{id,jdbcType=INTEGER}
