@@ -2,52 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.RatesMapper">
-  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.RatesPo">
-    <id column="from_id" jdbcType="INTEGER" property="fromId"/>
-    <id column="to_id" jdbcType="INTEGER" property="toId"/>
-    <id column="time" jdbcType="TIMESTAMP" property="time"/>
-    <result column="rating_points" jdbcType="INTEGER" property="ratingPoints"/>
-    <result column="content" jdbcType="VARCHAR" property="content"/>
-    <result column="pic_group_id" jdbcType="INTEGER" property="picGroupId"/>
-    <result column="type" jdbcType="INTEGER" property="type"/>
-  </resultMap>
-  <sql id="Base_Column_List">
-    from_id, to_id, time, rating_points, content, pic_group_id, type
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.RatesPoKey"
-    resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from rates
-    where from_id = #{fromId,jdbcType=INTEGER}
-    and to_id = #{toId,jdbcType=INTEGER}
-    and time = #{time,jdbcType=TIMESTAMP}
-  </select>
-  <select id="selectByCoachId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
-    select
-    <include refid="Base_Column_List"/>
-    from rates
-    where to_id = #{coachId,jdbcType=INTEGER} and type = 3
-  </select>
-  <select id="selectByGymId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
-    select
-    <include refid="Base_Column_List"/>
-    from rates
-    where to_id = #{coachId,jdbcType=INTEGER} and type = 5
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.RatesPoKey">
-    delete from rates
-    where from_id = #{fromId,jdbcType=INTEGER}
-      and to_id = #{toId,jdbcType=INTEGER}
-      and time = #{time,jdbcType=TIMESTAMP}
-  </delete>
   <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.RatesPo">
-    insert into rates (from_id, to_id, time, 
-      rating_points, content, pic_group_id, 
-      type)
-    values (#{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, 
-      #{ratingPoints,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{picGroupId,jdbcType=INTEGER}, 
-      #{type,jdbcType=INTEGER})
+    insert into rates (from_id, to_id, time,
+      rating_points, content, pic_group_id,
+      type, course_id)
+    values (#{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP},
+      #{ratingPoints,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{picGroupId,jdbcType=INTEGER},
+      #{type,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.RatesPo">
     insert into rates
@@ -73,6 +34,9 @@
       <if test="type != null">
         type,
       </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="fromId != null">
@@ -96,8 +60,39 @@
       <if test="type != null">
         #{type,jdbcType=INTEGER},
       </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.RatesPo">
+    <id column="from_id" jdbcType="INTEGER" property="fromId"/>
+    <id column="to_id" jdbcType="INTEGER" property="toId"/>
+    <id column="time" jdbcType="TIMESTAMP" property="time"/>
+    <result column="rating_points" jdbcType="INTEGER" property="ratingPoints"/>
+    <result column="content" jdbcType="VARCHAR" property="content"/>
+    <result column="pic_group_id" jdbcType="INTEGER" property="picGroupId"/>
+    <result column="type" jdbcType="INTEGER" property="type"/>
+    <result column="course_id" jdbcType="INTEGER" property="courseId"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.RatesPoKey">
+    delete from rates
+    where from_id = #{fromId,jdbcType=INTEGER}
+      and to_id = #{toId,jdbcType=INTEGER}
+      and time = #{time,jdbcType=TIMESTAMP}
+  </delete>
+  <select id="selectByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.RatesPoKey"
+    resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from rates
+    where from_id = #{fromId,jdbcType=INTEGER}
+    and to_id = #{toId,jdbcType=INTEGER}
+    and time = #{time,jdbcType=TIMESTAMP}
+  </select>
+  <sql id="Base_Column_List">
+    from_id, to_id, time, rating_points, content, pic_group_id, type, course_id
+  </sql>
   <update id="updateByPrimaryKeySelective" parameterType="com.zju.se.nohair.fitness.dao.po.RatesPo">
     update rates
     <set>
@@ -113,6 +108,9 @@
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
       </if>
+      <if test="courseId != null">
+        course_id = #{courseId,jdbcType=INTEGER},
+      </if>
     </set>
     where from_id = #{fromId,jdbcType=INTEGER}
     and to_id = #{toId,jdbcType=INTEGER}
@@ -123,7 +121,8 @@
     set rating_points = #{ratingPoints,jdbcType=INTEGER},
       content = #{content,jdbcType=VARCHAR},
       pic_group_id = #{picGroupId,jdbcType=INTEGER},
-      type = #{type,jdbcType=INTEGER}
+      type = #{type,jdbcType=INTEGER},
+      course_id = #{courseId,jdbcType=INTEGER}
     where from_id = #{fromId,jdbcType=INTEGER}
       and to_id = #{toId,jdbcType=INTEGER}
       and time = #{time,jdbcType=TIMESTAMP}

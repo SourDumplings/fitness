@@ -10,6 +10,8 @@ public class RatesPo extends RatesPoKey {
 
   private Integer type;
 
+  private Integer courseId;
+
   public Integer getRatingPoints() {
     return ratingPoints;
   }
@@ -40,5 +42,13 @@ public class RatesPo extends RatesPoKey {
 
   public void setType(Integer type) {
     this.type = type;
+  }
+
+  public Integer getCourseId() {
+    return courseId;
+  }
+
+  public void setCourseId(Integer courseId) {
+    this.courseId = courseId;
   }
 }
