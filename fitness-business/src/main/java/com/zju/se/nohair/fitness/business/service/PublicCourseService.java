@@ -2,6 +2,7 @@ package com.zju.se.nohair.fitness.business.service;
 
 import com.zju.se.nohair.fitness.business.dto.CreatePublicCourseDto;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import java.util.Date;
 
 /**
  * 团课 service 接口.
@@ -17,7 +18,7 @@ public interface PublicCourseService {
 
   BaseResult deletePublicCourseByCourseId(Integer courseId);
 
-  BaseResult listPublicCoursesByBusinessId(Integer businessId);
+  BaseResult listPublicCourses(Integer businessId, Date courseDate);
 
   BaseResult getPublicCourseDetailByCourseId(Integer courseId);
 

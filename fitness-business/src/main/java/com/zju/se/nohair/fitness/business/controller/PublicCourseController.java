@@ -1,10 +1,11 @@
 package com.zju.se.nohair.fitness.business.controller;
 
-import com.zju.se.nohair.fitness.business.service.PublicCourseService;
 import com.zju.se.nohair.fitness.business.dto.CreatePublicCourseDto;
+import com.zju.se.nohair.fitness.business.service.PublicCourseService;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.Date;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,12 +70,15 @@ public class PublicCourseController {
     }
   }
 
-  @ApiOperation(value = "查看发布的团课列表；课程状态（0代表商家已发布，1代表教练已选定，2代表至少一个顾客选定并已付款，3代表课程结束未评价，4代表已满，5代表课程结束已评价）", httpMethod = "GET")
+  @ApiOperation(value = "查看发布的团课列表；"
+      + "课程状态（0代表商家已发布，1代表教练已选定，2代表至少一个顾客选定并已付款，3代表课程结束未评价，4代表已满，5代表课程结束已评价）；"
+      + "如果传入 courseDate，那么只会列出该日期的至少已经响应成功（status != 0）的团课，courseDate 格式：2019/12/16", httpMethod = "GET")
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ResponseBody
-  public ResponseEntity<Object> listPublicCoursesByBusinessId(
-      @RequestParam(name = "businessId") Integer businessId) {
-    BaseResult baseResult = publicCourseService.listPublicCoursesByBusinessId(businessId);
+  public ResponseEntity<Object> listPublicCourses(
+      @RequestParam(name = "businessId") Integer businessId,
+      @RequestParam(name = "courseDate", required = false) Date courseDate) {
+    BaseResult baseResult = publicCourseService.listPublicCourses(businessId, courseDate);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
     } else {

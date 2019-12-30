@@ -34,9 +34,16 @@
       </if>
     </trim>
   </insert>
-  <select id="selectRecordExistOrNot" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPublicPoKey" resultType="Integer">
+  <select id="selectRecordExistOrNot"
+    parameterType="com.zju.se.nohair.fitness.dao.po.TakesPublicPoKey" resultType="Integer">
     select count(*)
     from takes_public
     where customer_id = #{customerId,jdbcType=INTEGER} and course_Id = #{courseId,jdbcType=INTEGER}
+  </select>
+  <select id="countByCourseId"
+    parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(*)
+    from takes_public
+    where course_Id = #{courseId,jdbcType=INTEGER}
   </select>
 </mapper>

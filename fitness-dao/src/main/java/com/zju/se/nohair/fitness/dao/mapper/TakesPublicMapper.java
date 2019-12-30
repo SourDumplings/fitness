@@ -11,4 +11,6 @@ public interface TakesPublicMapper {
   int insertSelective(TakesPublicPoKey record);
 
   int selectRecordExistOrNot(TakesPublicPoKey record);
+
+  int countByCourseId(Integer courseId);
 }

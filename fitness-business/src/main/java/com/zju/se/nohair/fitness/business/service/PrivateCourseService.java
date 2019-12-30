@@ -2,6 +2,7 @@ package com.zju.se.nohair.fitness.business.service;
 
 import com.zju.se.nohair.fitness.business.dto.ResponseToPrivateCourseDto;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import java.util.Date;
 
 /**
  * 私教课 service 接口.
@@ -15,9 +16,9 @@ public interface PrivateCourseService {
 
   BaseResult listResponsesByBusinessId(Integer businessId);
 
-  BaseResult listResponsedPrivateCoursesByBusinessId(Integer businessId);
+  BaseResult listResponsedPrivateCourses(Integer businessId, Date courseDate);
 
-  BaseResult listPrivateCoursesForResponsing();
+  BaseResult listPrivateCoursesForResponsing(Date courseDate);
 
   BaseResult getPrivateCourseDetailByCourseId(Integer courseId);
 

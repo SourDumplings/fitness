@@ -7,16 +7,18 @@ import com.zju.se.nohair.fitness.business.dto.PublicCourseResponseDto;
 import com.zju.se.nohair.fitness.business.service.PublicCourseService;
 import com.zju.se.nohair.fitness.commons.constant.PublicCourseStatus;
 import com.zju.se.nohair.fitness.commons.constant.ResponseStatus;
+import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.commons.utils.DateUtils;
+import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
+import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
+import com.zju.se.nohair.fitness.dao.mapper.PublicCourseMapper;
+import com.zju.se.nohair.fitness.dao.mapper.ResponsesPublicMapper;
+import com.zju.se.nohair.fitness.dao.mapper.TakesPublicMapper;
 import com.zju.se.nohair.fitness.dao.po.CoachPo;
 import com.zju.se.nohair.fitness.dao.po.PicturePo;
 import com.zju.se.nohair.fitness.dao.po.PublicCoursePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPoKey;
-import com.zju.se.nohair.fitness.commons.dto.BaseResult;
-import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
-import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
-import com.zju.se.nohair.fitness.dao.mapper.PublicCourseMapper;
-import com.zju.se.nohair.fitness.dao.mapper.ResponsesPublicMapper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +48,13 @@ public class PublicCourseServiceImpl implements PublicCourseService {
   private CoachMapper coachMapper;
 
   private PictureMapper pictureMapper;
+
+  private TakesPublicMapper takesPublicMapper;
+
+  @Autowired
+  public void setTakesPublicMapper(TakesPublicMapper takesPublicMapper) {
+    this.takesPublicMapper = takesPublicMapper;
+  }
 
   @Autowired
   public void setPublicCourseMapper(PublicCourseMapper publicCourseMapper) {
@@ -113,7 +122,7 @@ public class PublicCourseServiceImpl implements PublicCourseService {
   }
 
   @Override
-  public BaseResult listPublicCoursesByBusinessId(Integer businessId) {
+  public BaseResult listPublicCourses(Integer businessId, Date courseDate) {
     BaseResult res = null;
 
     try {
@@ -121,6 +130,13 @@ public class PublicCourseServiceImpl implements PublicCourseService {
           .selectByBusinessId(businessId);
       List<PublicCourseListItemDto> publicCourseListItemDtoList = new ArrayList<>();
       for (PublicCoursePo publicCoursePo : publicCourses) {
+        if (courseDate != null) {
+          if (!DateUtils.sameDate(publicCoursePo.getCourseDate(), courseDate)
+              || publicCoursePo.getStatus().equals(PublicCourseStatus.NEW_PUBLISH)) {
+            continue;
+          }
+        }
+
         PublicCourseListItemDto publicCourseListItemDto = new PublicCourseListItemDto();
         BeanUtils.copyProperties(publicCoursePo, publicCourseListItemDto);
         publicCourseListItemDtoList.add(publicCourseListItemDto);
@@ -143,6 +159,10 @@ public class PublicCourseServiceImpl implements PublicCourseService {
       final PublicCoursePo publicCoursePo = publicCourseMapper.selectByPrimaryKey(courseId);
       PublicCourseDetailDto publicCourseDetailDto = new PublicCourseDetailDto();
       BeanUtils.copyProperties(publicCoursePo, publicCourseDetailDto);
+
+      final int takeNum = takesPublicMapper.countByCourseId(courseId);
+      publicCourseDetailDto.setTakeNum(takeNum);
+
       res = BaseResult.success("查询发布的课程详情成功");
       res.setData(publicCourseDetailDto);
     } catch (Exception e) {

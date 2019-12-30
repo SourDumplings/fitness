@@ -33,6 +33,8 @@ public class PublicCourseDetailDto {
 
   private Integer capacity;
 
+  private Integer takeNum;
+
   private Date courseDate;
 
   private Integer timeSlotId;

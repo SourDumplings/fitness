@@ -5,6 +5,7 @@ import com.zju.se.nohair.fitness.business.service.PrivateCourseService;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,17 +98,20 @@ public class PrivateCourseController {
     }
   }
 
-  @ApiOperation(value = "查看私教课列表，不传 businessId 表示查看待响应的，传了代表查看该商家响应成功的", httpMethod = "GET")
+  @ApiOperation(value = "查看私教课列表；"
+      + "不传 businessId 表示查看待响应的，传了代表查看该商家响应成功的；"
+      + "如果传了 courseDate 那么只会选出相应日期的课程，格式：2019/12/16；", httpMethod = "GET")
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<Object> listPrivateCourses(
-      @RequestParam(name = "businessId", required = false) Integer businessId) {
+      @RequestParam(name = "businessId", required = false) Integer businessId,
+      @RequestParam(name = "courseDate", required = false) Date courseDate) {
     BaseResult baseResult = null;
     if (businessId == null) {
-      baseResult = privateCourseService.listPrivateCoursesForResponsing();
+      baseResult = privateCourseService.listPrivateCoursesForResponsing(courseDate);
     } else {
       baseResult = privateCourseService
-          .listResponsedPrivateCoursesByBusinessId(businessId);
+          .listResponsedPrivateCourses(businessId, courseDate);
     }
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);

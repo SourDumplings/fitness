@@ -2,17 +2,19 @@ package com.zju.se.nohair.fitness.business.service.impl;
 
 import com.zju.se.nohair.fitness.business.dto.PrivateCourseDetailDto;
 import com.zju.se.nohair.fitness.business.dto.PrivateCourseListItemDto;
-import com.zju.se.nohair.fitness.business.dto.ResponseToPrivateCourseDto;
 import com.zju.se.nohair.fitness.business.dto.PrivateCourseResponseListItemDto;
+import com.zju.se.nohair.fitness.business.dto.ResponseToPrivateCourseDto;
 import com.zju.se.nohair.fitness.business.service.PrivateCourseService;
 import com.zju.se.nohair.fitness.commons.constant.ResponseStatus;
+import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.commons.utils.DateUtils;
+import com.zju.se.nohair.fitness.dao.mapper.PrivateCourseMapper;
+import com.zju.se.nohair.fitness.dao.mapper.ResponsesPrivateMapper;
 import com.zju.se.nohair.fitness.dao.po.PrivateCoursePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePoKey;
-import com.zju.se.nohair.fitness.commons.dto.BaseResult;
-import com.zju.se.nohair.fitness.dao.mapper.PrivateCourseMapper;
-import com.zju.se.nohair.fitness.dao.mapper.ResponsesPrivateMapper;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,7 +81,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
   }
 
   @Override
-  public BaseResult listPrivateCoursesForResponsing() {
+  public BaseResult listPrivateCoursesForResponsing(Date courseDate) {
     BaseResult res = null;
 
     try {
@@ -87,6 +89,10 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
           .selectForResponsing();
       List<PrivateCourseListItemDto> privateCourseListItemDtoList = new ArrayList<>();
       for (PrivateCoursePo privateCourse : privateCourses) {
+        if (courseDate != null && !DateUtils.sameDate(privateCourse.getCourseDate(), courseDate)) {
+          continue;
+        }
+
         PrivateCourseListItemDto privateCourseListItemDto = new PrivateCourseListItemDto();
         BeanUtils.copyProperties(privateCourse, privateCourseListItemDto);
         privateCourseListItemDtoList.add(privateCourseListItemDto);
@@ -103,7 +109,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
 
 
   @Override
-  public BaseResult listResponsedPrivateCoursesByBusinessId(Integer businessId) {
+  public BaseResult listResponsedPrivateCourses(Integer businessId, Date courseDate) {
     BaseResult res = null;
 
     try {
@@ -111,6 +117,11 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
       final List<PrivateCoursePo> privateCoursePos = privateCourseMapper
           .selectByBusinessId(businessId);
       for (PrivateCoursePo privateCoursePo : privateCoursePos) {
+        if (courseDate != null && !DateUtils
+            .sameDate(privateCoursePo.getCourseDate(), courseDate)) {
+          continue;
+        }
+
         PrivateCourseListItemDto privateCourseListItemDto = new PrivateCourseListItemDto();
         BeanUtils.copyProperties(privateCoursePo, privateCourseListItemDto);
         privateCourseListItemDtoList.add(privateCourseListItemDto);
