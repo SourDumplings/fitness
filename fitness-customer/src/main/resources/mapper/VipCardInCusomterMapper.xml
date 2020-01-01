@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zju.se.nohair.fitness.customer.dao.mapper.VipCardInCustomerMapper">
+  <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.customer.dto.VipCardWithGymInfoDto">
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="customer_id" jdbcType="INTEGER" property="customerId"/>
+    <result column="gym_id" jdbcType="INTEGER" property="gymId"/>
+    <result column="price" jdbcType="DECIMAL" property="price"/>
+    <result column="type" jdbcType="INTEGER" property="type"/>
+    <result column="created_time" jdbcType="TIMESTAMP" property="startTime"/>
+    <result column="gym_name" jdbcType="VARCHAR" property="gymName"/>
+    <result column="address" jdbcType="VARCHAR" property="gymAddress"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, customer_id, gym_id, price, type, created_time
+  </sql>
+  <select id="selectByCustomerId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+    select
+    v.*,g.name gym_name,g.address
+    from vip_card as v left join gym as g on v.gym_id=g.id
+    where customer_id= #{customerId,jdbcType=INTEGER}
+  </select>
+</mapper>

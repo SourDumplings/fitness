@@ -53,6 +53,19 @@ public class CourseController {
     }
   }
 
+  @ApiOperation(value = "查询除了已评论的团课列表", httpMethod = "GET")
+  @RequestMapping(value = "list/public_course/except_commented_course/{customerId}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> getPublicCourseListForCustomer(@PathVariable("customerId") Integer customerId) {
+    BaseResult baseResult = publicCourseService.getPublicCourseListForCustomerExceptCommented(customerId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
   @ApiOperation(value = "查询开设团课的场馆name列表", httpMethod = "GET")
   @RequestMapping(value = "list/public_course/gym_name", method = RequestMethod.GET)
   @ResponseBody
@@ -132,6 +145,21 @@ public class CourseController {
           HttpStatus.valueOf(baseResult.getStatus()));
     }
   }
+
+
+  @ApiOperation(value = "查询除了已评论的私教课列表", httpMethod = "GET")
+  @RequestMapping(value = "list/private_course/except_commented_course/{customerId}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> getPrivateCourseListForCustomer(@PathVariable("customerId") Integer customerId) {
+    BaseResult baseResult = privateCourseService.getPrivateCourseListForCustomerExceptCommented(customerId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
 
   @ApiOperation(value = "查询开设私教课的场馆name列表", httpMethod = "GET")
   @RequestMapping(value = "list/private_course/gym_name", method = RequestMethod.GET)

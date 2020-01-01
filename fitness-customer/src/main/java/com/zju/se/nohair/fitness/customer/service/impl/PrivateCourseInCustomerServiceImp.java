@@ -282,4 +282,21 @@ public class PrivateCourseInCustomerServiceImp implements PrivateCourseInCustome
 
     return res;
   }
+
+  @Override
+  public BaseResult getPrivateCourseListForCustomerExceptCommented(Integer customerId) {
+    BaseResult res = null;
+
+    try {
+      List<PrivateCourseItemOfListDto> listDtos = privateCourseInCustomerMapper.getListForCustomerExceptCommented(customerId);
+
+      res = BaseResult.success("客户查询私教课列表成功");
+      res.setData(listDtos);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("客户查询私教课列表失败");
+    }
+
+    return res;
+  }
 }

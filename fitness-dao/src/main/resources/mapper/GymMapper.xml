@@ -38,6 +38,11 @@
 			(select business_id from private_course where status = 1 or status = 2 )
 		)
   </select>
+  <select id="getNearGymList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from gym
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from gym
     where id = #{id,jdbcType=INTEGER}

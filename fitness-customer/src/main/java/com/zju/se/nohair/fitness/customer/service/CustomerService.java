@@ -1,6 +1,7 @@
 package com.zju.se.nohair.fitness.customer.service;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.customer.dto.CommentCourseDto;
 
 /**
  * @author Wang Haowen
@@ -11,4 +12,10 @@ import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 public interface CustomerService {
 
   BaseResult getCustomerBalance(Integer customerId);
+
+  BaseResult getCustomerVipCardInfo(Integer customerId);
+
+  BaseResult createCommentForPublicCourse(CommentCourseDto commentCourseDto);
+
+  BaseResult createCommentForPrivateCourse(CommentCourseDto commentCourseDto);
 }

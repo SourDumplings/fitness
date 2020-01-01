@@ -20,4 +20,6 @@ public interface GymMapper {
   List<String> getGymNameListHasPublicCourse();
 
   List<String> getGymNameListHasPrivateCourse();
+
+  List<GymPo> getNearGymList();
 }

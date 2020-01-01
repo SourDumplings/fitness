@@ -284,4 +284,21 @@ public class PublicCourseInCustomerServiceImpl implements PublicCourseInCustomer
     return res;
   }
 
+  @Override
+  public BaseResult getPublicCourseListForCustomerExceptCommented(Integer customerId) {
+    BaseResult res = null;
+
+    try {
+      List<PublicCourseItemOfListDto> listDtos = publicCourseInCustomerMapper.getListForCustomerExceptCommented(customerId);
+
+      res = BaseResult.success("客户查询团课列表成功");
+      res.setData(listDtos);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("客户查询团课列表失败");
+    }
+
+    return res;
+  }
+
 }

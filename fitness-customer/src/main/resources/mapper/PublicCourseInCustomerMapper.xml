@@ -16,6 +16,7 @@
     <result column="status" jdbcType="INTEGER" property="status"/>
     <result column="gym_id" jdbcType="INTEGER" property="gymId"/>
     <result column="gym_name" jdbcType="VARCHAR" property="gymName"/>
+    <result column="address" jdbcType="VARCHAR" property="gymAddress"/>
   </resultMap>
   <sql id="Base_Column_List">
     id, name, content, coach_id, business_id, price, coach_price, pic_id, capacity, course_date, 
@@ -28,6 +29,16 @@
     from public_course as p , gym as g
     where p.business_id =  g.business_id and
 		(status = 1 or status = 2 or status = 4)
+  </select>
+
+  <select id="getListForCustomerExceptCommented" parameterType="java.lang.Integer"  resultMap="PublicWithGymInfoResultMap" >
+   select
+    p.*,g.id gym_id ,g.name gym_name,g.address
+    from public_course as p , gym as g
+    where p.business_id =  g.business_id
+    and p.id in (select course_id from takes_public where customer_id=#{customerId,jdbcType=INTEGER})
+		and p.id not in (select course_id from rates where from_id =#{customerId,jdbcType=INTEGER} and (type = 3 or type = 5))
+		and (status != 0 )
   </select>
 
 </mapper>

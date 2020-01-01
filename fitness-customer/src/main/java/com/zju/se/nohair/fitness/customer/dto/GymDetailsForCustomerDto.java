@@ -1,5 +1,7 @@
 package com.zju.se.nohair.fitness.customer.dto;
 
+import com.zju.se.nohair.fitness.dao.po.BusinessPo;
+import com.zju.se.nohair.fitness.dao.po.GymVipCardPo;
 import com.zju.se.nohair.fitness.dao.po.RatesPo;
 import com.zju.se.nohair.fitness.dao.po.VipCardPo;
 import java.util.Date;
@@ -30,9 +32,11 @@ public class GymDetailsForCustomerDto {
 
   private double avgRating;
 
+  private BusinessPo businessPo;
+
   private List<RatesPo> ratesList;
 
-  private List<VipCardPo> vipCardList;
+  private List<GymVipCardPo> vipCardList;
 
   public Integer getId() {
     return id;
@@ -98,11 +102,19 @@ public class GymDetailsForCustomerDto {
     this.ratesList = ratesList;
   }
 
-  public List<VipCardPo> getVipCardList() {
+  public List<GymVipCardPo> getVipCardList() {
     return vipCardList;
   }
 
-  public void setVipCardList(List<VipCardPo> vipCardList) {
+  public void setVipCardList(List<GymVipCardPo> vipCardList) {
     this.vipCardList = vipCardList;
+  }
+
+  public BusinessPo getBusinessPo() {
+    return businessPo;
+  }
+
+  public void setBusinessPo(BusinessPo businessPo) {
+    this.businessPo = businessPo;
   }
 }

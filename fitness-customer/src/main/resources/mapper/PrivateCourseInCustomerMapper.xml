@@ -32,10 +32,22 @@
     select
     p.*,g.id gym_id ,g.name gym_name,c.name coach_name,c.pic_id coach_pic_id,r.avg ,pt.time_slot_id,t.begin_time,t.end_time
     from private_course as p , gym as g
-		, coach as c left join (select avg(rating_points) avg,to_id from rates where type=3 group by to_id) as r on c.id=r.to_id
+		, coach as c left join (select avg(rating_points) avg,to_id from rates where (type = 3 or type = 9) group by to_id) as r on c.id=r.to_id
 		,(select a.* from private_time_slot a left join takes_private b on a.course_id=b.course_id and a.time_slot_id=b.time_slot_id where customer_id is null) as pt left join time_slot as t on pt.time_slot_id=t.id
     where p.business_id =  g.business_id and c.id=p.coach_id and pt.course_id=p.id
-		and (p.status = 1 or p.status=2);
+		and (p.status = 1 or p.status=2)
+  </select>
+
+  <select id="getListForCustomerExceptCommented" parameterType="java.lang.Integer" resultMap="PrivateWithGymInfoResultMap" >
+    	 select
+    p.*,g.id gym_id ,g.name gym_name,c.name coach_name,c.pic_id coach_pic_id,r.avg ,pt.time_slot_id,t.begin_time,t.end_time
+    from private_course as p , gym as g
+		, coach as c left join (select avg(rating_points) avg,to_id from rates where (type = 3 or type = 9) group by to_id) as r on c.id=r.to_id
+		,(select a.* from private_time_slot a left join takes_private b on a.course_id=b.course_id and a.time_slot_id=b.time_slot_id where customer_id is not null) as pt left join time_slot as t on pt.time_slot_id=t.id
+    where p.business_id =  g.business_id and c.id=p.coach_id and pt.course_id=p.id
+		and p.id in (select course_id from takes_private where customer_id=#{customerId,jdbcType=INTEGER})
+		and p.id not in (select course_id from rates where  from_id = #{customerId,jdbcType=INTEGER} and (type = 9 or type = 11))
+		and (p.status != 0);
   </select>
 
 </mapper>

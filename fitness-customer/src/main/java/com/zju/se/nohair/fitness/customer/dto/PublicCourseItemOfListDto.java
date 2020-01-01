@@ -41,4 +41,6 @@ public class PublicCourseItemOfListDto {
   private Integer gymId;
 
   private String gymName;
+
+  private String gymAddress;
 }
