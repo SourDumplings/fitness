@@ -16,11 +16,13 @@ import org.springframework.stereotype.Component;
 @Data
 public class PrivateCourseResponseDto {
 //响应商家id，健身房名字，地址，健身房价格，健身房图片，响应健身房数量，开课时间
-  private String name;//健身房名字
+  private Integer businessId;//响应商家id
+
+  private String businessName;//商家名字
 
   private String address;//健身房地址
 
-  private Integer businessId;//响应商家id
+  private String businessProfilePic;//商家资格证
 
   private BigDecimal price;//健身房价格
 
@@ -29,4 +31,5 @@ public class PrivateCourseResponseDto {
   private Date courseDate;//上课日期
 
   private Integer status;//状态
+
 }

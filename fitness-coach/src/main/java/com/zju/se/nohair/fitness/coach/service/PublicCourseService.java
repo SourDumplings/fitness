@@ -17,6 +17,9 @@ public interface PublicCourseService {
 
   BaseResult responseToPublicCourse(ResponseToPublicCourseDto responseToPublicCourseDto);
 
+
+
+
   //BaseResult listPublicCoursesForResponsing();//查看团课列表，不传 coachId 表示查看待响应的，
 
   //BaseResult listResponsedPublicCoursesByCoachId(Integer coachId);//查看团课列表，传了coachId 代表查看该教练响应成功的

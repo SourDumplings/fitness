@@ -97,10 +97,14 @@ public class PublicCourseServiceImpl implements PublicCourseService {
     return res;
   }
 
+
+
   @Override
   public BaseResult responseToPublicCourse(ResponseToPublicCourseDto responseToPublicCourseDto) {
     return null;
   }
+
+
 
  /* @Override
   public BaseResult listPublicCoursesForResponsing() {
