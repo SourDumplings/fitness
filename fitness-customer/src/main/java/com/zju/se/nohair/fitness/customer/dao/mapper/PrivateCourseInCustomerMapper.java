@@ -7,4 +7,6 @@ import java.util.List;
 public interface PrivateCourseInCustomerMapper {
 
   List<PrivateCourseItemOfListDto> getListForCustomerWithGymInfo();
+
+  List<PrivateCourseItemOfListDto> getListForCustomerExceptCommented(Integer customerId);
 }

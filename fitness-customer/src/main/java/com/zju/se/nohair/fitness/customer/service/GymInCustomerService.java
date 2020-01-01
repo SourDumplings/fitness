@@ -11,4 +11,6 @@ import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 public interface GymInCustomerService {
 
   BaseResult getGymDetail(Integer gymId);
+
+  BaseResult getNearGymList();
 }

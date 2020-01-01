@@ -67,6 +67,19 @@ public class InfoForCustomerController {
     }
   }
 
+  @ApiOperation(value = "查询附近健身房信息", httpMethod = "GET")
+  @RequestMapping(value = "list/gym", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> getGymList() {
+    BaseResult baseResult = gymService.getNearGymList();
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
   @ApiOperation(value = "查询客户钱包余额", httpMethod = "GET")
   @RequestMapping(value = "customer/balance/{customerId}", method = RequestMethod.GET)
   @ResponseBody
@@ -79,4 +92,18 @@ public class InfoForCustomerController {
           HttpStatus.valueOf(baseResult.getStatus()));
     }
   }
+
+  @ApiOperation(value = "查询客户会员卡信息", httpMethod = "GET")
+  @RequestMapping(value = "customer/vip_card/{customerId}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> getCustomerVipCardInfo(@PathVariable("customerId") Integer customerId) {
+    BaseResult baseResult = customerService.getCustomerVipCardInfo(customerId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
 }

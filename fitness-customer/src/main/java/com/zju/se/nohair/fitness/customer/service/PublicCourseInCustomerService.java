@@ -25,4 +25,6 @@ public interface PublicCourseInCustomerService {
   BaseResult checkCustomerChosenPublicOrNot(Integer courseId, Integer customerId);
 
   BaseResult cancelPublicCourse(Integer courseId, Integer customerId);
+
+  BaseResult getPublicCourseListForCustomerExceptCommented(Integer customerId);
 }

@@ -6,13 +6,13 @@
     select
     <include refid="Base_Column_List"/>
     from rates
-    where to_id = #{coachId,jdbcType=INTEGER} and type = 3
+    where to_id = #{coachId,jdbcType=INTEGER} and (type = 3 or type = 9)
   </select>
   <select id="selectByGymId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List"/>
     from rates
-    where to_id = #{coachId,jdbcType=INTEGER} and type = 5
+    where to_id = #{coachId,jdbcType=INTEGER} and (type = 5 or type = 11)
   </select>
   <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.RatesPo">
     insert into rates (from_id, to_id, time,
