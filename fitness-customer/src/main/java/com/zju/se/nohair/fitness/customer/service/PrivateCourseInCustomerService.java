@@ -23,7 +23,7 @@ public interface PrivateCourseInCustomerService {
 
    BaseResult getGymNameList();
 
-   BaseResult checkCustomerChosenPrivateOrNot(Integer courseId, Integer customerId, Integer timeSlotId);
+   BaseResult checkCustomerChosenPrivateOrNot(Integer courseId, Integer customerId);
 
    BaseResult cancelPrivateCourse(Integer courseId, Integer customerId, Integer timeSlotId);
 

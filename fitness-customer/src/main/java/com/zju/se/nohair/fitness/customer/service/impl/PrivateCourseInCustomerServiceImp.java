@@ -26,6 +26,7 @@ import com.zju.se.nohair.fitness.dao.po.RatesPo;
 import com.zju.se.nohair.fitness.dao.po.TakesPrivatePo;
 import com.zju.se.nohair.fitness.dao.po.TakesPrivatePoKey;
 import com.zju.se.nohair.fitness.dao.po.TimeSlotPo;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
@@ -226,23 +227,30 @@ public class PrivateCourseInCustomerServiceImp implements PrivateCourseInCustome
   }
 
   @Override
-  public BaseResult checkCustomerChosenPrivateOrNot(Integer courseId, Integer customerId, Integer timeSlotId) {
+  public BaseResult checkCustomerChosenPrivateOrNot(Integer courseId, Integer customerId) {
     BaseResult res = null;
 
     try {
       TakesPrivatePo takesPrivatePo = new TakesPrivatePo();
       takesPrivatePo.setCourseId(courseId);
       takesPrivatePo.setCustomerId(customerId);
-      takesPrivatePo.setTimeSlotId(timeSlotId);
       //得到是否已经选课 num=0代表没有选
+
       int num = takesPrivateMapper.selectRecordExistOrNot(takesPrivatePo);
 
+
       res = BaseResult.success("查询成功");
+      List<Integer> results = new ArrayList<>();
       if (num==0){
-        res.setMessage("false");
+        results.add(-1);
       }else {
-        res.setMessage("true");
+        TakesPrivatePoKey key = new TakesPrivatePoKey();
+        key.setCourseId(courseId);
+        key.setCustomerId(customerId);
+        TakesPrivatePo po = takesPrivateMapper.selectByPrimaryKey(key);
+        results.add(po.getTimeSlotId());
       }
+      res.setData(results);
     } catch (Exception e) {
       logger.error(e.getMessage());
       res = BaseResult.fail("查询失败");

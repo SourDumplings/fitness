@@ -190,13 +190,12 @@ public class CourseController {
 
 
   @ApiOperation(value = "查询客户是否已经报名过该私教课", httpMethod = "GET")
-  @RequestMapping(value = "check/private_course/{courseId}/{customerId}/{timeSlotId}", method = RequestMethod.GET)
+  @RequestMapping(value = "check/private_course/{courseId}/{customerId}", method = RequestMethod.GET)
   @ResponseBody
-  public ResponseEntity<Object> checkCustomerChosenPrivate(@PathVariable("courseId") Integer courseId,@PathVariable("customerId") Integer customerId
-      ,@PathVariable("timeSlotId") Integer timeSlotId) {
-    BaseResult baseResult = privateCourseService.checkCustomerChosenPrivateOrNot(courseId,customerId,timeSlotId);
+  public ResponseEntity<Object> checkCustomerChosenPrivate(@PathVariable("courseId") Integer courseId,@PathVariable("customerId") Integer customerId) {
+    BaseResult baseResult = privateCourseService.checkCustomerChosenPrivateOrNot(courseId,customerId);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
-      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
     } else {
       return new ResponseEntity<>(baseResult.getMessage(),
           HttpStatus.valueOf(baseResult.getStatus()));
