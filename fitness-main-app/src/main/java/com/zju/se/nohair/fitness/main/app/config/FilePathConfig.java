@@ -24,7 +24,7 @@ public class FilePathConfig implements WebMvcConfigurer {
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     //linux下的配置
-    registry.addResourceHandler("/pic/**").addResourceLocations("file:" + "/pic/");
+    registry.addResourceHandler("/pic/**").addResourceLocations("file:" + "/root/pic/");
     //windows下的配置
     //registry.addResourceHandler("/pic/**").addResourceLocations("file:" + "D:/data/");
     WebMvcConfigurer.super.addResourceHandlers(registry);

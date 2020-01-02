@@ -67,7 +67,7 @@ public class InfoForCustomerController {
   private void savePic(InputStream inputStream, String fileName) {
     OutputStream os = null;
     try {
-      String path = "/pic/customer/";
+      String path = "/root/pic/customer/";
       // 2、保存到临时文件
       // 1K的数据缓冲
       byte[] bs = new byte[1024];
