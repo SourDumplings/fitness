@@ -14,7 +14,7 @@ public interface PrivateCourseService {
 
   BaseResult createPrivateCourse(CreatePrivateCourseDto createPrivateCourseDto);
 
-  /*BaseResult listPrivateCourseResponsesByCourseId(Integer courseId);*///通过课程id 查找响应私教课的商家列表
+  BaseResult listPrivateCourseResponsesByCourseId(Integer courseId);//通过课程id 查找响应私教课的商家列表
 
   BaseResult acceptResponse(Integer courseId, Integer businessId);//接受商家对于私教课的响应
 }
