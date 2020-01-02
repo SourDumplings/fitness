@@ -26,7 +26,7 @@ public class CreatePrivateCourseDto {
 
   private Integer coachId;
 
-  private Integer businessId;
+  //private Integer businessId;
 
   @Range(min = 0, max = 1000000)
   private BigDecimal price;
@@ -34,7 +34,7 @@ public class CreatePrivateCourseDto {
   @Range(min = 0, max = 1000000)
   private BigDecimal gymPrice;
 
-  private Integer picId;
+  //private Integer picId;
 
   private Date courseDate;
 

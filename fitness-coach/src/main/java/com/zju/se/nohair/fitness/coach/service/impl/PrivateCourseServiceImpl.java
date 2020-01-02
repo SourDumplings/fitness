@@ -16,6 +16,7 @@ import com.zju.se.nohair.fitness.dao.po.PrivateCoursePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePoKey;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,10 +54,29 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
 
   @Override
   public BaseResult createPrivateCourse(CreatePrivateCourseDto createPrivateCourseDto) {
-    return null;
+    //教练发布私教课
+    BaseResult res = null;
+
+    try {
+      PrivateCoursePo privateCoursePo = new PrivateCoursePo();
+
+      BeanUtils.copyProperties(createPrivateCourseDto, privateCoursePo);
+      privateCoursePo.setCreatedTime(new Date());
+      privateCoursePo.setId(null);
+      privateCoursePo.setBusinessId(null);
+      privateCoursePo.setStatus(PrivateCourseStatus.NEW_PUBLISH);
+
+      privateCourseMapper.insert(privateCoursePo);
+      res = BaseResult.success("发布私教课程成功");
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("发布私教课程失败");
+    }
+
+    return res;
   }
 
-  /*@Override
+  @Override
   public BaseResult listPrivateCourseResponsesByCourseId(Integer courseId) {
     //通过课程id 查找响应私教课的商家列表
     BaseResult res = null;
@@ -87,7 +107,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
     }
 
     return res;
-  }*/
+  }
 
   @Override
   public BaseResult acceptResponse(Integer courseId, Integer businessId) {
