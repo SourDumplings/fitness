@@ -19,7 +19,15 @@ public interface ReceiveRecordMapper {
    * @param businessId
    * @return
    */
-  List<ReceiveRecordPo> selectByBusinessId(Integer businessId);
+  List<ReceiveRecordPo> selectAllByBusinessId(Integer businessId);
+
+  /**
+   * 选出该教练所有的收款记录.
+   *
+   * @param coachId
+   * @return
+   */
+  List<ReceiveRecordPo> selectAllCoachReceiveRecordsByCoachId(Integer coachId);
 
   int updateByPrimaryKeySelective(ReceiveRecordPo record);
 

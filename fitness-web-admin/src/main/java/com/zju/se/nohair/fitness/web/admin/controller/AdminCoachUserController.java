@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,6 +42,20 @@ public class AdminCoachUserController {
   @ResponseBody
   public ResponseEntity<Object> listAll() {
     BaseResult baseResult = adminCoachUserService.listAll();
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "教练用户详情；审核状态（0代表未审批，1代表已审批成功，2代表审批未通过）", httpMethod = "GET")
+  @RequestMapping(value = "{coachId}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> getDetailByCoachId(
+      @PathVariable(value = "coachId") Integer coachId) {
+    BaseResult baseResult = adminCoachUserService.getDetailByCoachId(coachId);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
     } else {

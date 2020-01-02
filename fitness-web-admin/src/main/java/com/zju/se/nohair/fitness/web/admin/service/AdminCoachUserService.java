@@ -13,4 +13,6 @@ import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 public interface AdminCoachUserService {
 
   BaseResult listAll();
+
+  BaseResult getDetailByCoachId(Integer coachId);
 }

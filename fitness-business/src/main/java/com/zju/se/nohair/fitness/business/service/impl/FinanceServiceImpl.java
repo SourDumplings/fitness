@@ -88,7 +88,7 @@ public class FinanceServiceImpl implements FinanceService {
 
     try {
       final List<ReceiveRecordPo> receiveRecordPos = receiveRecordMapper
-          .selectByBusinessId(businessId);
+          .selectAllByBusinessId(businessId);
 
       if (receiveRecordPos == null) {
         return BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "错误：无此商家！");
