@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * 商家针对会员卡的服务实现类.
@@ -29,6 +31,7 @@ import org.springframework.stereotype.Service;
  * @projectName fitness
  * @date 2019/12/24 16:22
  */
+@Transactional(readOnly = true)
 @Service
 public class VipCardServiceImpl implements VipCardService {
 
@@ -87,6 +90,7 @@ public class VipCardServiceImpl implements VipCardService {
     return res;
   }
 
+  @Transactional(readOnly = false)
   @Override
   public BaseResult saveCardService(CreateVipCardDto createVipCardDto) {
     BaseResult res = null;
@@ -128,6 +132,7 @@ public class VipCardServiceImpl implements VipCardService {
         res = BaseResult.success("修改会员卡信息成功");
       }
     } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
       res = BaseResult.fail("保存会员卡信息失败");
     }

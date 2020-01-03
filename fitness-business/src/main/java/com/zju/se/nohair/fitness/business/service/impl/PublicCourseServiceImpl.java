@@ -27,6 +27,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * 团课 service 实现类.
@@ -36,6 +38,7 @@ import org.springframework.stereotype.Service;
  * @projectName fitness
  * @date 2019/12/11 8:38
  */
+@Transactional(readOnly = true)
 @Service
 public class PublicCourseServiceImpl implements PublicCourseService {
 
@@ -76,6 +79,7 @@ public class PublicCourseServiceImpl implements PublicCourseService {
     this.pictureMapper = pictureMapper;
   }
 
+  @Transactional(readOnly = false)
   @Override
   public BaseResult createPublicCourse(CreatePublicCourseDto createPublicCourseDto) {
     BaseResult res = null;
@@ -92,6 +96,7 @@ public class PublicCourseServiceImpl implements PublicCourseService {
       publicCourseMapper.insert(publicCoursePo);
       res = BaseResult.success("发布课程成功");
     } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
       res = BaseResult.fail("发布课程失败");
     }
@@ -99,6 +104,7 @@ public class PublicCourseServiceImpl implements PublicCourseService {
     return res;
   }
 
+  @Transactional(readOnly = false)
   @Override
   public BaseResult deletePublicCourseByCourseId(Integer courseId) {
     BaseResult res = null;
@@ -114,6 +120,7 @@ public class PublicCourseServiceImpl implements PublicCourseService {
         res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "不能删除已经有顾客选定的课程");
       }
     } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
       res = BaseResult.fail("删除该发布的课程失败");
     }
@@ -207,6 +214,7 @@ public class PublicCourseServiceImpl implements PublicCourseService {
     return res;
   }
 
+  @Transactional(readOnly = false)
   @Override
   public BaseResult acceptResponse(Integer courseId, Integer coachId) {
     BaseResult res = null;
@@ -238,6 +246,7 @@ public class PublicCourseServiceImpl implements PublicCourseService {
         }
       }
     } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
       res = BaseResult.fail("接受响应失败");
     }
@@ -245,6 +254,7 @@ public class PublicCourseServiceImpl implements PublicCourseService {
     return res;
   }
 
+  @Transactional(readOnly = false)
   @Override
   public BaseResult denyResponse(Integer courseId, Integer coachId) {
     BaseResult res = null;
@@ -264,6 +274,7 @@ public class PublicCourseServiceImpl implements PublicCourseService {
         res = BaseResult.success("拒绝响应成功");
       }
     } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
       res = BaseResult.fail("拒绝响应失败");
     }

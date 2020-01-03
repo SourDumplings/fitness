@@ -31,4 +31,5 @@ build/
 .vscode/
 
 ### 日志文件 ###
-/logs
+*.log
+/*/logs/

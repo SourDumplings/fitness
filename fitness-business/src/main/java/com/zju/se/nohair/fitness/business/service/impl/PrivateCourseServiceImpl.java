@@ -21,6 +21,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * 私教课 service 实现类.
@@ -30,6 +32,7 @@ import org.springframework.stereotype.Service;
  * @projectName fitness
  * @date 2019/12/17 13:41
  */
+@Transactional(readOnly = true)
 @Service
 public class PrivateCourseServiceImpl implements PrivateCourseService {
 
@@ -154,6 +157,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
     return res;
   }
 
+  @Transactional(readOnly = false)
   @Override
   public BaseResult responseToPrivateCourse(ResponseToPrivateCourseDto responseToPrivateCourseDto) {
     BaseResult res = null;
@@ -173,6 +177,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
       responsesPrivateMapper.insert(responsesPrivatePo);
       res = BaseResult.success("响应私教课程成功");
     } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
       res = BaseResult.fail("响应私教课程失败");
     }
@@ -180,6 +185,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
     return res;
   }
 
+  @Transactional(readOnly = false)
   @Override
   public BaseResult changeResponsePrice(ResponseToPrivateCourseDto responseToPrivateCourseDto) {
     BaseResult res = null;
@@ -204,6 +210,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
       responsesPrivateMapper.updateByPrimaryKey(responsesPrivatePo);
       res = BaseResult.success("更改响应成功");
     } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
       res = BaseResult.fail("更改响应失败");
     }
@@ -211,6 +218,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
     return res;
   }
 
+  @Transactional(readOnly = false)
   @Override
   public BaseResult deleteResponse(Integer courseId, Integer businessId) {
     BaseResult res = null;
@@ -230,6 +238,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
       responsesPrivateMapper.deleteByPrimaryKey(responsesPrivatePoKey);
       res = BaseResult.success("删除响应成功");
     } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
       res = BaseResult.fail("删除响应失败");
     }

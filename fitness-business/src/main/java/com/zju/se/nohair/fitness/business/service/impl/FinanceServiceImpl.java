@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 商家金融相关服务实现类.
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Service;
  * @projectName fitness
  * @date 2019/12/28 20:17
  */
+@Transactional(readOnly = true)
 @Service
 public class FinanceServiceImpl implements FinanceService {
 
