@@ -18,6 +18,11 @@
     from picture
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getAvailablePicGroupId" resultType="Integer">
+    select
+    ifnull(max(pic_group_id),0)+1
+    from picture
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from picture
     where id = #{id,jdbcType=INTEGER}
@@ -27,6 +32,43 @@
       file_path, created_time)
     values (#{id,jdbcType=INTEGER}, #{picGroupId,jdbcType=INTEGER}, #{picLink,jdbcType=VARCHAR}, 
       #{filePath,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertReturnId" parameterType="com.zju.se.nohair.fitness.dao.po.PicturePo" useGeneratedKeys="true" keyProperty="id">
+    insert into picture
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="picGroupId != null">
+        pic_group_id,
+      </if>
+      <if test="picLink != null">
+        pic_link,
+      </if>
+      <if test="filePath != null">
+        file_path,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="picGroupId != null">
+        #{picGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="picLink != null">
+        #{picLink,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
   </insert>
   <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.PicturePo">
     insert into picture

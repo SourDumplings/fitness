@@ -15,4 +15,8 @@ public interface PictureMapper {
   int updateByPrimaryKeySelective(PicturePo record);
 
   int updateByPrimaryKey(PicturePo record);
+
+  void insertReturnId(PicturePo picturePo);
+
+  int getAvailablePicGroupId();
 }

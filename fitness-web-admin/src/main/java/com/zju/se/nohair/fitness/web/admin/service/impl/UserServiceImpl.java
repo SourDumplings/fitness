@@ -1,10 +1,16 @@
 package com.zju.se.nohair.fitness.web.admin.service.impl;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.commons.utils.FileUtils;
+import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.UserMapper;
+import com.zju.se.nohair.fitness.dao.po.CustomerPo;
+import com.zju.se.nohair.fitness.dao.po.PicturePo;
 import com.zju.se.nohair.fitness.dao.po.UserPo;
 import com.zju.se.nohair.fitness.web.admin.dto.CreateUserDto;
+import com.zju.se.nohair.fitness.web.admin.dto.PicTestDto;
 import com.zju.se.nohair.fitness.web.admin.service.UserService;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
@@ -12,7 +18,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 用户 Service 实现类.
@@ -27,6 +35,9 @@ import org.springframework.util.DigestUtils;
 public class UserServiceImpl implements UserService {
 
   private static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
+  @Autowired
+  private PictureMapper pictureMapper;
 
   private UserMapper userMapper;
 
@@ -106,6 +117,81 @@ public class UserServiceImpl implements UserService {
       res = BaseResult.fail("创建用户失败");
     }
 
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult insertPic(MultipartFile file, PicTestDto picTestDto) {
+    BaseResult res = null;
+
+    try {
+     //保存图片
+      String extension = FileUtils.getExtension(file.getOriginalFilename());
+      if (extension==null || extension.equals("") ){
+        throw new Exception();
+      }
+      long times = System.currentTimeMillis();
+      if(FileUtils.savePic(file.getInputStream(),times+extension)){
+        PicturePo picturePo = new PicturePo();
+        picturePo.setCreatedTime(new Date());
+        picturePo.setFilePath("/root/pic/"+times+extension);
+        picturePo.setPicLink("/pic/"+times+extension);
+        pictureMapper.insertReturnId(picturePo);
+        //此处的picturePo中id自动被设置为数据库生成的主键id了
+        //下一步可以直接使用 例如 设置用户的头像图片id
+       /* CustomerPo customerPo = new CustomerPo();
+        customerPo.setId(customerId);
+        customerPo.setPicId(picturePo.getId());
+        customerMapper.updateByPrimaryKeySelective(customerPo);*/
+      }
+
+      res = BaseResult.success("保存图片成功");
+      res.setData(picTestDto);
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("保存图片失败");
+    }
+
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult insertPics(MultipartFile[] files, PicTestDto picTestDto) {
+    BaseResult res = null;
+
+    try {
+      //保存图片
+      long times = System.currentTimeMillis();
+      //获得可用的picGroupId
+      int picGroupId = pictureMapper.getAvailablePicGroupId();
+      for(MultipartFile f:files){
+        String extension = FileUtils.getExtension(f.getOriginalFilename());
+        if (extension==null || extension.equals("") ){
+          throw new Exception();
+        }
+        //文件名可以自己确定命名规则 现在用的毫秒数
+        String name = "test"+times+extension;
+        times++;
+        if(FileUtils.savePic(f.getInputStream(),name)){
+          PicturePo picturePo = new PicturePo();
+          picturePo.setCreatedTime(new Date());
+          picturePo.setFilePath("/root/pic/"+name);
+          picturePo.setPicLink("/pic/"+name);
+          picturePo.setPicGroupId(picGroupId);
+          pictureMapper.insertSelective(picturePo);
+        }
+      }
+
+      res = BaseResult.success("保存图片成功");
+      res.setData(picTestDto);
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("保存图片失败");
+    }
     return res;
   }
 }

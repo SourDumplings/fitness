@@ -4,6 +4,8 @@ import com.zju.se.nohair.fitness.dao.po.UserPo;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.persistence.BaseService;
 import com.zju.se.nohair.fitness.web.admin.dto.CreateUserDto;
+import com.zju.se.nohair.fitness.web.admin.dto.PicTestDto;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 用户 Service 接口.
@@ -19,4 +21,7 @@ public interface UserService extends BaseService<UserPo> {
 
   BaseResult createUser(CreateUserDto createUserDto);
 
+  BaseResult insertPic(MultipartFile file, PicTestDto picTestDto);
+
+  BaseResult insertPics(MultipartFile[] files, PicTestDto picTestDto);
 }

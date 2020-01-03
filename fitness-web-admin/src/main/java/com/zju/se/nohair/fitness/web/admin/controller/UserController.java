@@ -1,11 +1,14 @@
 package com.zju.se.nohair.fitness.web.admin.controller;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.commons.utils.FileUtils;
 import com.zju.se.nohair.fitness.dao.po.UserPo;
 import com.zju.se.nohair.fitness.web.admin.dto.CreateUserDto;
+import com.zju.se.nohair.fitness.web.admin.dto.PicTestDto;
 import com.zju.se.nohair.fitness.web.admin.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.io.IOException;
 import java.util.List;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 用户 Controller 类.
@@ -29,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/11/21 11:50
  */
 @RestController
-@RequestMapping("test/admin/users")
+@RequestMapping("admin/test/users")
 @Api
 public class UserController {
 
@@ -74,6 +78,32 @@ public class UserController {
   @ResponseBody
   public ResponseEntity<Object> createUser(@RequestBody @Valid CreateUserDto createUserDto) {
     BaseResult baseResult = userService.createUser(createUserDto);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.CREATED);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "上传图片同时接收参数（测试用）", httpMethod = "POST")
+  @RequestMapping(value = "pic", method = RequestMethod.POST)
+  @ResponseBody
+  public ResponseEntity<Object> insertPic(@RequestParam("file") MultipartFile file, PicTestDto picTestDto) {
+    BaseResult baseResult = userService.insertPic(file,picTestDto);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.CREATED);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "上传多个图片同时接收参数（测试用）", httpMethod = "POST")
+  @RequestMapping(value = "pics", method = RequestMethod.POST)
+  @ResponseBody
+  public ResponseEntity<Object> insertPics(@RequestParam("file") MultipartFile[] files, PicTestDto picTestDto) {
+    BaseResult baseResult = userService.insertPics(files,picTestDto);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getData(), HttpStatus.CREATED);
     } else {
