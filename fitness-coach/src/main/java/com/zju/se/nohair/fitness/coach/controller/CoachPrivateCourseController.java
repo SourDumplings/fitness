@@ -38,7 +38,7 @@ public class CoachPrivateCourseController {
     this.privateCourseService = privateCourseService;
   }
 
-  @ApiOperation(value = "查看发布的私教课程的响应列表；响应状态（0代表未接受，1代表已接受，2代表已拒绝）", httpMethod = "GET")
+  @ApiOperation(value = "查看响应私教课的商家列表；响应状态（0代表未接受，1代表已接受，2代表已拒绝）", httpMethod = "GET")
   @RequestMapping(value = "{courseId}/response", method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<Object> listPrivateCourseResponsesByCourseId(

@@ -4,12 +4,14 @@ import com.zju.se.nohair.fitness.coach.dto.PublicCourseDetailDto;
 import com.zju.se.nohair.fitness.coach.dto.PublicCourseListItemDto;
 import com.zju.se.nohair.fitness.coach.dto.ResponseToPublicCourseDto;
 import com.zju.se.nohair.fitness.coach.service.PublicCourseService;
+import com.zju.se.nohair.fitness.commons.constant.ResponseStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PublicCourseMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ResponsesPublicMapper;
 import com.zju.se.nohair.fitness.dao.po.PublicCoursePo;
+import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -101,7 +103,29 @@ public class PublicCourseServiceImpl implements PublicCourseService {
 
   @Override
   public BaseResult responseToPublicCourse(ResponseToPublicCourseDto responseToPublicCourseDto) {
-    return null;
+    //教练响应团课
+    BaseResult res = null;
+
+    try {
+      ResponsesPublicPo responsesPublicPo = new ResponsesPublicPo();
+      PublicCoursePo publicCoursePo = publicCourseMapper
+          .selectByPrimaryKey(responseToPublicCourseDto.getCourseId());
+
+      if (responseToPublicCourseDto.getPrice().compareTo(publicCoursePo.getPrice()) >= 0) {
+        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "教练费的价格不能超过课程的价格");
+        return res;
+      }
+
+      BeanUtils.copyProperties(responseToPublicCourseDto, responsesPublicPo);
+      responsesPublicPo.setStatus(ResponseStatus.NEW_PUBLISH);
+      responsesPublicMapper.insert(responsesPublicPo);
+      res = BaseResult.success("响应私教课程成功");
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("响应私教课程失败");
+    }
+
+    return res;
   }
 
 

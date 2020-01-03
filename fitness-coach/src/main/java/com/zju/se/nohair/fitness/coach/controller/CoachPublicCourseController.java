@@ -39,8 +39,8 @@ public class CoachPublicCourseController {
     this.publicCourseService = publicCourseService;
   }
 
-  @ApiOperation(value = "响应团课", httpMethod = "GET")
-  @RequestMapping(value = "response", method = RequestMethod.GET)
+  @ApiOperation(value = "教练响应团课", httpMethod = "POST")
+  @RequestMapping(value = "response", method = RequestMethod.POST)
   @ResponseBody
   public ResponseEntity<Object> responseToPublicCourse(
       @RequestBody ResponseToPublicCourseDto responseToPublicCourseDto) {
