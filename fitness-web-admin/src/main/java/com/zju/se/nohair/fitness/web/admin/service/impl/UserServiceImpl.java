@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 /**
@@ -21,6 +22,7 @@ import org.springframework.util.DigestUtils;
  * @projectName fitness
  * @date 2019/11/21 15:28
  */
+@Transactional(readOnly = true)
 @Service
 public class UserServiceImpl implements UserService {
 

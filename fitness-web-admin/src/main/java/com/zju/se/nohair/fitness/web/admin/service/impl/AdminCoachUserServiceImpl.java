@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 后台模块的用户子模块下的教练用户 Service 接口实现类.
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Service;
  * @projectName fitness
  * @date 2019/12/19 15:15
  */
+@Transactional(readOnly = true)
 @Service
 public class AdminCoachUserServiceImpl implements AdminCoachUserService {
 
