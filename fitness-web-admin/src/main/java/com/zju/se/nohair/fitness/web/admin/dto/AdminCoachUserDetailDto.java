@@ -26,7 +26,7 @@ public class AdminCoachUserDetailDto {
 
   private Integer gender;
 
-  private Integer picId;
+//  private Integer picId;
 
   private String phone;
 
@@ -36,7 +36,7 @@ public class AdminCoachUserDetailDto {
 
   private String idNumber;
 
-  private Integer certificationPicId;
+//  private Integer certificationPicId;
 
   private String ps;
 
