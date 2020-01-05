@@ -2,6 +2,7 @@ package com.zju.se.nohair.fitness.web.admin.service.impl;
 
 import com.zju.se.nohair.fitness.commons.constant.ReceiveRecordType;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.commons.utils.DateUtils;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ReceiveRecordMapper;
 import com.zju.se.nohair.fitness.dao.po.CoachPo;
@@ -59,6 +60,7 @@ public class AdminCoachUserServiceImpl implements AdminCoachUserService {
       for (CoachPo coachPo : coachPoList) {
         AdminCoachUserListItemDto adminCoachUserListItemDto = new AdminCoachUserListItemDto();
         BeanUtils.copyProperties(coachPo, adminCoachUserListItemDto);
+        adminCoachUserListItemDto.setAge(DateUtils.getAgeFromBirthday(coachPo.getBirthday()));
         adminCoachUserListItemDtoList.add(adminCoachUserListItemDto);
       }
       res = BaseResult.success("查询教练列表成功");
