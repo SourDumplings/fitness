@@ -88,7 +88,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
         BeanUtils.copyProperties(responsesPrivatePo, privateCourseResponseDto);
 
         final BusinessPo businessPo = businessMapper.selectByPrimaryKey(responsesPrivatePo.getBusinessId());
-        privateCourseResponseDto.setBusinessName(businessPo.getUsername());
+        privateCourseResponseDto.setBusinessName(businessPo.getPersonName());
 
         if (businessPo.getPicId() != null) {
           final PicturePo picturePo = pictureMapper.selectByPrimaryKey(businessPo.getPicId());

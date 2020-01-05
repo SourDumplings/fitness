@@ -19,5 +19,11 @@ public interface PublicCourseMapper {
 
   int updateByPrimaryKey(PublicCoursePo record);
 
+  List<PublicCoursePo> selectForResponsing();
+
+  List<PublicCoursePo> selectByCoachId(Integer coachId);
+
   List<PublicCoursePo> getListForCustomer();
+
+
 }

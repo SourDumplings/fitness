@@ -6,6 +6,7 @@ import com.zju.se.nohair.fitness.coach.dto.ResponseToPublicCourseDto;
 import com.zju.se.nohair.fitness.coach.service.PublicCourseService;
 import com.zju.se.nohair.fitness.commons.constant.ResponseStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.commons.utils.DateUtils;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PublicCourseMapper;
@@ -13,6 +14,7 @@ import com.zju.se.nohair.fitness.dao.mapper.ResponsesPublicMapper;
 import com.zju.se.nohair.fitness.dao.po.PublicCoursePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,28 +59,6 @@ public class PublicCourseServiceImpl implements PublicCourseService {
   @Autowired
   public void setPictureMapper(PictureMapper pictureMapper) {
     this.pictureMapper = pictureMapper;
-  }
-
-  @Override
-  public BaseResult listPublicCoursesByBusinessId(Integer businessId) {
-    BaseResult res = null;
-
-    try {
-      final List<PublicCoursePo> publicCourses = publicCourseMapper.selectByBusinessId(businessId);
-      List<PublicCourseListItemDto> publicCourseListItemDtoList = new ArrayList<>();
-      for (PublicCoursePo publicCoursePo : publicCourses) {
-        PublicCourseListItemDto publicCourseListItemDto = new PublicCourseListItemDto();
-        BeanUtils.copyProperties(publicCoursePo, publicCourseListItemDto);
-        publicCourseListItemDtoList.add(publicCourseListItemDto);
-      }
-      res = BaseResult.success("查询发布的课程列表成功");
-      res.setData(publicCourseListItemDtoList);
-    } catch (Exception e) {
-      logger.error(e.getMessage());
-      res = BaseResult.fail("查询发布的课程列表失败");
-    }
-
-    return res;
   }
 
   @Override
@@ -128,33 +108,63 @@ public class PublicCourseServiceImpl implements PublicCourseService {
     return res;
   }
 
-
-
- /* @Override
-  public BaseResult listPublicCoursesForResponsing() {
+  @Override
+  public BaseResult listPublicCoursesForResponsing(Date courseDate) {
+    //不传 coachId 表示查看待响应的团课列表
     BaseResult res = null;
 
     try {
-      final List<PublicCoursePo> publicCourses = publicCourseMapper
-          .selectForResponsing();
+      final List<PublicCoursePo> publicCourses = publicCourseMapper.selectForResponsing();
       List<PublicCourseListItemDto> publicCourseListItemDtoList = new ArrayList<>();
       for (PublicCoursePo publicCourse : publicCourses) {
+        if (courseDate != null && !DateUtils.sameDate(publicCourse.getCourseDate(), courseDate)) {
+          continue;
+        }
+
         PublicCourseListItemDto publicCourseListItemDto = new PublicCourseListItemDto();
         BeanUtils.copyProperties(publicCourse, publicCourseListItemDto);
         publicCourseListItemDtoList.add(publicCourseListItemDto);
       }
-      res = BaseResult.success("查询等待教练响应的团课课程列表成功");
+      res = BaseResult.success("查询等待教练响应的团课列表成功");
       res.setData(publicCourseListItemDtoList);
     } catch (Exception e) {
       logger.error(e.getMessage());
-      res = BaseResult.fail("查询等待教练响应的团课课程列表失败");
+      res = BaseResult.fail("查询等待教练响应的团课列表失败");
     }
 
     return res;
-  }*/
+  }
 
-  /*@Override
-  public BaseResult listResponsedPublicCoursesByCoachId(Integer coachId) {
-    return null;
-  }*/
+  @Override
+  public BaseResult listResponsedPublicCourses(Integer coachId, Date courseDate) {
+    //传了 coachsId 代表查看该教练响应成功的团课列表
+    BaseResult res = null;
+
+    try {
+      List<PublicCourseListItemDto> publicCourseListItemDtoList = new ArrayList<>();
+      final List<PublicCoursePo> publicCoursePos = publicCourseMapper
+          .selectByCoachId(coachId);
+      for (PublicCoursePo publicCoursePo : publicCoursePos) {
+        if (courseDate != null && !DateUtils
+            .sameDate(publicCoursePo.getCourseDate(), courseDate)) {
+          continue;
+        }
+
+        PublicCourseListItemDto publicCourseListItemDto = new PublicCourseListItemDto();
+        BeanUtils.copyProperties(publicCoursePo, publicCourseListItemDto);
+        publicCourseListItemDtoList.add(publicCourseListItemDto);
+      }
+      res = BaseResult.success("查询教练响应成功的团课列表成功");
+      res.setData(publicCourseListItemDtoList);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查询教练响应成功的团课列表失败");
+    }
+
+    return res;
+  }
+
+
+
+
 }

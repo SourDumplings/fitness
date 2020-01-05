@@ -5,6 +5,7 @@ import com.zju.se.nohair.fitness.coach.service.PublicCourseService;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,12 +55,21 @@ public class CoachPublicCourseController {
     }
   }
 
-  @ApiOperation(value = "查看发布的团课列表；课程状态（0代表商家已发布，1代表教练已选定，2代表至少一个顾客选定并已付款，3代表课程结束未评价，4代表已满，5代表课程结束已评价）", httpMethod = "GET")
+  @ApiOperation(value = "查看团课列表；"
+      + "不传 coachId 表示查看待响应的团课列表，传了 coachsId 代表查看该教练响应成功的团课列表；"
+      + "如果传了 courseDate 则选出相应日期的课程，格式：2019/12/16；", httpMethod = "GET")
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ResponseBody
-  public ResponseEntity<Object> listPublicCoursesByBusinessId(
-      @RequestParam(name = "businessId") Integer businessId) {
-    BaseResult baseResult = publicCourseService.listPublicCoursesByBusinessId(businessId);
+  public ResponseEntity<Object> listPublicCourses(
+      @RequestParam(name = "coachId", required = false) Integer coachId,
+      @RequestParam(name = "courseDate", required = false) Date courseDate) {
+    BaseResult baseResult = null;
+    if (coachId == null) {
+      baseResult = publicCourseService.listPublicCoursesForResponsing(courseDate);
+    } else {
+      baseResult = publicCourseService
+          .listResponsedPublicCourses(coachId, courseDate);
+    }
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
     } else {
@@ -67,7 +77,6 @@ public class CoachPublicCourseController {
           HttpStatus.valueOf(baseResult.getStatus()));
     }
   }
-
   @ApiOperation(value = "查看发布的团课详情；课程状态（0代表商家已发布，1代表教练已选定，2代表至少一个顾客选定并已付款，3代表课程结束未评价，4代表已满，5代表课程结束已评价）", httpMethod = "GET")
   @RequestMapping(value = "{courseId}", method = RequestMethod.GET)
   @ResponseBody
