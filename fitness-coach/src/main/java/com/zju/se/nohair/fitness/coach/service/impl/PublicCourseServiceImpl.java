@@ -2,6 +2,7 @@ package com.zju.se.nohair.fitness.coach.service.impl;
 
 import com.zju.se.nohair.fitness.coach.dto.PublicCourseDetailDto;
 import com.zju.se.nohair.fitness.coach.dto.PublicCourseListItemDto;
+import com.zju.se.nohair.fitness.coach.dto.PublicCourseResponseListItemDto;
 import com.zju.se.nohair.fitness.coach.dto.ResponseToPublicCourseDto;
 import com.zju.se.nohair.fitness.coach.service.PublicCourseService;
 import com.zju.se.nohair.fitness.commons.constant.ResponseStatus;
@@ -164,7 +165,37 @@ public class PublicCourseServiceImpl implements PublicCourseService {
     return res;
   }
 
+  @Override
+  public BaseResult listResponsesByCoachId(Integer coachId) {
+    //查看教练响应的团课列表（我响应的团课）
+    BaseResult res = null;
 
+    try {
+      List<PublicCourseResponseListItemDto> publicCourseResponseDtoList = new ArrayList<>();
+      final List<ResponsesPublicPo> responsesPublicPos = responsesPublicMapper
+          .selectByCoachId(coachId);
+      for (ResponsesPublicPo responsesPublicPo : responsesPublicPos) {
+        PublicCourseResponseListItemDto publicCourseResponseListItemDto = new PublicCourseResponseListItemDto();
+        BeanUtils.copyProperties(responsesPublicPo, publicCourseResponseListItemDto);
+        final PublicCoursePo publicCoursePo = publicCourseMapper
+            .selectByPrimaryKey(publicCourseResponseListItemDto.getCourseId());
+
+        publicCourseResponseListItemDto.setCourseDate(publicCoursePo.getCourseDate());
+        publicCourseResponseListItemDto.setCourseName(publicCoursePo.getName());
+        publicCourseResponseListItemDto.setCoursePrice(publicCoursePo.getPrice());
+        publicCourseResponseListItemDto.setCoachPrice(responsesPublicPo.getPrice());
+
+        publicCourseResponseDtoList.add(publicCourseResponseListItemDto);
+      }
+      res = BaseResult.success("查看教练响应的团课列表成功");
+      res.setData(publicCourseResponseDtoList);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查看教练响应的团课列表失败");
+    }
+
+    return res;
+  }
 
 
 }

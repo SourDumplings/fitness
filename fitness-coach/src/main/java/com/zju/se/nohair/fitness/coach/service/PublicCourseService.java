@@ -21,5 +21,5 @@ public interface PublicCourseService {
 
   BaseResult listResponsedPublicCourses(Integer coachId, Date courseDate);//传了 coachsId 代表查看该教练响应成功的团课列表
 
-
+  BaseResult listResponsesByCoachId(Integer coachId);//查看教练响应的团课列表（我响应的团课）
 }

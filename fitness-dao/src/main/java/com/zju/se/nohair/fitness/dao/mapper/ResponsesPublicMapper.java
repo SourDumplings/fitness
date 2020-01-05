@@ -19,4 +19,6 @@ public interface ResponsesPublicMapper {
   int updateByPrimaryKeySelective(ResponsesPublicPo record);
 
   int updateByPrimaryKey(ResponsesPublicPo record);
+
+  List<ResponsesPublicPo> selectByCoachId(Integer coachId);//查看教练响应的团课列表
 }

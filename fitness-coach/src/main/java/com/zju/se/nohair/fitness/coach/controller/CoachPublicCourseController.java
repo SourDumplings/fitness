@@ -56,7 +56,7 @@ public class CoachPublicCourseController {
   }
 
   @ApiOperation(value = "查看团课列表；"
-      + "不传 coachId 表示查看待响应的团课列表，传了 coachsId 代表查看该教练响应成功的团课列表；"
+      + "不传 coachId 表示查看待响应的团课列表，传了 coachId 代表查看该教练响应成功的团课列表；"
       + "如果传了 courseDate 则选出相应日期的课程，格式：2019/12/16；", httpMethod = "GET")
   @RequestMapping(value = "", method = RequestMethod.GET)
   @ResponseBody
@@ -92,5 +92,18 @@ public class CoachPublicCourseController {
   }
 
 
+ @ApiOperation(value = "查看教练响应的团课列表（我响应的团课）；（status=0代表商家未接受，status=1代表商家已接受，status=2代表商家已拒绝）", httpMethod = "GET")
+ @RequestMapping(value = "response/{coachId}", method = RequestMethod.GET)
+ @ResponseBody
+ public ResponseEntity<Object> listResponsesByCoachId(
+     @PathVariable(name = "coachId") Integer coachId) {
+   BaseResult baseResult = publicCourseService.listResponsesByCoachId(coachId);
+   if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+     return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+   } else {
+     return new ResponseEntity<>(baseResult.getMessage(),
+         HttpStatus.valueOf(baseResult.getStatus()));
+   }
+ }
 
 }
