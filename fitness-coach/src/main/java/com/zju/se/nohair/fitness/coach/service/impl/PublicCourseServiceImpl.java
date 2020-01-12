@@ -172,8 +172,7 @@ public class PublicCourseServiceImpl implements PublicCourseService {
 
     try {
       List<PublicCourseResponseListItemDto> publicCourseResponseDtoList = new ArrayList<>();
-      final List<ResponsesPublicPo> responsesPublicPos = responsesPublicMapper
-          .selectByCoachId(coachId);
+      final List<ResponsesPublicPo> responsesPublicPos = responsesPublicMapper.selectByCoachId(coachId);
       for (ResponsesPublicPo responsesPublicPo : responsesPublicPos) {
         PublicCourseResponseListItemDto publicCourseResponseListItemDto = new PublicCourseResponseListItemDto();
         BeanUtils.copyProperties(responsesPublicPo, publicCourseResponseListItemDto);
