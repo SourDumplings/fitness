@@ -14,6 +14,7 @@ import com.zju.se.nohair.fitness.dao.mapper.PublicCourseMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ResponsesPublicMapper;
 import com.zju.se.nohair.fitness.dao.po.PublicCoursePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo;
+import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPoKey;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * 团课 service 实现类.
@@ -191,6 +194,40 @@ public class PublicCourseServiceImpl implements PublicCourseService {
     } catch (Exception e) {
       logger.error(e.getMessage());
       res = BaseResult.fail("查看教练响应的团课列表失败");
+    }
+
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult changeResponsePrice(ResponseToPublicCourseDto responseToPublicCourseDto) {
+    //教练修改团课的响应价格
+    BaseResult res = null;
+
+    try {
+      final Integer coachId = responseToPublicCourseDto.getCoachId();
+      final Integer courseId = responseToPublicCourseDto.getCourseId();
+
+      ResponsesPublicPoKey responsesPublicPoKey = new ResponsesPublicPoKey();
+      BeanUtils.copyProperties(responseToPublicCourseDto, responsesPublicPoKey);
+      ResponsesPublicPo responsesPublicPo = responsesPublicMapper
+          .selectByPrimaryKey(responsesPublicPoKey);
+
+      if (responsesPublicPo.getStatus().equals(ResponseStatus.ACCEPTED)) {
+        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "不能更改已经被接受的响应");
+        return res;
+      }
+
+      responsesPublicPo.setPrice(responseToPublicCourseDto.getPrice());
+      responsesPublicPo.setStatus(ResponseStatus.NEW_PUBLISH);
+
+      responsesPublicMapper.updateByPrimaryKey(responsesPublicPo);
+      res = BaseResult.success("教练修改价格成功");
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("教练修改价格失败");
     }
 
     return res;

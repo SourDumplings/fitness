@@ -55,6 +55,20 @@ public class CoachPublicCourseController {
     }
   }
 
+  @ApiOperation(value = "教练修改团课的响应价格", httpMethod = "PUT")
+  @RequestMapping(value = "response", method = RequestMethod.PUT)
+  @ResponseBody
+  public ResponseEntity<Object> changeResponsePrice(
+      @RequestBody ResponseToPublicCourseDto responseToPublicCourseDto) {
+    BaseResult baseResult = publicCourseService.changeResponsePrice(responseToPublicCourseDto);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
   @ApiOperation(value = "查看团课列表；"
       + "不传 coachId 表示查看待响应的团课列表，传了 coachId 代表查看该教练响应成功的团课列表；"
       + "如果传了 courseDate 则选出相应日期的课程，格式：2019/12/16；", httpMethod = "GET")
