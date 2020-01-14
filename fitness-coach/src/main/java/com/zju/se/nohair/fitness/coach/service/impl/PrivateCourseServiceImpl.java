@@ -23,6 +23,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * @author Miss.Hu
@@ -30,6 +32,7 @@ import org.springframework.stereotype.Service;
  * @projectName fitness
  * @date 2019-12-24
  */
+@Transactional(readOnly = true)
 @Service
 public class PrivateCourseServiceImpl implements PrivateCourseService {
   private static Logger logger = LoggerFactory.getLogger(PrivateCourseServiceImpl.class);
@@ -143,6 +146,31 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
     } catch (Exception e) {
       logger.error(e.getMessage());
       res = BaseResult.fail("接受响应失败");
+    }
+
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult deletePrivateCourseByCourseId(Integer courseId) {
+    //删除发布的私教课
+    BaseResult res = null;
+
+    try {
+      final PrivateCoursePo privateCoursePo = privateCourseMapper.selectByPrimaryKey(courseId);
+      final Integer status = privateCoursePo.getStatus();
+      if (PrivateCourseStatus.NEW_PUBLISH.equals(status) || status
+          .equals(PrivateCourseStatus.BUSINESS_SELECTED)) {
+        privateCourseMapper.deleteByPrimaryKey(courseId);
+        res = BaseResult.success("删除私教课程成功");
+      } else {
+        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "不能删除已经有顾客选定的课程");
+      }
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("删除私教课程失败");
     }
 
     return res;

@@ -66,6 +66,20 @@ public class CoachPrivateCourseController {
     }
   }
 
+  @ApiOperation(value = "删除发布的私教课", httpMethod = "DELETE")
+  @RequestMapping(value = "{courseId}", method = RequestMethod.DELETE)
+  @ResponseBody
+  public ResponseEntity<Object> deletePrivateCourseByCourseId(
+      @PathVariable("courseId") Integer courseId) {
+    BaseResult baseResult = privateCourseService.deletePrivateCourseByCourseId(courseId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.NO_CONTENT);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
   @ApiOperation(value = "接受商家对于私教课的响应", httpMethod = "PUT")
   @RequestMapping(value = "response/accept/{courseId}/{businessId}", method = RequestMethod.PUT)
   @ResponseBody
