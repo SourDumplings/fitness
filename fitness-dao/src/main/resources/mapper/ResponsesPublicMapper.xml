@@ -101,8 +101,7 @@
     where course_id = #{courseId,jdbcType=INTEGER}
       and coach_id = #{coachId,jdbcType=INTEGER}
   </update>
-  <update id="updateResponseStatusesByCourseId"
-    parameterType="java.lang.Integer">
+  <update id="updateResponseStatusesByCourseId">
     update responses_public
     set
       status = #{status,jdbcType=INTEGER}
