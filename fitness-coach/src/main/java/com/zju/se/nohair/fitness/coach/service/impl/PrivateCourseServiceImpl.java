@@ -1,11 +1,13 @@
 package com.zju.se.nohair.fitness.coach.service.impl;
 
 import com.zju.se.nohair.fitness.coach.dto.CreatePrivateCourseDto;
+import com.zju.se.nohair.fitness.coach.dto.PrivateCourseListItemDto;
 import com.zju.se.nohair.fitness.coach.dto.PrivateCourseResponseDto;
 import com.zju.se.nohair.fitness.coach.service.PrivateCourseService;
 import com.zju.se.nohair.fitness.commons.constant.PrivateCourseStatus;
 import com.zju.se.nohair.fitness.commons.constant.ResponseStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.commons.utils.DateUtils;
 import com.zju.se.nohair.fitness.dao.mapper.BusinessMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PrivateCourseMapper;
@@ -171,6 +173,36 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
       TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
       res = BaseResult.fail("删除私教课程失败");
+    }
+
+    return res;
+  }
+
+  @Override
+  public BaseResult listPrivateCourses(Integer coachId, Date courseDate) {
+    //查看教练发布的私教课列表
+    BaseResult res = null;
+
+    try {
+      final List<PrivateCoursePo> privateCourses = privateCourseMapper.selectByCoachId(coachId);
+      List<PrivateCourseListItemDto> privateCourseListItemDtoList = new ArrayList<>();
+      for (PrivateCoursePo privateCoursePo : privateCourses) {
+        if (courseDate != null) {
+          if (!DateUtils.sameDate(privateCoursePo.getCourseDate(), courseDate)
+              || privateCoursePo.getStatus().equals(PrivateCourseStatus.NEW_PUBLISH)) {
+            continue;
+          }
+        }
+
+        PrivateCourseListItemDto privateCourseListItemDto = new PrivateCourseListItemDto();
+        BeanUtils.copyProperties(privateCoursePo, privateCourseListItemDto);
+        privateCourseListItemDtoList.add(privateCourseListItemDto);
+      }
+      res = BaseResult.success("查询教练发布的私教课程列表成功");
+      res.setData(privateCourseListItemDtoList);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查询教练发布的私教课程列表失败");
     }
 
     return res;

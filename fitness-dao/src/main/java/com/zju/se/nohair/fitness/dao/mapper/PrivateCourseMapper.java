@@ -20,4 +20,6 @@ public interface PrivateCourseMapper {
   int updateByPrimaryKeySelective(PrivateCoursePo record);
 
   int updateByPrimaryKey(PrivateCoursePo record);
+
+  List<PrivateCoursePo> selectByCoachId(Integer coachId);
 }

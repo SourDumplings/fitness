@@ -5,6 +5,7 @@ import com.zju.se.nohair.fitness.coach.service.PrivateCourseService;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.Date;
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -94,4 +96,20 @@ public class CoachPrivateCourseController {
     }
   }
 
+  @ApiOperation(value = "查看教练发布的私教课列表；"
+      + "课程状态（0代表教练已发布，1代表商家已选定，2代表顾客选定并已付款，3代表课程结束未评价，4代表课程结束已评价）；"
+      + "coachId 为必填项，courseDate可填可不填；如果传入 courseDate，那么只会列出该日期中status != 0的私教课，courseDate 格式：2019/12/16", httpMethod = "GET")
+  @RequestMapping(value = "", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> listPrivateCourses(
+      @RequestParam(name = "coachId") Integer coachId,
+      @RequestParam(name = "courseDate", required = false) Date courseDate) {
+    BaseResult baseResult = privateCourseService.listPrivateCourses(coachId, courseDate);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
 }

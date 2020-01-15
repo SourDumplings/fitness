@@ -2,6 +2,7 @@ package com.zju.se.nohair.fitness.coach.service;
 
 import com.zju.se.nohair.fitness.coach.dto.CreatePrivateCourseDto;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import java.util.Date;
 
 /**
  * 私教课service接口
@@ -20,4 +21,6 @@ public interface PrivateCourseService {
   BaseResult acceptResponse(Integer courseId, Integer businessId);//接受商家对于私教课的响应
 
   BaseResult deletePrivateCourseByCourseId(Integer courseId);//删除发布的私教课
+
+  BaseResult listPrivateCourses(Integer coachId, Date courseDate);//查看教练发布的私教课列表
 }
