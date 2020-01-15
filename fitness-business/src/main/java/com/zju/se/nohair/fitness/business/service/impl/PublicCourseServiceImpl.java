@@ -234,6 +234,9 @@ public class PublicCourseServiceImpl implements PublicCourseService {
         if (!publicCoursePo.getStatus().equals(PublicCourseStatus.NEW_PUBLISH)) {
           res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "该课程的教练已经确定");
         } else {
+          // 拒绝对该课程的其他响应
+          responsesPublicMapper.updateResponseStatusesByCourseId(courseId, ResponseStatus.DENIED);
+
           responsesPublicPo.setStatus(ResponseStatus.ACCEPTED);
           responsesPublicMapper.updateByPrimaryKey(responsesPublicPo);
 

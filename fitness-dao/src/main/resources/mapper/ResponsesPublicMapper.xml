@@ -101,4 +101,11 @@
     where course_id = #{courseId,jdbcType=INTEGER}
       and coach_id = #{coachId,jdbcType=INTEGER}
   </update>
+  <update id="updateResponseStatusesByCourseId"
+    parameterType="java.lang.Integer">
+    update responses_public
+    set
+      status = #{status,jdbcType=INTEGER}
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </update>
 </mapper>

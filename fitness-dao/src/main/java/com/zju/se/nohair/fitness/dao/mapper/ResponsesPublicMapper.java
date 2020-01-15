@@ -20,5 +20,7 @@ public interface ResponsesPublicMapper {
 
   int updateByPrimaryKey(ResponsesPublicPo record);
 
+  int updateResponseStatusesByCourseId(Integer courseId, Integer status);
+
   List<ResponsesPublicPo> selectByCoachId(Integer coachId);//查看教练响应的团课列表
 }
