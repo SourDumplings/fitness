@@ -1,6 +1,7 @@
 package com.zju.se.nohair.fitness.coach.service.impl;
 
 import com.zju.se.nohair.fitness.coach.dto.CreatePrivateCourseDto;
+import com.zju.se.nohair.fitness.coach.dto.PrivateCourseDetailDto;
 import com.zju.se.nohair.fitness.coach.dto.PrivateCourseListItemDto;
 import com.zju.se.nohair.fitness.coach.dto.PrivateCourseResponseDto;
 import com.zju.se.nohair.fitness.coach.service.PrivateCourseService;
@@ -104,11 +105,11 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
 
         privateCourseResponseDtoList.add(privateCourseResponseDto);
       }
-      res = BaseResult.success("查询课程的响应列表成功");
+      res = BaseResult.success("查询响应私教课的商家列表成功");
       res.setData(privateCourseResponseDtoList);
     } catch (Exception e) {
       logger.error(e.getMessage());
-      res = BaseResult.fail("查询课程的响应列表失败");
+      res = BaseResult.fail("查询响应私教课的商家列表失败");
     }
 
     return res;
@@ -203,6 +204,26 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
     } catch (Exception e) {
       logger.error(e.getMessage());
       res = BaseResult.fail("查询教练发布的私教课程列表失败");
+    }
+
+    return res;
+  }
+
+  @Override
+  public BaseResult getPrivateCourseDetailByCourseId(Integer courseId) {
+    //查看发布的私教课详情
+    BaseResult res = null;
+
+    try {
+      final PrivateCoursePo privateCoursePo = privateCourseMapper.selectByPrimaryKey(courseId);
+      PrivateCourseDetailDto privateCourseDetailDto = new PrivateCourseDetailDto();
+      BeanUtils.copyProperties(privateCoursePo, privateCourseDetailDto);
+
+      res = BaseResult.success("查看发布的私教课程详情成功");
+      res.setData(privateCourseDetailDto);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查看发布的私教课程详情失败");
     }
 
     return res;

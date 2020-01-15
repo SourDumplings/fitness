@@ -112,4 +112,18 @@ public class CoachPrivateCourseController {
           HttpStatus.valueOf(baseResult.getStatus()));
     }
   }
+
+  @ApiOperation(value = "查看发布的私教课详情；课程状态（0代表教练已发布，1代表商家已选定，2代表顾客选定并已付款，3代表课程结束未评价，4代表课程结束已评价）", httpMethod = "GET")
+  @RequestMapping(value = "{courseId}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> getPrivateCourseDetailByCourseId(
+      @PathVariable("courseId") Integer courseId) {
+    BaseResult baseResult = privateCourseService.getPrivateCourseDetailByCourseId(courseId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
 }

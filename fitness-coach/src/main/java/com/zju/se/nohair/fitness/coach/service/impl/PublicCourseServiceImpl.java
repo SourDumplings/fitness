@@ -103,10 +103,10 @@ public class PublicCourseServiceImpl implements PublicCourseService {
       BeanUtils.copyProperties(responseToPublicCourseDto, responsesPublicPo);
       responsesPublicPo.setStatus(ResponseStatus.NEW_PUBLISH);
       responsesPublicMapper.insert(responsesPublicPo);
-      res = BaseResult.success("响应私教课程成功");
+      res = BaseResult.success("教练响应团课成功");
     } catch (Exception e) {
       logger.error(e.getMessage());
-      res = BaseResult.fail("响应私教课程失败");
+      res = BaseResult.fail("教练响应团课失败");
     }
 
     return res;

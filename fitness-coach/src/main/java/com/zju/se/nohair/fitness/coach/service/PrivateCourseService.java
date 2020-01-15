@@ -23,4 +23,6 @@ public interface PrivateCourseService {
   BaseResult deletePrivateCourseByCourseId(Integer courseId);//删除发布的私教课
 
   BaseResult listPrivateCourses(Integer coachId, Date courseDate);//查看教练发布的私教课列表
+
+  BaseResult getPrivateCourseDetailByCourseId(Integer courseId);//查看发布的私教课详情
 }
