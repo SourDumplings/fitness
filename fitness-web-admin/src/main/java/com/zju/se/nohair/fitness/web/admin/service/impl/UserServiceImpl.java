@@ -144,6 +144,10 @@ public class UserServiceImpl implements UserService {
         customerPo.setId(customerId);
         customerPo.setPicId(picturePo.getId());
         customerMapper.updateByPrimaryKeySelective(customerPo);*/
+      }else{
+        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        res = BaseResult.fail("图片存储失败");
+        return res;
       }
 
       res = BaseResult.success("保存图片成功");
@@ -182,6 +186,10 @@ public class UserServiceImpl implements UserService {
           picturePo.setPicLink("/pic/"+name);
           picturePo.setPicGroupId(picGroupId);
           pictureMapper.insertSelective(picturePo);
+        }else{
+          TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+          res = BaseResult.fail("图片存储失败");
+          return res;
         }
       }
 
