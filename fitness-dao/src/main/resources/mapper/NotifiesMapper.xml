@@ -23,6 +23,22 @@
     and to_id = #{toId,jdbcType=INTEGER}
     and time = #{time,jdbcType=TIMESTAMP}
   </select>
+  <select id="selectAllByFromBusinessId" parameterType="java.lang.Integer"
+    resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from notifies
+    where from_id = #{fromId,jdbcType=INTEGER}
+    and type = 1 or type = 2
+  </select>
+  <select id="selectAllByToBusinessId" parameterType="java.lang.Integer"
+    resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from notifies
+    where to_id = #{toId,jdbcType=INTEGER}
+    and type = 4 or type = 5
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPoKey">
     delete from notifies
     where from_id = #{fromId,jdbcType=INTEGER}
