@@ -74,7 +74,7 @@ public class AdminCoachUserServiceImpl implements AdminCoachUserService {
   }
 
   @Override
-  public BaseResult getDetailByCoachId(Integer coachId) {
+  public BaseResult getDetailById(Integer coachId) {
     BaseResult res = null;
 
     try {
@@ -112,5 +112,15 @@ public class AdminCoachUserServiceImpl implements AdminCoachUserService {
     }
 
     return res;
+  }
+
+  @Override
+  public <T> BaseResult createItem(T dto) {
+    return null;
+  }
+
+  @Override
+  public BaseResult deleteItem(Integer id) {
+    return null;
   }
 }

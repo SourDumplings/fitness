@@ -53,9 +53,9 @@ public class AdminCoachUserController {
   @ApiOperation(value = "教练用户详情；审核状态（0代表未审批，1代表已审批成功，2代表审批未通过）", httpMethod = "GET")
   @RequestMapping(value = "{coachId}", method = RequestMethod.GET)
   @ResponseBody
-  public ResponseEntity<Object> getDetailByCoachId(
+  public ResponseEntity<Object> getDetailById(
       @PathVariable(value = "coachId") Integer coachId) {
-    BaseResult baseResult = adminCoachUserService.getDetailByCoachId(coachId);
+    BaseResult baseResult = adminCoachUserService.getDetailById(coachId);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
     } else {

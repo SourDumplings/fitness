@@ -57,4 +57,19 @@ public class AdminBusinessUserServiceImpl implements AdminBusinessUserService {
 
     return res;
   }
+
+  @Override
+  public BaseResult getDetailById(Integer id) {
+    return null;
+  }
+
+  @Override
+  public <T> BaseResult createItem(T dto) {
+    return null;
+  }
+
+  @Override
+  public BaseResult deleteItem(Integer id) {
+    return null;
+  }
 }
