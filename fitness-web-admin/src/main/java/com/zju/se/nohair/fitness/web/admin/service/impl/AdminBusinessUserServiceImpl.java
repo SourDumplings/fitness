@@ -104,11 +104,16 @@ public class AdminBusinessUserServiceImpl implements AdminBusinessUserService {
         businessPo.setCreatedTime(new Date());
         businessMapper.insert(businessPo);
         res = BaseResult.success("商家用户注册成功");
-      } else if (businessMapper.selectByPrimaryKey(adminCreateBusinessUserDto.getId()) == null) {
-        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "无此 id 的商家用户");
       } else {
-        businessMapper.updateByPrimaryKey(businessPo);
-        res = BaseResult.success("商家信息更新成功");
+        final BusinessPo target = businessMapper
+            .selectByPrimaryKey(adminCreateBusinessUserDto.getId());
+        if (target == null) {
+          res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "无此 id 的商家用户");
+        } else {
+          businessPo.setCreatedTime(target.getCreatedTime());
+          businessMapper.updateByPrimaryKey(businessPo);
+          res = BaseResult.success("商家信息更新成功");
+        }
       }
 
     } catch (Exception e) {

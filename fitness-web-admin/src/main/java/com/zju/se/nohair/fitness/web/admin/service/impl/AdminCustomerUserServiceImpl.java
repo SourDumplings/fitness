@@ -101,11 +101,16 @@ public class AdminCustomerUserServiceImpl implements AdminCustomerUserService {
         customerPo.setCreatedTime(new Date());
         customerMapper.insert(customerPo);
         res = BaseResult.success("顾客用户注册成功");
-      } else if (customerMapper.selectByPrimaryKey(adminCreateCustomerUserDto.getId()) == null) {
-        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "无此 id 的顾客用户");
       } else {
-        customerMapper.updateByPrimaryKey(customerPo);
-        res = BaseResult.success("顾客信息更新成功");
+        final CustomerPo target = customerMapper
+            .selectByPrimaryKey(adminCreateCustomerUserDto.getId());
+        if (target == null) {
+          res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "无此 id 的顾客用户");
+        } else {
+          customerPo.setCreatedTime(target.getCreatedTime());
+          customerMapper.updateByPrimaryKey(customerPo);
+          res = BaseResult.success("顾客信息更新成功");
+        }
       }
 
     } catch (Exception e) {

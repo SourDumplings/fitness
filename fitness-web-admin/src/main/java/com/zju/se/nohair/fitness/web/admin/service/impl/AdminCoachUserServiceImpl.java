@@ -155,11 +155,16 @@ public class AdminCoachUserServiceImpl implements AdminCoachUserService {
         coachPo.setCreatedTime(new Date());
         coachMapper.insert(coachPo);
         res = BaseResult.success("教练用户注册成功");
-      } else if (coachMapper.selectByPrimaryKey(adminCreateCoachUserDto.getId()) == null) {
-        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "无此 id 的教练用户");
       } else {
-        coachMapper.updateByPrimaryKey(coachPo);
-        res = BaseResult.success("教练信息更新成功");
+        final CoachPo target = coachMapper
+            .selectByPrimaryKey(adminCreateCoachUserDto.getId());
+        if (target == null) {
+          res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "无此 id 的教练用户");
+        } else {
+          coachPo.setCreatedTime(target.getCreatedTime());
+          coachMapper.updateByPrimaryKey(coachPo);
+          res = BaseResult.success("教练信息更新成功");
+        }
       }
 
     } catch (Exception e) {
