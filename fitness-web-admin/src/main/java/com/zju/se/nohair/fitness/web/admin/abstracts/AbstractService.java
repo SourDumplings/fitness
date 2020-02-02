@@ -16,7 +16,5 @@ public interface AbstractService {
 
   BaseResult getDetailById(Integer id);
 
-  <T> BaseResult createItem(T dto);
-
   BaseResult deleteItem(Integer id);
 }

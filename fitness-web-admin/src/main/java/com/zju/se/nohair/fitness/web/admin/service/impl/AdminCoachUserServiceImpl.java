@@ -1,18 +1,24 @@
 package com.zju.se.nohair.fitness.web.admin.service.impl;
 
+import com.zju.se.nohair.fitness.commons.constant.CertificationStatus;
 import com.zju.se.nohair.fitness.commons.constant.ReceiveRecordType;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.utils.DateUtils;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
+import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ReceiveRecordMapper;
 import com.zju.se.nohair.fitness.dao.po.CoachPo;
 import com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminCoachUserDetailDto;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminCoachUserListItemDto;
+import com.zju.se.nohair.fitness.web.admin.dto.AdminCreateCoachUserDto;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminReceiveRecordListItemDto;
 import com.zju.se.nohair.fitness.web.admin.service.AdminCoachUserService;
+import com.zju.se.nohair.fitness.web.admin.utils.PicUtils;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +26,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.util.DigestUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 后台模块的用户子模块下的教练用户 Service 接口实现类.
@@ -39,6 +48,8 @@ public class AdminCoachUserServiceImpl implements AdminCoachUserService {
 
   private ReceiveRecordMapper receiveRecordMapper;
 
+  private PictureMapper pictureMapper;
+
   @Autowired
   public void setCoachMapper(CoachMapper coachMapper) {
     this.coachMapper = coachMapper;
@@ -47,6 +58,11 @@ public class AdminCoachUserServiceImpl implements AdminCoachUserService {
   @Autowired
   public void setReceiveRecordMapper(ReceiveRecordMapper receiveRecordMapper) {
     this.receiveRecordMapper = receiveRecordMapper;
+  }
+
+  @Autowired
+  public void setPictureMapper(PictureMapper pictureMapper) {
+    this.pictureMapper = pictureMapper;
   }
 
   @Override
@@ -114,9 +130,45 @@ public class AdminCoachUserServiceImpl implements AdminCoachUserService {
     return res;
   }
 
+  @Transactional(readOnly = false)
   @Override
-  public <T> BaseResult createItem(T dto) {
-    return null;
+  public BaseResult saveItem(AdminCreateCoachUserDto adminCreateCoachUserDto,
+      MultipartFile profilePic, MultipartFile certificationPic) {
+    BaseResult res = null;
+
+    try {
+      boolean isCreating = false;
+      if (adminCreateCoachUserDto.getId() == -1) {
+        isCreating = true;
+        adminCreateCoachUserDto.setId(null);
+      }
+
+      CoachPo coachPo = new CoachPo();
+      BeanUtils.copyProperties(adminCreateCoachUserDto, coachPo);
+      coachPo.setPassword(DigestUtils.md5DigestAsHex(coachPo.getPassword().getBytes()));
+      coachPo.setStatus(CertificationStatus.NEW_PUBLISH);
+      coachPo.setBalance(BigDecimal.ZERO);
+      coachPo.setPicId(PicUtils.saveSinglePic(pictureMapper, profilePic));
+      coachPo.setCertificationPicId(PicUtils.saveSinglePic(pictureMapper, certificationPic));
+
+      if (isCreating) {
+        coachPo.setCreatedTime(new Date());
+        coachMapper.insert(coachPo);
+        res = BaseResult.success("教练用户注册成功");
+      } else if (coachMapper.selectByPrimaryKey(adminCreateCoachUserDto.getId()) == null) {
+        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "无此 id 的教练用户");
+      } else {
+        coachMapper.updateByPrimaryKey(coachPo);
+        res = BaseResult.success("教练信息更新成功");
+      }
+
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("教练用户注册/更新失败");
+    }
+
+    return res;
   }
 
   @Override
