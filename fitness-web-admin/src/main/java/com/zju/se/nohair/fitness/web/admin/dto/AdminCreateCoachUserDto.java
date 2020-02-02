@@ -31,9 +31,6 @@ public class AdminCreateCoachUserDto {
   @Pattern(regexp = RegexpUtils.PHONE, message = "手机号格式不正确")
   private String phone;
 
-  @Length(min = 2, max = 20, message = "姓名的长度必须介于 2 - 20 位之间")
-  private String personName;
-
   @Pattern(regexp = RegexpUtils.ID_NUMBER, message = "身份证号格式不正确")
   private String idNumber;
 
@@ -44,6 +41,7 @@ public class AdminCreateCoachUserDto {
 
   private Date birthday;
 
+  @Length(min = 2, max = 20, message = "姓名的长度必须介于 2 - 20 位之间")
   private String name;
 
   private String ps;

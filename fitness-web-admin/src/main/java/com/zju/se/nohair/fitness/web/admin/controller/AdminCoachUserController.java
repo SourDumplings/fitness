@@ -67,7 +67,8 @@ public class AdminCoachUserController {
     }
   }
 
-  @ApiOperation(value = "注册/更新教练用户；id 为 -1 即为注册，否则为更新；性别 0 男 1 女", httpMethod = "POST")
+  @ApiOperation(value = "注册/更新教练用户；id 为 -1 即为注册，否则为更新；性别 0 男 1 女；"
+      + "生日字符串格式：2000/01/02", httpMethod = "POST")
   @RequestMapping(value = "", method = RequestMethod.POST)
   @ResponseBody
   public ResponseEntity<Object> saveItem(

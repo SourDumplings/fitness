@@ -79,6 +79,7 @@ public class AdminCustomerUserServiceImpl implements AdminCustomerUserService {
     return null;
   }
 
+  @Transactional(readOnly = false)
   @Override
   public BaseResult saveItem(AdminCreateCustomerUserDto adminCreateCustomerUserDto,
       MultipartFile profilePic) {

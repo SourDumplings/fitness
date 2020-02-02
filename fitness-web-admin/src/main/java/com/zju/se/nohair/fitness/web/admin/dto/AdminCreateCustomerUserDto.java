@@ -31,12 +31,6 @@ public class AdminCreateCustomerUserDto {
   @Pattern(regexp = RegexpUtils.PHONE, message = "手机号格式不正确")
   private String phone;
 
-  @Length(min = 2, max = 20, message = "姓名的长度必须介于 2 - 20 位之间")
-  private String personName;
-
-  @Pattern(regexp = RegexpUtils.ID_NUMBER, message = "身份证号格式不正确")
-  private String idNumber;
-
   @Range(min = 0, max = 1, message = "性别只能是 0（男）或者 1（女）")
   private Integer gender;
 
