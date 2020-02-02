@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import javax.activation.MimetypesFileTypeMap;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * 文件工具类
@@ -15,7 +17,18 @@ import javax.activation.MimetypesFileTypeMap;
  * @projectName fitness
  * @date 2020/1/2 23:46
  */
+@Component
 public class FileUtils {
+
+
+  private static String localPathForWin;
+  @Value("${data.path.windows:C:\\data\\pic}")
+  public void setLocalPathForWin(String localPathForWin) {
+    FileUtils.localPathForWin = localPathForWin;
+  }
+  public static String getLocalPathForWin() {
+    return localPathForWin;
+  }
 
   public static String getExtension(String s){
     int begin = s.lastIndexOf(".");
@@ -51,7 +64,7 @@ public class FileUtils {
       String path = "/root/pic/";
       String osn = System.getProperty("os.name");
       if(osn.toLowerCase().startsWith("win")){
-        path = "D:\\data\\pic";
+        path = localPathForWin;
       }
 
       // 2、保存到临时文件
