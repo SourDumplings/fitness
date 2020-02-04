@@ -1,6 +1,5 @@
 package com.zju.se.nohair.fitness.business.dto;
 
-import java.util.Date;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +19,7 @@ public class NotificationListItemDto {
 
   private Integer toId;
 
-  private Date time;
+  private String time;
 
   private String name;
 

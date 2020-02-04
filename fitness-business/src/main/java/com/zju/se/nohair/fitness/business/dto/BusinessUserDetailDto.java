@@ -1,6 +1,5 @@
 package com.zju.se.nohair.fitness.business.dto;
 
-import java.util.Date;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -28,5 +27,5 @@ public class BusinessUserDetailDto {
 
   private String certificationPicPath;
 
-  private Date createdTime;
+  private String createdTime;
 }

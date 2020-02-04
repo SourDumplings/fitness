@@ -7,6 +7,7 @@ import com.zju.se.nohair.fitness.business.service.NotificationService;
 import com.zju.se.nohair.fitness.commons.constant.NotificationStatus;
 import com.zju.se.nohair.fitness.commons.constant.NotificationType;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.commons.utils.DateUtils;
 import com.zju.se.nohair.fitness.dao.mapper.NotifiesMapper;
 import com.zju.se.nohair.fitness.dao.po.NotifiesPo;
 import com.zju.se.nohair.fitness.dao.po.NotifiesPoKey;
@@ -78,6 +79,7 @@ public class NotificationServiceImpl implements NotificationService {
       for (NotifiesPo notifiesPo : notifiesPos) {
         NotificationListItemDto notificationListItemDto = new NotificationListItemDto();
         BeanUtils.copyProperties(notifiesPo, notificationListItemDto);
+        notificationListItemDto.setTime(DateUtils.date2String(notifiesPo.getTime()));
         listItemDtos.add(notificationListItemDto);
       }
 
@@ -101,6 +103,7 @@ public class NotificationServiceImpl implements NotificationService {
       for (NotifiesPo notifiesPo : notifiesPos) {
         NotificationListItemDto notificationListItemDto = new NotificationListItemDto();
         BeanUtils.copyProperties(notifiesPo, notificationListItemDto);
+        notificationListItemDto.setTime(DateUtils.date2String(notifiesPo.getTime()));
         listItemDtos.add(notificationListItemDto);
       }
 
@@ -123,6 +126,7 @@ public class NotificationServiceImpl implements NotificationService {
       NotifiesPo notifiesPo = notifiesMapper.selectByPrimaryKey(notifiesPoKey);
       NotificationDetailDto notificationDetailDto = new NotificationDetailDto();
       BeanUtils.copyProperties(notifiesPo, notificationDetailDto);
+      notificationDetailDto.setTime(DateUtils.date2String(notifiesPo.getTime()));
       notifiesPo.setStatus(NotificationStatus.READ);
       notifiesMapper.updateByPrimaryKey(notifiesPo);
       res = BaseResult.success("阅读通知成功");

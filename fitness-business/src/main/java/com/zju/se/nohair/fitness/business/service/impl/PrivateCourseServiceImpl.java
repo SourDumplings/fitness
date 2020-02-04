@@ -66,7 +66,8 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
         final PrivateCoursePo privateCoursePo = privateCourseMapper
             .selectByPrimaryKey(privateCourseResponseListItemDto.getCourseId());
 
-        privateCourseResponseListItemDto.setCourseDate(privateCoursePo.getCourseDate());
+        privateCourseResponseListItemDto
+            .setCourseDate(DateUtils.date2String(privateCoursePo.getCourseDate()));
         privateCourseResponseListItemDto.setCourseName(privateCoursePo.getName());
         privateCourseResponseListItemDto.setCoursePrice(privateCoursePo.getPrice());
         privateCourseResponseListItemDto.setGymPrice(responsesPrivatePo.getPrice());
@@ -98,6 +99,8 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
 
         PrivateCourseListItemDto privateCourseListItemDto = new PrivateCourseListItemDto();
         BeanUtils.copyProperties(privateCourse, privateCourseListItemDto);
+        privateCourseListItemDto
+            .setCourseDate(DateUtils.date2String(privateCourse.getCourseDate()));
         privateCourseListItemDtoList.add(privateCourseListItemDto);
       }
       res = BaseResult.success("查询等待商家响应的私教课程列表成功");
@@ -127,6 +130,8 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
 
         PrivateCourseListItemDto privateCourseListItemDto = new PrivateCourseListItemDto();
         BeanUtils.copyProperties(privateCoursePo, privateCourseListItemDto);
+        privateCourseListItemDto
+            .setCourseDate(DateUtils.date2String(privateCoursePo.getCourseDate()));
         privateCourseListItemDtoList.add(privateCourseListItemDto);
       }
       res = BaseResult.success("查询商家响应成功的私教课程列表成功");
@@ -147,6 +152,9 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
       final PrivateCoursePo privateCoursePo = privateCourseMapper.selectByPrimaryKey(courseId);
       final PrivateCourseDetailDto privateCourseDetailDto = new PrivateCourseDetailDto();
       BeanUtils.copyProperties(privateCoursePo, privateCourseDetailDto);
+      privateCourseDetailDto.setCourseDate(DateUtils.date2String(privateCoursePo.getCourseDate()));
+      privateCourseDetailDto
+          .setCreatedTime(DateUtils.date2String(privateCoursePo.getCreatedTime()));
       res = BaseResult.success("查询私教课程详情成功");
       res.setData(privateCourseDetailDto);
     } catch (Exception e) {

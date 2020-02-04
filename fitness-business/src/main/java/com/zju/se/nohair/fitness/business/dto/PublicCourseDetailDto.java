@@ -1,7 +1,6 @@
 package com.zju.se.nohair.fitness.business.dto;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -35,11 +34,11 @@ public class PublicCourseDetailDto {
 
   private Integer takeNum;
 
-  private Date courseDate;
+  private String courseDate;
 
   private Integer timeSlotId;
 
   private Integer status;
 
-  private Date createdTime;
+  private String createdTime;
 }

@@ -168,7 +168,8 @@ public class PublicCourseServiceImpl implements PublicCourseService {
       final PublicCoursePo publicCoursePo = publicCourseMapper.selectByPrimaryKey(courseId);
       PublicCourseDetailDto publicCourseDetailDto = new PublicCourseDetailDto();
       BeanUtils.copyProperties(publicCoursePo, publicCourseDetailDto);
-
+      publicCourseDetailDto.setCourseDate(DateUtils.date2String(publicCoursePo.getCourseDate()));
+      publicCourseDetailDto.setCreatedTime(DateUtils.date2String(publicCoursePo.getCreatedTime()));
       final int takeNum = takesPublicMapper.countByCourseId(courseId);
       publicCourseDetailDto.setTakeNum(takeNum);
 

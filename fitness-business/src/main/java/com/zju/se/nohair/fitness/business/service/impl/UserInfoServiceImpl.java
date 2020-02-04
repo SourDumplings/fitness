@@ -7,6 +7,7 @@ import com.zju.se.nohair.fitness.business.service.UserInfoService;
 import com.zju.se.nohair.fitness.business.utils.PicUtils;
 import com.zju.se.nohair.fitness.commons.constant.CertificationStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.commons.utils.DateUtils;
 import com.zju.se.nohair.fitness.dao.mapper.BusinessMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.po.BusinessPo;
@@ -85,6 +86,7 @@ public class UserInfoServiceImpl implements UserInfoService {
       final BusinessPo businessPo = businessMapper.selectByPrimaryKey(businessId);
       BusinessUserDetailDto businessUserDetailDto = new BusinessUserDetailDto();
       BeanUtils.copyProperties(businessPo, businessUserDetailDto);
+      businessUserDetailDto.setCreatedTime(DateUtils.date2String(businessPo.getCreatedTime()));
       businessUserDetailDto.setCertificationPicPath(
           pictureMapper.selectByPrimaryKey(businessPo.getCertificationPicId()).getPicLink());
       businessUserDetailDto
