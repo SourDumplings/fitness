@@ -120,4 +120,18 @@ public class CoachPublicCourseController {
    }
  }
 
+  @ApiOperation(value = "查看教练 结课团课列表", httpMethod = "GET")
+  @RequestMapping(value = "finished/{coachId}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> listFinishedPublicCourses(
+      @RequestParam(name = "coachId") Integer coachId) {
+    BaseResult baseResult = publicCourseService.listFinishedPublicCourses(coachId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
 }

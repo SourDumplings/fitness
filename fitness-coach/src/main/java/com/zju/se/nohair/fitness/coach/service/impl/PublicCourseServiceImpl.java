@@ -233,5 +233,28 @@ public class PublicCourseServiceImpl implements PublicCourseService {
     return res;
   }
 
+  @Override
+  public BaseResult listFinishedPublicCourses(Integer coachId) {
+    //查看教练 结课团课列表
+    BaseResult res = null;
+
+    try {
+      final List<PublicCoursePo> publicCourses = publicCourseMapper.selectFinishedPublicCoursesByCoachId(coachId);
+      List<PublicCourseListItemDto> publicCourseListItemDtoList = new ArrayList<>();
+      for (PublicCoursePo publicCoursePo : publicCourses) {
+        PublicCourseListItemDto publicCourseListItemDto = new PublicCourseListItemDto();
+        BeanUtils.copyProperties(publicCoursePo, publicCourseListItemDto);
+        publicCourseListItemDtoList.add(publicCourseListItemDto);
+      }
+      res = BaseResult.success("查询查看教练结课团课列表成功");
+      res.setData(publicCourseListItemDtoList);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查询查看教练结课团课列表失败");
+    }
+
+    return res;
+  }
+
 
 }

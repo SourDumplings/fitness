@@ -22,6 +22,8 @@ public class PublicCourseListItemDto {
 
   private Date courseDate;
 
+  private Integer capacity;
+
   private Integer timeSlotId;
 
   private Integer status;
