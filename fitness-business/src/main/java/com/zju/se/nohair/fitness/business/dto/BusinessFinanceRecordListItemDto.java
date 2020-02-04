@@ -1,7 +1,6 @@
 package com.zju.se.nohair.fitness.business.dto;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +24,6 @@ public class BusinessFinanceRecordListItemDto {
 
   private Integer type;
 
-  private Date createdTime;
+  private String createdTime;
 
 }

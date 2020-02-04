@@ -4,6 +4,7 @@ import com.zju.se.nohair.fitness.business.dto.BusinessFinanceRecordListItemDto;
 import com.zju.se.nohair.fitness.business.service.FinanceService;
 import com.zju.se.nohair.fitness.commons.constant.ReceiveRecordType;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.commons.utils.DateUtils;
 import com.zju.se.nohair.fitness.dao.mapper.BusinessMapper;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
 import com.zju.se.nohair.fitness.dao.mapper.CustomerMapper;
@@ -100,6 +101,8 @@ public class FinanceServiceImpl implements FinanceService {
       for (ReceiveRecordPo receiveRecordPo : receiveRecordPos) {
         BusinessFinanceRecordListItemDto businessFinanceRecordListItemDto = new BusinessFinanceRecordListItemDto();
         BeanUtils.copyProperties(receiveRecordPo, businessFinanceRecordListItemDto);
+        businessFinanceRecordListItemDto
+            .setCreatedTime(DateUtils.date2String(receiveRecordPo.getCreatedTime()));
 
         if (receiveRecordPo.getType().equals(ReceiveRecordType.COACH_FEE)) {
           // 教练费
