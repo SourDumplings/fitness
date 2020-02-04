@@ -1,6 +1,5 @@
 package com.zju.se.nohair.fitness.business.dto;
 
-import java.util.Date;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +21,7 @@ public class PublicCourseListItemDto {
 
   private Integer businessId;
 
-  private Date courseDate;
+  private String courseDate;
 
   private Integer timeSlotId;
 

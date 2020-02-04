@@ -146,6 +146,8 @@ public class PublicCourseServiceImpl implements PublicCourseService {
 
         PublicCourseListItemDto publicCourseListItemDto = new PublicCourseListItemDto();
         BeanUtils.copyProperties(publicCoursePo, publicCourseListItemDto);
+        publicCourseListItemDto
+            .setCourseDate(DateUtils.date2String(publicCoursePo.getCourseDate()));
         publicCourseListItemDtoList.add(publicCourseListItemDto);
       }
       res = BaseResult.success("查询发布的课程列表成功");

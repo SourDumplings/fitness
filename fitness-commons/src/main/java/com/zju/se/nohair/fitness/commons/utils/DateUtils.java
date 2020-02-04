@@ -1,5 +1,6 @@
 package com.zju.se.nohair.fitness.commons.utils;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -54,5 +55,15 @@ public class DateUtils {
    */
   public static Integer getAgeFromBirthday(Date birthday) {
     return dateDiff(birthday, new Date()).getYears();
+  }
+
+  /**
+   * 将 Date 转换为 yyyy/MM/dd HH:mm:ss 类型的字符串.
+   *
+   * @param date
+   * @return
+   */
+  public static String date2String(Date date) {
+    return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(date);
   }
 }
