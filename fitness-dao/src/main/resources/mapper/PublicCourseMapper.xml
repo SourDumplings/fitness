@@ -54,6 +54,14 @@
     where status = 3 or status = 5 and coach_id = #{coachId,jdbcType=INTEGER}
   </select>
 
+  <!--查看教练待上团课列表-->
+  <select id="selectRequiredPublicCoursesByCoachId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from public_course
+    where status = 1 or status = 2 or status = 4 and coach_id = #{coachId,jdbcType=INTEGER}
+  </select>
+
   <select id="getListForCustomer"  resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List"/>
