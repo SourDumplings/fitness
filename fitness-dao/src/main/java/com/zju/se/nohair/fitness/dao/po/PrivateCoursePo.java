@@ -23,6 +23,8 @@ public class PrivateCoursePo {
 
   private Date courseDate;
 
+  private Integer timeSlotId;
+
   private Integer status;
 
   private Date createdTime;
@@ -90,6 +92,10 @@ public class PrivateCoursePo {
   public void setPicId(Integer picId) {
     this.picId = picId;
   }
+
+  public Integer getTimeSlotId() { return timeSlotId; }
+
+  public void setTimeSlotId(Integer timeSlotId) { this.timeSlotId = timeSlotId; }
 
   public Date getCourseDate() {
     return courseDate;

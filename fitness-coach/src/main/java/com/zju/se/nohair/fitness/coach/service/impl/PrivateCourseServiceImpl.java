@@ -228,4 +228,26 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
 
     return res;
   }
+
+  @Override
+  public BaseResult listFinishedPrivateCourses(Integer coachId) {
+    //查看教练结课私教课列表
+    BaseResult res = null;
+
+    try {
+      final List<PrivateCoursePo> privateCourses = privateCourseMapper.selectFinishedPrivateCoursesByCoachId(coachId);
+      List<PrivateCourseListItemDto> privateCourseListItemDtoList = new ArrayList<>();
+      for (PrivateCoursePo privateCoursePo : privateCourses) {
+        PrivateCourseListItemDto privateCourseListItemDto = new PrivateCourseListItemDto();
+        BeanUtils.copyProperties(privateCoursePo, privateCourseListItemDto);
+        privateCourseListItemDtoList.add(privateCourseListItemDto);
+      }
+      res = BaseResult.success("查询查看教练结课私教课列表成功");
+      res.setData(privateCourseListItemDtoList);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查询查看教练结课私教课列表失败");
+    }
+    return res;
+  }
 }

@@ -120,7 +120,7 @@ public class CoachPublicCourseController {
    }
  }
 
-  @ApiOperation(value = "查看教练 结课团课列表", httpMethod = "GET")
+  @ApiOperation(value = "查看教练结课团课列表", httpMethod = "GET")
   @RequestMapping(value = "finished/{coachId}", method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<Object> listFinishedPublicCourses(

@@ -44,6 +44,21 @@
     from private_course
     where coach_id = #{coachId,jdbcType=INTEGER}
   </select>
+  <!--查看教练结课私教课列表-->
+  <select id="selectFinishedPrivateCoursesByCoachId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from private_course
+    where status = 3 or status = 4 and coach_id = #{coachId,jdbcType=INTEGER}
+  </select>
+
+  <!--查看教练待上私教课列表-->
+  <select id="selectRequiredPrivateCoursesByCoachId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from private_course
+    where status = 1 or status = 2 and coach_id = #{coachId,jdbcType=INTEGER}
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from private_course

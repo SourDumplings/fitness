@@ -25,4 +25,6 @@ public interface PrivateCourseService {
   BaseResult listPrivateCourses(Integer coachId, Date courseDate);//查看教练发布的私教课列表
 
   BaseResult getPrivateCourseDetailByCourseId(Integer courseId);//查看发布的私教课详情
+
+  BaseResult listFinishedPrivateCourses(Integer coachId);//查看教练结课私教课列表
 }
