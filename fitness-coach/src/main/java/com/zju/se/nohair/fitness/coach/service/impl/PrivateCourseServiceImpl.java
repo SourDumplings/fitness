@@ -242,11 +242,33 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
         BeanUtils.copyProperties(privateCoursePo, privateCourseListItemDto);
         privateCourseListItemDtoList.add(privateCourseListItemDto);
       }
-      res = BaseResult.success("查询查看教练结课私教课列表成功");
+      res = BaseResult.success("查看教练结课私教课列表成功");
       res.setData(privateCourseListItemDtoList);
     } catch (Exception e) {
       logger.error(e.getMessage());
-      res = BaseResult.fail("查询查看教练结课私教课列表失败");
+      res = BaseResult.fail("查看教练结课私教课列表失败");
+    }
+    return res;
+  }
+
+  @Override
+  public BaseResult listRequiredPrivateCourses(Integer coachId) {
+    //查看教练待上私教课列表
+    BaseResult res = null;
+
+    try {
+      final List<PrivateCoursePo> privateCourses = privateCourseMapper.selectRequiredPrivateCoursesByCoachId(coachId);
+      List<PrivateCourseListItemDto> privateCourseListItemDtoList = new ArrayList<>();
+      for (PrivateCoursePo privateCoursePo : privateCourses) {
+        PrivateCourseListItemDto privateCourseListItemDto = new PrivateCourseListItemDto();
+        BeanUtils.copyProperties(privateCoursePo, privateCourseListItemDto);
+        privateCourseListItemDtoList.add(privateCourseListItemDto);
+      }
+      res = BaseResult.success("查询教练待上私教课列表成功");
+      res.setData(privateCourseListItemDtoList);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查询教练待上私教课列表失败");
     }
     return res;
   }
