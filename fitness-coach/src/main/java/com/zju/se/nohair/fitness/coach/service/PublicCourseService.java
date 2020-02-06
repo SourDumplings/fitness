@@ -24,4 +24,8 @@ public interface PublicCourseService {
   BaseResult listResponsesByCoachId(Integer coachId);//查看教练响应的团课列表（我响应的团课）
 
   BaseResult changeResponsePrice(ResponseToPublicCourseDto responseToPublicCourseDto);//教练修改团课的响应价格
+
+  BaseResult listFinishedPublicCourses(Integer coachId);//查看教练 结课团课列表
+
+  BaseResult listRequiredPublicCourses(Integer coachId);//查看教练待上团课列表
 }

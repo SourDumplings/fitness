@@ -25,5 +25,7 @@ public interface PublicCourseMapper {
 
   List<PublicCoursePo> getListForCustomer();
 
+  List<PublicCoursePo> selectFinishedPublicCoursesByCoachId(Integer coachId);
 
+  List<PublicCoursePo> selectRequiredPublicCoursesByCoachId(Integer coachId);
 }
