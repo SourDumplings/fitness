@@ -5,6 +5,7 @@ import com.zju.se.nohair.fitness.coach.dto.PublicCourseListItemDto;
 import com.zju.se.nohair.fitness.coach.dto.PublicCourseResponseListItemDto;
 import com.zju.se.nohair.fitness.coach.dto.ResponseToPublicCourseDto;
 import com.zju.se.nohair.fitness.coach.service.PublicCourseService;
+import com.zju.se.nohair.fitness.commons.constant.PublicCourseStatus;
 import com.zju.se.nohair.fitness.commons.constant.ResponseStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.utils.DateUtils;
@@ -273,6 +274,32 @@ public class PublicCourseServiceImpl implements PublicCourseService {
       logger.error(e.getMessage());
       res = BaseResult.fail("查询查看教练待上团课列表失败");
     }
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult finishPublicCourseByCourseId(Integer courseId) {
+    //团课结课
+    BaseResult res = null;
+    try {
+      final PublicCoursePo publicCoursePo = publicCourseMapper.selectByPrimaryKey(courseId);
+      final Integer status = publicCoursePo.getStatus();
+      if (PublicCourseStatus.NEW_PUBLISH.equals(status) ||
+          status.equals(PublicCourseStatus.COACH_SELECTED)||
+          status.equals(PublicCourseStatus.CUSTOMER_PAID) ||
+          status.equals(PublicCourseStatus.FULL) ) {
+        publicCourseMapper.finishByPrimaryKey(courseId);
+        res = BaseResult.success("私教课结课成功");
+      } else {
+        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "该课程已结束");
+      }
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("私教课结课失败");
+    }
+
     return res;
   }
 

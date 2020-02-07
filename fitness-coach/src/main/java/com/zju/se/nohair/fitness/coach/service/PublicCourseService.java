@@ -28,4 +28,6 @@ public interface PublicCourseService {
   BaseResult listFinishedPublicCourses(Integer coachId);//查看教练 结课团课列表
 
   BaseResult listRequiredPublicCourses(Integer coachId);//查看教练待上团课列表
+
+  BaseResult finishPublicCourseByCourseId(Integer courseId);//团课结课
 }
