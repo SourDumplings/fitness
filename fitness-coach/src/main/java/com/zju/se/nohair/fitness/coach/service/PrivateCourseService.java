@@ -29,4 +29,6 @@ public interface PrivateCourseService {
   BaseResult listFinishedPrivateCourses(Integer coachId);//查看教练结课私教课列表
 
   BaseResult listRequiredPrivateCourses(Integer coachId);//查看教练待上私教课列表
+
+  BaseResult finishPrivateCourseByCourseId(Integer courseId);//私教课结课
 }

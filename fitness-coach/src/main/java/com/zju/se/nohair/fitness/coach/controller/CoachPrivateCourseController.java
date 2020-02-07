@@ -154,4 +154,18 @@ public class CoachPrivateCourseController {
           HttpStatus.valueOf(baseResult.getStatus()));
     }
   }
+
+  @ApiOperation(value = "私教课结课", httpMethod = "PUT")
+  @RequestMapping(value = "{courseId}", method = RequestMethod.PUT)
+  @ResponseBody
+  public ResponseEntity<Object> finishPrivateCourseByCourseId(
+      @PathVariable("courseId") Integer courseId) {
+    BaseResult baseResult = privateCourseService.finishPrivateCourseByCourseId(courseId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.NO_CONTENT);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
 }

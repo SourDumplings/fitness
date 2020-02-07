@@ -272,4 +272,29 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
     }
     return res;
   }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult finishPrivateCourseByCourseId(Integer courseId) {
+    //私教课结课
+    BaseResult res = null;
+    try {
+      final PrivateCoursePo privateCoursePo = privateCourseMapper.selectByPrimaryKey(courseId);
+      final Integer status = privateCoursePo.getStatus();
+      if (PrivateCourseStatus.NEW_PUBLISH.equals(status) ||
+          status.equals(PrivateCourseStatus.BUSINESS_SELECTED )||
+          status.equals(PrivateCourseStatus.CUSTOMER_PAID)) {
+        privateCourseMapper.finishByPrimaryKey(courseId);
+        res = BaseResult.success("私教课结课成功");
+      } else {
+        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "该课程已结束");
+      }
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("私教课结课失败");
+    }
+
+    return res;
+  }
 }

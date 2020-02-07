@@ -195,4 +195,8 @@
       created_time = #{createdTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="finishByPrimaryKey" parameterType="java.lang.Integer">
+    update private_course set status = 3
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
