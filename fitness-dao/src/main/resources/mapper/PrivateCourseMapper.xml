@@ -26,6 +26,14 @@
     from private_course
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectRequiredByCoachId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    *
+    from private_course
+    where status = 0 and coach_id = #{coachId,jdbcType=INTEGER}
+  </select>
+
   <select id="selectByBusinessId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>

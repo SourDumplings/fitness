@@ -298,4 +298,24 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
 
     return res;
   }
+
+  @Override
+  public BaseResult getPrivateCourseDetailByCoachId(Integer coachId) {
+    //查看待响应的私教课详情
+    BaseResult res = null;
+
+    try {
+      final PrivateCoursePo privateCoursePo = privateCourseMapper.selectRequiredByCoachId(coachId);
+      PrivateCourseDetailDto privateCourseDetailDto = new PrivateCourseDetailDto();
+      BeanUtils.copyProperties(privateCoursePo, privateCourseDetailDto);
+
+      res = BaseResult.success("查看发布的私教课程详情成功");
+      res.setData(privateCourseDetailDto);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查看发布的私教课程详情失败");
+    }
+
+    return res;
+  }
 }

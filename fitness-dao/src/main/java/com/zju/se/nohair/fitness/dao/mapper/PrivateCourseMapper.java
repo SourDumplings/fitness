@@ -28,4 +28,6 @@ public interface PrivateCourseMapper {
   List<PrivateCoursePo> selectRequiredPrivateCoursesByCoachId(Integer coachId);
 
   int finishByPrimaryKey(Integer courseId);
+
+  PrivateCoursePo selectRequiredByCoachId(Integer coachId);
 }
