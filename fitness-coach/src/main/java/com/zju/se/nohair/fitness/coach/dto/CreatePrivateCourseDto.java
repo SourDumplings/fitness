@@ -38,6 +38,6 @@ public class CreatePrivateCourseDto {
 
   private Date courseDate;
 
-  private Integer timeSlotId;
+  //private Integer timeSlotId;
 
 }

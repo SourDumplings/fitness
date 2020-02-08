@@ -58,6 +58,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
     this.responsesPrivateMapper = responsesPrivateMapper;
   }
 
+  @Transactional(readOnly = false)
   @Override
   public BaseResult createPrivateCourse(CreatePrivateCourseDto createPrivateCourseDto) {
     //教练发布私教课
