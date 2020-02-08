@@ -84,4 +84,18 @@ public class AdminCoachUserController {
           HttpStatus.valueOf(baseResult.getStatus()));
     }
   }
+
+  @ApiOperation(value = "删除教练用户", httpMethod = "DELETE")
+  @RequestMapping(value = "{coachId}", method = RequestMethod.DELETE)
+  @ResponseBody
+  public ResponseEntity<Object> deleteItem(
+      @PathVariable(value = "coachId") Integer coachId) {
+    BaseResult baseResult = adminCoachUserService.deleteItem(coachId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.NO_CONTENT);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
 }
