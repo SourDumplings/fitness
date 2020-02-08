@@ -123,8 +123,19 @@ public class AdminCustomerUserServiceImpl implements AdminCustomerUserService {
     return res;
   }
 
+  @Transactional(readOnly = false)
   @Override
   public BaseResult deleteItem(Integer id) {
-    return null;
+    BaseResult res = null;
+
+    try {
+      customerMapper.deleteByPrimaryKey(id);
+      res = BaseResult.success("删除顾客用户成功");
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("删除顾客用户失败");
+    }
+
+    return res;
   }
 }
