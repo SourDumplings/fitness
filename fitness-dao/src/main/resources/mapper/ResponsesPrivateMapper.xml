@@ -5,6 +5,8 @@
   <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo">
     <id column="course_id" jdbcType="INTEGER" property="courseId"/>
     <id column="business_id" jdbcType="INTEGER" property="businessId"/>
+    <result column="name" jdbcType="VARCHAR" property="businessName"/>
+    <result column="address" jdbcType="VARCHAR" property="address"/>
     <result column="price" jdbcType="DECIMAL" property="price"/>
     <result column="status" jdbcType="INTEGER" property="status"/>
   </resultMap>
@@ -28,11 +30,8 @@
     from responses_private
     where business_id = #{businessId,jdbcType=INTEGER}
   </select>
-  <select id="selectByCourseId"
-    parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from responses_private
+  <select id="selectByCourseId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from responses_private r left join gym g on r.business_id = g.business_id
     where course_id = #{courseId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey"

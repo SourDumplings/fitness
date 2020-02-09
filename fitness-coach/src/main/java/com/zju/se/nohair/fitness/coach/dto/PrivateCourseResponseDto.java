@@ -22,13 +22,13 @@ public class PrivateCourseResponseDto {
 
   private String address;//健身房地址
 
-  private String businessProfilePic;//商家资格证
+  //private String businessProfilePic;//商家资格证
 
   private BigDecimal price;//健身房价格
 
-  private String picGroupId;//健身房图片组
+  //private String picGroupId;//健身房图片组
 
-  private Date courseDate;//上课日期
+  //private Date courseDate;//上课日期
 
   private Integer status;//状态
 

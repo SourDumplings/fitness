@@ -17,7 +17,6 @@ public interface PrivateCourseService {
 
   BaseResult listPrivateCourseResponsesByCourseId(Integer courseId);//通过课程id 查看响应私教课的商家列表
 
-
   BaseResult acceptResponse(Integer courseId, Integer businessId);//接受商家对于私教课的响应
 
   BaseResult deletePrivateCourseByCourseId(Integer courseId);//删除发布的私教课
