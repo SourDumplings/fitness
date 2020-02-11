@@ -16,7 +16,6 @@ import com.zju.se.nohair.fitness.web.admin.dto.AdminReceiveRecordListItemDto;
 import com.zju.se.nohair.fitness.web.admin.service.AdminCoachUserService;
 import com.zju.se.nohair.fitness.web.admin.utils.PicUtils;
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -104,19 +103,13 @@ public class AdminCoachUserServiceImpl implements AdminCoachUserService {
       for (ReceiveRecordPo receiveRecordPo : receiveRecordPos) {
         AdminReceiveRecordListItemDto adminReceiveRecordListItemDto = new AdminReceiveRecordListItemDto();
         BeanUtils.copyProperties(receiveRecordPo, adminReceiveRecordListItemDto);
-
-        String prefix = null;
-        final Integer type = receiveRecordPo.getType();
-        if (type.equals(ReceiveRecordType.PRIVATE_COURSE_FEE)) {
-          prefix = "SF";
-        } else if (type.equals(ReceiveRecordType.COACH_FEE)) {
-          prefix = "SJ";
+        final Integer receiveRecordType = receiveRecordPo.getType();
+        if (receiveRecordType.equals(ReceiveRecordType.PRIVATE_COURSE_FEE)) {
+          adminReceiveRecordListItemDto.setFromUserTypeName("顾客");
+        } else if (receiveRecordType.equals(ReceiveRecordType.COACH_FEE)) {
+          adminReceiveRecordListItemDto.setFromUserTypeName("商家");
         }
 
-        adminReceiveRecordListItemDto.setUserId(prefix + receiveRecordPo.getFromId());
-        adminReceiveRecordListItemDto.setRecordNo(
-            DateFormat.getDateInstance().format(receiveRecordPo.getCreatedTime())
-                + "-" + receiveRecordPo.getId());
         adminReceiveRecordListItemDtoList.add(adminReceiveRecordListItemDto);
       }
       adminCoachUserDetailDto.setFinanceRecords(adminReceiveRecordListItemDtoList);
