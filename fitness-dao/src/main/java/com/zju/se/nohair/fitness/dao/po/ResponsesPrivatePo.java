@@ -4,21 +4,29 @@ import java.math.BigDecimal;
 
 public class ResponsesPrivatePo extends ResponsesPrivatePoKey {
 
+  private String name;
+
   private String address;
 
-  private String businessName;
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
   private BigDecimal price;
 
   private Integer status;
-
-  public String getBusinessName() { return businessName; }
-
-  public void setBusinessName(String businessName) { this.businessName = businessName; }
-
-  public String getAddress() { return address; }
-
-  public void setAddress(String address) { this.address = address; }
 
   public BigDecimal getPrice() {
     return price;
