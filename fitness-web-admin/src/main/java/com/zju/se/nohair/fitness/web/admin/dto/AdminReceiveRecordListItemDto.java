@@ -17,9 +17,9 @@ import org.springframework.stereotype.Component;
 @Data
 public class AdminReceiveRecordListItemDto {
 
-  private String userId;
+  private Integer fromId;
 
-  private String recordNo;
+  private String fromUserTypeName;
 
   private BigDecimal amount;
 

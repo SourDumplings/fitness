@@ -1,7 +1,6 @@
 package com.zju.se.nohair.fitness.web.admin.dto;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -30,7 +29,7 @@ public class AdminCoachUserDetailDto {
 
   private String phone;
 
-  private Date birthday;
+//  private Date birthday;
 
   private String name;
 
@@ -48,7 +47,7 @@ public class AdminCoachUserDetailDto {
 
   private Integer status;
 
-  private Date createdTime;
+//  private Date createdTime;
 
   private List<AdminReceiveRecordListItemDto> financeRecords;
 }
