@@ -29,6 +29,10 @@
 			(select business_id from public_course where status = 1 or status = 2 or status = 4)
 		)
   </select>
+  <select id="selectByCourseId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from gym g left join  responses_private r on g.business_id = r.business_id
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </select>
   <select id="getGymNameListHasPrivateCourse" resultType="String">
     select
     name

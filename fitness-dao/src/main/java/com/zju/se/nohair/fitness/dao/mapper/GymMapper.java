@@ -22,4 +22,6 @@ public interface GymMapper {
   List<String> getGymNameListHasPrivateCourse();
 
   List<GymPo> getNearGymList();
+
+  List<GymPo> selectByCourseId(Integer courseId);
 }

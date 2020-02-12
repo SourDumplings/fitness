@@ -5,7 +5,7 @@
   <resultMap id="BaseResultMap" type="com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo">
     <id column="course_id" jdbcType="INTEGER" property="courseId"/>
     <id column="business_id" jdbcType="INTEGER" property="businessId"/>
-    <result column="name" jdbcType="VARCHAR" property="businessName"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
     <result column="address" jdbcType="VARCHAR" property="address"/>
     <result column="price" jdbcType="DECIMAL" property="price"/>
     <result column="status" jdbcType="INTEGER" property="status"/>

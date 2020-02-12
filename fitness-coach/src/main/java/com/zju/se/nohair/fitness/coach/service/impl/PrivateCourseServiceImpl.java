@@ -1,5 +1,6 @@
 package com.zju.se.nohair.fitness.coach.service.impl;
 
+
 import com.zju.se.nohair.fitness.coach.dto.CreatePrivateCourseDto;
 import com.zju.se.nohair.fitness.coach.dto.PrivateCourseDetailDto;
 import com.zju.se.nohair.fitness.coach.dto.PrivateCourseListItemDto;
@@ -10,11 +11,10 @@ import com.zju.se.nohair.fitness.commons.constant.ResponseStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.utils.DateUtils;
 import com.zju.se.nohair.fitness.dao.mapper.BusinessMapper;
+import com.zju.se.nohair.fitness.dao.mapper.GymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PrivateCourseMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ResponsesPrivateMapper;
-import com.zju.se.nohair.fitness.dao.po.BusinessPo;
-import com.zju.se.nohair.fitness.dao.po.PicturePo;
 import com.zju.se.nohair.fitness.dao.po.PrivateCoursePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePoKey;
@@ -43,6 +43,8 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
   private PrivateCourseMapper privateCourseMapper;
 
   private ResponsesPrivateMapper responsesPrivateMapper;
+
+  private GymMapper gymMapper;
 
   private BusinessMapper businessMapper;
 
@@ -87,6 +89,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
   public BaseResult listPrivateCourseResponsesByCourseId(Integer courseId) {
     //通过课程id 查找响应私教课的商家列表
     BaseResult res = null;
+
     try {
       final List<ResponsesPrivatePo> responsesPrivatePos = responsesPrivateMapper.selectByCourseId(courseId);
       List<PrivateCourseResponseDto> privateCourseResponseDtoList = new ArrayList<>();
@@ -94,27 +97,19 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
         PrivateCourseResponseDto privateCourseResponseDto = new PrivateCourseResponseDto();
         BeanUtils.copyProperties(responsesPrivatePo, privateCourseResponseDto);
 
-        /*final BusinessPo businessPo = businessMapper.selectByPrimaryKey(responsesPrivatePo.getBusinessId());
-        privateCourseResponseDto.setBusinessName(businessPo.getPersonName());*/
-
-        /*if (businessPo.getPicId() != null) {
-          final PicturePo picturePo = pictureMapper.selectByPrimaryKey(businessPo.getPicId());
-          privateCourseResponseDto.setBusinessProfilePic(picturePo.getPicLink());
-        } else {
-          privateCourseResponseDto.setBusinessProfilePic(null);
-        }*/
-
         privateCourseResponseDtoList.add(privateCourseResponseDto);
       }
-      res = BaseResult.success("查询响应私教课的商家列表成功");
+      res = BaseResult.success("查找响应私教课的商家列表成功");
       res.setData(privateCourseResponseDtoList);
     } catch (Exception e) {
       logger.error(e.getMessage());
-      res = BaseResult.fail("查询响应私教课的商家列表失败");
+      res = BaseResult.fail("查找响应私教课的商家列表失败");
     }
 
     return res;
   }
+
+
 
   @Override
   public BaseResult acceptResponse(Integer courseId, Integer businessId) {
