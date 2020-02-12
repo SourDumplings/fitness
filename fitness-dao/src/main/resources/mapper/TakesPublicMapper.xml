@@ -6,6 +6,12 @@
     <id column="customer_id" jdbcType="INTEGER" property="customerId"/>
     <id column="course_id" jdbcType="INTEGER" property="courseId"/>
   </resultMap>
+  <select id="selectByCourseId" parameterType="Integer" resultMap="BaseResultMap">
+    select
+    *
+    from takes_public
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPublicPoKey">
     delete from takes_public
     where customer_id = #{customerId,jdbcType=INTEGER}

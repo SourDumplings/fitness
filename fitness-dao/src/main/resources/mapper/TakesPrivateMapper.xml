@@ -18,6 +18,12 @@
     where customer_id = #{customerId,jdbcType=INTEGER}
     and course_id = #{courseId,jdbcType=INTEGER}
   </select>
+  <select id="selectByCourseId" parameterType="Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from takes_private
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey"
     parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivatePoKey">
     delete from takes_private

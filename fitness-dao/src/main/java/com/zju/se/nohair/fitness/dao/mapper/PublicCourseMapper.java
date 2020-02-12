@@ -30,4 +30,6 @@ public interface PublicCourseMapper {
   List<PublicCoursePo> selectRequiredPublicCoursesByCoachId(Integer coachId);
 
   int finishByPrimaryKey(Integer courseId);
+
+  List<PublicCoursePo> selectAll();
 }

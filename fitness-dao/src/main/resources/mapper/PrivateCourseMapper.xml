@@ -65,6 +65,10 @@
     where ( status = 1 or status = 2 ) and coach_id = #{coachId,jdbcType=INTEGER}
   </select>
 
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from private_course order by id desc
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from private_course
     where id = #{id,jdbcType=INTEGER}

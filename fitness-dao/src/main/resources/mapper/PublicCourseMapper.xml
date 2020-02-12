@@ -68,6 +68,11 @@
     from public_course
     where status = 1 or status = 2 or status = 4
   </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from public_course order by id desc
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from public_course
     where id = #{id,jdbcType=INTEGER}

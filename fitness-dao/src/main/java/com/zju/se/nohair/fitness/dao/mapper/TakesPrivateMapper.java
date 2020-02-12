@@ -2,6 +2,7 @@ package com.zju.se.nohair.fitness.dao.mapper;
 
 import com.zju.se.nohair.fitness.dao.po.TakesPrivatePo;
 import com.zju.se.nohair.fitness.dao.po.TakesPrivatePoKey;
+import java.util.List;
 
 public interface TakesPrivateMapper {
 
@@ -20,4 +21,6 @@ public interface TakesPrivateMapper {
   int selectRecordExistOrNot(TakesPrivatePo takesPrivatePo);
 
   int deleteByPo(TakesPrivatePo takesPrivatePo);
+
+  List<TakesPrivatePo> selectByCourseId(Integer courseId);
 }
