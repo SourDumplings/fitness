@@ -53,6 +53,20 @@ public class AdminCustomerUserController {
     }
   }
 
+  @ApiOperation(value = "顾客用户详情", httpMethod = "GET")
+  @RequestMapping(value = "{customerId}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> getDetailById(
+      @PathVariable(value = "customerId") Integer customerId) {
+    BaseResult baseResult = adminCustomerUserService.getDetailById(customerId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
   @ApiOperation(value = "注册/更新顾客用户；id 为 -1 即为注册，否则为更新；性别 0 男 1 女；"
       + "生日字符串格式：2000/01/02", httpMethod = "POST")
   @RequestMapping(value = "", method = RequestMethod.POST)

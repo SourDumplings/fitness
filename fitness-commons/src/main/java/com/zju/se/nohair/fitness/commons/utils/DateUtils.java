@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -65,5 +66,81 @@ public class DateUtils {
    */
   public static String date2String(Date date) {
     return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(date);
+  }
+
+  /**
+   * 计算时间点之前的一个时间点.
+   *
+   * @param date
+   * @param year
+   * @param month
+   * @param day
+   * @return
+   */
+  public static Date dateBack(Date date, int year, int month, int day) {
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(date);
+    calendar.add(Calendar.YEAR, -year);
+    calendar.add(Calendar.MONTH, -month);
+    calendar.add(Calendar.DAY_OF_MONTH, -day);
+    date = calendar.getTime();
+
+    return date;
+  }
+
+  /**
+   * 计算时间点之后的一个时间点.
+   *
+   * @param date
+   * @param year
+   * @param month
+   * @param day
+   * @return
+   */
+  public static Date dateFuture(Date date, int year, int month, int day) {
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(date);
+    calendar.add(Calendar.YEAR, year);
+    calendar.add(Calendar.MONTH, month);
+    calendar.add(Calendar.DAY_OF_MONTH, day);
+    date = calendar.getTime();
+
+    return date;
+  }
+
+
+  /**
+   * 只取日期部分.
+   *
+   * @param date
+   * @return
+   */
+  public static String datePart(Date date) {
+    return new SimpleDateFormat("yyyy/MM/dd").format(date);
+  }
+
+  /**
+   * 只取时分秒部分.
+   *
+   * @param date
+   * @return
+   */
+  public static String timePart(Date date) {
+    return new SimpleDateFormat("HH:mm:ss").format(date);
+  }
+
+
+  /**
+   * 返回上课时间段：yyyy/MM/dd HH:mm:ss~HH:mm:ss.
+   *
+   * @param courseDate
+   * @param beginTime
+   * @param endTime
+   * @return
+   */
+  public static String courseTime(Date courseDate, Date beginTime, Date endTime) {
+    return new StringBuilder().append(datePart(courseDate)).append(" ").append(timePart(beginTime))
+        .append("~")
+        .append(timePart(endTime)).toString();
   }
 }

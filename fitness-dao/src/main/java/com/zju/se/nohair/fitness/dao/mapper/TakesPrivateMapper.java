@@ -14,6 +14,8 @@ public interface TakesPrivateMapper {
 
   TakesPrivatePo selectByPrimaryKey(TakesPrivatePoKey key);
 
+  List<TakesPrivatePo> selectByCustomerId(Integer customerId);
+
   int updateByPrimaryKeySelective(TakesPrivatePo record);
 
   int updateByPrimaryKey(TakesPrivatePo record);

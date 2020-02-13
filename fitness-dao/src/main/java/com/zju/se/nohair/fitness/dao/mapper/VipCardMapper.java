@@ -18,4 +18,6 @@ public interface VipCardMapper {
   int updateByPrimaryKey(VipCardPo record);
 
   List<VipCardPo> selectByGymId(Integer gymId);
+
+  List<VipCardPo> selectByCustomerId(Integer customerId);
 }

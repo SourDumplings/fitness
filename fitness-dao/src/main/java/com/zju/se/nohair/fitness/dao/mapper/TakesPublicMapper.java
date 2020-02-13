@@ -16,4 +16,6 @@ public interface TakesPublicMapper {
   int countByCourseId(Integer courseId);
 
   List<TakesPublicPoKey> selectByCourseId(Integer id);
+
+  List<TakesPublicPoKey> selectByCustomerId(Integer customerId);
 }

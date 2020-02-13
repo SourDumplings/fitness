@@ -12,6 +12,12 @@
     from takes_public
     where course_id = #{courseId,jdbcType=INTEGER}
   </select>
+  <select id="selectByCustomerId" parameterType="Integer" resultMap="BaseResultMap">
+    select
+    *
+    from takes_public
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPublicPoKey">
     delete from takes_public
     where customer_id = #{customerId,jdbcType=INTEGER}

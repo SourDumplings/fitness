@@ -24,6 +24,12 @@
     from takes_private
     where course_id = #{courseId,jdbcType=INTEGER}
   </select>
+  <select id="selectByCustomerId" parameterType="Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from takes_private
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey"
     parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivatePoKey">
     delete from takes_private
@@ -85,10 +91,11 @@
     where customer_id = #{customerId,jdbcType=INTEGER}
       and course_id = #{courseId,jdbcType=INTEGER}
   </update>
-  <select id="selectRecordExistOrNot" parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivatePo" resultType="Integer">
+  <select id="selectRecordExistOrNot"
+    parameterType="com.zju.se.nohair.fitness.dao.po.TakesPrivatePo" resultType="Integer">
     select count(*)
     from takes_private
-    where  1 = 1
+    where 1 = 1
     <if test="customerId != null">
       and customer_id = #{customerId,jdbcType=INTEGER}
     </if>

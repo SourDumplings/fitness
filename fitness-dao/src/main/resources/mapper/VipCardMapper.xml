@@ -19,11 +19,17 @@
     from vip_card
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectByGymId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+  <select id="selectByGymId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from vip_card
     where gym_id = #{gymId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByCustomerId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from vip_card
+    where customer_id = #{customerId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from vip_card
