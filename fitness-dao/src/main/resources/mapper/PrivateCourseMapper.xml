@@ -11,8 +11,6 @@
     <result column="price" jdbcType="DECIMAL" property="price"/>
     <result column="gym_price" jdbcType="DECIMAL" property="gymPrice"/>
     <result column="time_slot_id" jdbcType="INTEGER" property="timeSlotId"/>
-    <result column="name" jdbcType="VARCHAR" property="name"/>
-    <result column="address" jdbcType="VARCHAR" property="address"/>
     <result column="pic_id" jdbcType="INTEGER" property="picId"/>
     <result column="course_date" jdbcType="DATE" property="courseDate"/>
     <result column="status" jdbcType="INTEGER" property="status"/>
