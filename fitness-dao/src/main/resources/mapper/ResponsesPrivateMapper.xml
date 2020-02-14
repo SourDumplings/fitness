@@ -28,6 +28,7 @@
     from responses_private
     where business_id = #{businessId,jdbcType=INTEGER}
   </select>
+
   <select id="selectByCourseId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select * from responses_private r left join gym g on r.business_id = g.business_id
     where course_id = #{courseId,jdbcType=INTEGER}

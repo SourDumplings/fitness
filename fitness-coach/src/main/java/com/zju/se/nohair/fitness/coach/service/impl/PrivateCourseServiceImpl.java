@@ -12,9 +12,12 @@ import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.utils.DateUtils;
 import com.zju.se.nohair.fitness.dao.mapper.BusinessMapper;
 import com.zju.se.nohair.fitness.dao.mapper.GymMapper;
+import com.zju.se.nohair.fitness.dao.mapper.OwnsGymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PrivateCourseMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ResponsesPrivateMapper;
+import com.zju.se.nohair.fitness.dao.po.GymPo;
+import com.zju.se.nohair.fitness.dao.po.OwnsGymPoKey;
 import com.zju.se.nohair.fitness.dao.po.PrivateCoursePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePoKey;
@@ -46,6 +49,8 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
 
   private GymMapper gymMapper;
 
+  private OwnsGymMapper ownsGymMapper;
+
   private BusinessMapper businessMapper;
 
   private PictureMapper pictureMapper;
@@ -58,6 +63,26 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
   @Autowired
   public void setResponsesPrivateMapper(ResponsesPrivateMapper responsesPrivateMapper) {
     this.responsesPrivateMapper = responsesPrivateMapper;
+  }
+
+  @Autowired
+  public void setGymMapper(GymMapper gymMapper) {
+    this.gymMapper = gymMapper;
+  }
+
+  @Autowired
+  public void setOwnsGymMapper(OwnsGymMapper ownsGymMapper) {
+    this.ownsGymMapper = ownsGymMapper;
+  }
+
+  @Autowired
+  public void setBusinessMapper(BusinessMapper businessMapper) {
+    this.businessMapper = businessMapper;
+  }
+
+  @Autowired
+  public void setPictureMapper(PictureMapper pictureMapper) {
+    this.pictureMapper = pictureMapper;
   }
 
   @Transactional(readOnly = false)
@@ -97,6 +122,11 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
         PrivateCourseResponseDto privateCourseResponseDto = new PrivateCourseResponseDto();
         BeanUtils.copyProperties(responsesPrivatePo, privateCourseResponseDto);
 
+        final OwnsGymPoKey ownsGymPo = ownsGymMapper.selectByBusinessId(responsesPrivatePo.getBusinessId());
+        final GymPo gymPo = gymMapper.selectByPrimaryKey(ownsGymPo.getGymId());
+        privateCourseResponseDto.setName(gymPo.getName());
+        privateCourseResponseDto.setAddress(gymPo.getAddress());
+
         privateCourseResponseDtoList.add(privateCourseResponseDto);
       }
       res = BaseResult.success("查找响应私教课的商家列表成功");
@@ -110,7 +140,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
   }
 
 
-
+  @Transactional(readOnly = false)
   @Override
   public BaseResult acceptResponse(Integer courseId, Integer businessId) {
     //接受商家对于私教课的响应
