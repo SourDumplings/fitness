@@ -158,7 +158,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
         PrivateCoursePo privateCoursePo = privateCourseMapper.selectByPrimaryKey(courseId);
 
         if (!privateCoursePo.getStatus().equals(PrivateCourseStatus.NEW_PUBLISH)) {
-          res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "该课程的教练已经确定");
+          res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "该课程的商家（场地）已经确定");
         } else {
           responsesPrivatePo.setStatus(ResponseStatus.ACCEPTED);
           responsesPrivateMapper.updateByPrimaryKey(responsesPrivatePo);
