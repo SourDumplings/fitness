@@ -150,8 +150,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
       ResponsesPrivatePoKey responsesPrivatePoKey = new ResponsesPrivatePoKey();
       responsesPrivatePoKey.setCourseId(courseId);
       responsesPrivatePoKey.setBusinessId(businessId);
-      ResponsesPrivatePo responsesPrivatePo = responsesPrivateMapper
-          .selectByPrimaryKey(responsesPrivatePoKey);
+      ResponsesPrivatePo responsesPrivatePo = responsesPrivateMapper.selectByPrimaryKey(responsesPrivatePoKey);
 
       if (responsesPrivatePo.getStatus().equals(ResponseStatus.ACCEPTED)) {
         res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "该响应已经被接受");
@@ -165,7 +164,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
           responsesPrivateMapper.updateByPrimaryKey(responsesPrivatePo);
 
           privateCoursePo.setStatus(PrivateCourseStatus.BUSINESS_SELECTED);
-          privateCoursePo.setCoachId(businessId);
+          privateCoursePo.setBusinessId(businessId);
           privateCoursePo.setGymPrice(responsesPrivatePo.getPrice());
           privateCourseMapper.updateByPrimaryKey(privateCoursePo);
 
@@ -173,6 +172,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
         }
       }
     } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
       res = BaseResult.fail("接受响应失败");
     }
