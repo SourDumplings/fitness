@@ -1,5 +1,6 @@
 package com.zju.se.nohair.fitness.web.admin.service.impl;
 
+import com.zju.se.nohair.fitness.commons.constant.GenderTag;
 import com.zju.se.nohair.fitness.commons.constant.VipCardType;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.utils.DateUtils;
@@ -154,6 +155,15 @@ public class AdminCustomerUserServiceImpl implements AdminCustomerUserService {
       for (CustomerPo customerPo : customerPoList) {
         AdminCustomerUserListItemDto adminCustomerUserListItemDto = new AdminCustomerUserListItemDto();
         BeanUtils.copyProperties(customerPo, adminCustomerUserListItemDto);
+
+        if (GenderTag.MALE.equals(customerPo.getGender())) {
+          adminCustomerUserListItemDto.setGender("男");
+        } else {
+          adminCustomerUserListItemDto.setGender("女");
+        }
+
+        adminCustomerUserListItemDto.setAge(DateUtils.getAgeFromBirthday(customerPo.getBirthday()));
+
         adminCustomerUserListItemDtoList.add(adminCustomerUserListItemDto);
       }
       res = BaseResult.success("查询顾客列表成功");
