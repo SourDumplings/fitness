@@ -21,4 +21,8 @@ public interface NotifiesMapper {
   int updateByPrimaryKeySelective(NotifiesPo record);
 
   int updateByPrimaryKey(NotifiesPo record);
+
+  List<NotifiesPo> selectAllByToCoachId(Integer coachId);
+
+  List<NotifiesPo> selectAllByFromCoachId(Integer coachId);
 }

@@ -39,6 +39,24 @@
     where to_id = #{toId,jdbcType=INTEGER}
     and type = 4 or type = 5
   </select>
+  <!--查看发给教练的通知-->
+  <select id="selectAllByToCoachId" parameterType="java.lang.Integer"
+    resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from notifies
+    where to_id = #{toId,jdbcType=INTEGER}
+    and type = 2 or type = 3
+  </select>
+  <!--查看教练对商家，顾客的通知-->
+  <select id="selectAllByFromCoachId" parameterType="java.lang.Integer"
+    resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from notifies
+    where from_id = #{fromId,jdbcType=INTEGER}
+    and type = 0 or type = 4
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPoKey">
     delete from notifies
     where from_id = #{fromId,jdbcType=INTEGER}
