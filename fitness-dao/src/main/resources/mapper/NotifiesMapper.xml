@@ -64,9 +64,7 @@
       and time = #{time,jdbcType=TIMESTAMP}
   </delete>
   <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPo">
-    insert into notifies (from_id, to_id, time, 
-      name, content, type, 
-      status)
+    insert into notifies (from_id, to_id, time, name, content, type, status)
     values (#{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, 
       #{name,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER})

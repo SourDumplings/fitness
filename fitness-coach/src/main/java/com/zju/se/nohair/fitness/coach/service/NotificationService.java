@@ -1,5 +1,6 @@
 package com.zju.se.nohair.fitness.coach.service;
 
+import com.zju.se.nohair.fitness.coach.dto.SendNotificationDto;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 
 /**
@@ -14,4 +15,6 @@ public interface NotificationService {
   BaseResult listNotificationReceivedByCoachId(Integer coachId);//查看别人发给自己的通知（包含2商家对教练，和3用户对教练）
 
   BaseResult listNotificationSentByCoachId(Integer coachId);//查看教练对商家，顾客（私教课）的通知
+
+  BaseResult notifyByIdAndType(SendNotificationDto sendNotificationDto);//发送通知（包含教练对商家，和教练对私教课用户）
 }
