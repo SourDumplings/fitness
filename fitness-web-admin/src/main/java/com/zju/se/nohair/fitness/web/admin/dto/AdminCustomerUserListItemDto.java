@@ -1,6 +1,5 @@
 package com.zju.se.nohair.fitness.web.admin.dto;
 
-import java.util.Date;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -20,5 +19,9 @@ public class AdminCustomerUserListItemDto {
 
   private String username;
 
-  private Date createdTime;
+  private String phone;
+
+  private int age;
+
+  private String gender;
 }
