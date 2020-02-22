@@ -1,0 +1,17 @@
+package com.zju.se.nohair.fitness.coach.service;
+
+import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+
+/**
+ * 教练通知模块的 Service 接口.
+ * @author Miss.Hu
+ * @version 1.0.0
+ * @projectName fitness
+ * @date 2020-02-21
+ */
+public interface NotificationService {
+
+  BaseResult listNotificationReceivedByCoachId(Integer coachId);//查看别人发给自己的通知（包含2商家对教练，和3用户对教练）
+
+  BaseResult listNotificationSentByCoachId(Integer coachId);//查看教练对商家，顾客（私教课）的通知
+}
