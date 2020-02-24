@@ -1,6 +1,5 @@
 package com.zju.se.nohair.fitness.web.admin.dto;
 
-import java.util.Date;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -18,11 +17,11 @@ public class AdminBusinessUserListItemDto {
 
   private Integer id;
 
-  private String username;
+  private String idNumber;
 
-  private Integer certificationPicId;
+  private String personName;
 
-  private Integer status;
+  private String phone;
 
-  private Date createdTime;
+  private String gymName;
 }
