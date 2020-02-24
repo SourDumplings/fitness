@@ -4,12 +4,14 @@ import com.zju.se.nohair.fitness.business.dto.CreatePublicCourseDto;
 import com.zju.se.nohair.fitness.business.dto.PublicCourseDetailDto;
 import com.zju.se.nohair.fitness.business.dto.PublicCourseListItemDto;
 import com.zju.se.nohair.fitness.business.dto.PublicCourseResponseDto;
+import com.zju.se.nohair.fitness.business.dto.TakesPublicCourseListItemDto;
 import com.zju.se.nohair.fitness.business.service.PublicCourseService;
 import com.zju.se.nohair.fitness.commons.constant.PublicCourseStatus;
 import com.zju.se.nohair.fitness.commons.constant.ResponseStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.utils.DateUtils;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
+import com.zju.se.nohair.fitness.dao.mapper.CustomerMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PublicCourseMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ResponsesPublicMapper;
@@ -19,6 +21,7 @@ import com.zju.se.nohair.fitness.dao.po.PicturePo;
 import com.zju.se.nohair.fitness.dao.po.PublicCoursePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPoKey;
+import com.zju.se.nohair.fitness.dao.po.TakesPublicPoKey;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -54,6 +57,8 @@ public class PublicCourseServiceImpl implements PublicCourseService {
 
   private TakesPublicMapper takesPublicMapper;
 
+  private CustomerMapper customerMapper;
+
   @Autowired
   public void setTakesPublicMapper(TakesPublicMapper takesPublicMapper) {
     this.takesPublicMapper = takesPublicMapper;
@@ -77,6 +82,11 @@ public class PublicCourseServiceImpl implements PublicCourseService {
   @Autowired
   public void setPictureMapper(PictureMapper pictureMapper) {
     this.pictureMapper = pictureMapper;
+  }
+
+  @Autowired
+  public void setCustomerMapper(CustomerMapper customerMapper) {
+    this.customerMapper = customerMapper;
   }
 
   @Transactional(readOnly = false)
@@ -283,6 +293,31 @@ public class PublicCourseServiceImpl implements PublicCourseService {
       TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
       res = BaseResult.fail("拒绝响应失败");
+    }
+
+    return res;
+  }
+
+  @Override
+  public BaseResult listCustomersByCourseId(Integer courseId) {
+    BaseResult res = null;
+
+    try {
+      final List<TakesPublicPoKey> takesPublicPoKeys = takesPublicMapper.selectByCourseId(courseId);
+      List<TakesPublicCourseListItemDto> takesPublicCourseListItemDtos = new ArrayList<>();
+      for (TakesPublicPoKey takesPublicPoKey : takesPublicPoKeys) {
+        TakesPublicCourseListItemDto takesPublicCourseListItemDto = new TakesPublicCourseListItemDto();
+        final Integer customerId = takesPublicPoKey.getCustomerId();
+        takesPublicCourseListItemDto.setCustomerId(customerId);
+        takesPublicCourseListItemDto
+            .setUsername(customerMapper.selectByPrimaryKey(customerId).getUsername());
+        takesPublicCourseListItemDtos.add(takesPublicCourseListItemDto);
+      }
+      res = BaseResult.success("查询购买该课程的顾客列表成功");
+      res.setData(takesPublicCourseListItemDtos);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查询购买该课程的顾客列表失败");
     }
 
     return res;

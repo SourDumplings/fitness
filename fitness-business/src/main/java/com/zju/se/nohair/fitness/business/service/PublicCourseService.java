@@ -24,6 +24,8 @@ public interface PublicCourseService {
 
   BaseResult listPublicCourseResponsesByCourseId(Integer courseId);
 
+  BaseResult listCustomersByCourseId(Integer courseId);
+
   BaseResult acceptResponse(Integer courseId, Integer coachId);
 
   BaseResult denyResponse(Integer courseId, Integer coachId);
