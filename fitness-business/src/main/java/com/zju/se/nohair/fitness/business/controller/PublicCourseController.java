@@ -115,6 +115,20 @@ public class PublicCourseController {
     }
   }
 
+  @ApiOperation(value = "查看购买该课程的顾客列表", httpMethod = "GET")
+  @RequestMapping(value = "{courseId}/customer", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> listCustomersByCourseId(
+      @PathVariable("courseId") Integer courseId) {
+    BaseResult baseResult = publicCourseService.listCustomersByCourseId(courseId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
   @ApiOperation(value = "接受对于团课的响应", httpMethod = "PUT")
   @RequestMapping(value = "response/accept/{courseId}/{coachId}", method = RequestMethod.PUT)
   @ResponseBody
