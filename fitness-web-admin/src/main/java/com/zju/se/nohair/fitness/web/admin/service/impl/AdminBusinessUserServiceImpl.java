@@ -3,8 +3,11 @@ package com.zju.se.nohair.fitness.web.admin.service.impl;
 import com.zju.se.nohair.fitness.commons.constant.CertificationStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.dao.mapper.BusinessMapper;
+import com.zju.se.nohair.fitness.dao.mapper.GymMapper;
+import com.zju.se.nohair.fitness.dao.mapper.OwnsGymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.po.BusinessPo;
+import com.zju.se.nohair.fitness.dao.po.OwnsGymPoKey;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminBusinessUserListItemDto;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminCreateBusinessUserDto;
 import com.zju.se.nohair.fitness.web.admin.service.AdminBusinessUserService;
@@ -41,6 +44,10 @@ public class AdminBusinessUserServiceImpl implements AdminBusinessUserService {
 
   private PictureMapper pictureMapper;
 
+  private OwnsGymMapper ownsGymMapper;
+
+  private GymMapper gymMapper;
+
   @Autowired
   public void setBusinessMapper(BusinessMapper businessMapper) {
     this.businessMapper = businessMapper;
@@ -49,6 +56,16 @@ public class AdminBusinessUserServiceImpl implements AdminBusinessUserService {
   @Autowired
   public void setPictureMapper(PictureMapper pictureMapper) {
     this.pictureMapper = pictureMapper;
+  }
+
+  @Autowired
+  public void setOwnsGymMapper(OwnsGymMapper ownsGymMapper) {
+    this.ownsGymMapper = ownsGymMapper;
+  }
+
+  @Autowired
+  public void setGymMapper(GymMapper gymMapper) {
+    this.gymMapper = gymMapper;
   }
 
   @Override
@@ -62,6 +79,13 @@ public class AdminBusinessUserServiceImpl implements AdminBusinessUserService {
       for (BusinessPo businessPo : businessPoList) {
         AdminBusinessUserListItemDto adminBusinessUserListItemDto = new AdminBusinessUserListItemDto();
         BeanUtils.copyProperties(businessPo, adminBusinessUserListItemDto);
+
+        final OwnsGymPoKey ownsGymPoKey = ownsGymMapper.selectByBusinessId(businessPo.getId());
+        if (ownsGymPoKey != null) {
+          adminBusinessUserListItemDto
+              .setGymName(gymMapper.selectByPrimaryKey(ownsGymPoKey.getGymId()).getName());
+        }
+
         adminBusinessUserListItemDtoList.add(adminBusinessUserListItemDto);
       }
       res = BaseResult.success("查询商家列表成功");
