@@ -20,4 +20,8 @@ public interface ResponsesPrivateMapper {
   List<ResponsesPrivatePo> selectByCourseId(Integer courseId);
 
   int updateByPrimaryKey(ResponsesPrivatePo record);
+
+  List<ResponsesPrivatePo> selectBusinessByCourseId(Integer courseId);
+
+
 }

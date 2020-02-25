@@ -17,4 +17,10 @@ public interface NotificationService {
   BaseResult listNotificationSentByCoachId(Integer coachId);//查看教练对商家，顾客（私教课）的通知
 
   BaseResult notifyByIdAndType(SendNotificationDto sendNotificationDto);//发送通知（包含教练对商家，和教练对私教课用户）
+
+  BaseResult listBusinessByCourseId(Integer courseId);//通知模块---课程id查找商家id,status=1
+
+  BaseResult listPrivateCustomerByCourseId(Integer courseId);//通知模块---课程id查找私教课顾客id
+
+  BaseResult listPublicCustomerByCourseId(Integer courseId);//通知模块 课程id查找团课所有顾客id
 }

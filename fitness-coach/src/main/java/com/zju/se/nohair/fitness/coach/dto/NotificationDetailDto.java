@@ -21,6 +21,8 @@ public class NotificationDetailDto {
 
   private String name;
 
+  private String content;
+
   private Integer type;
 
   private Integer status;

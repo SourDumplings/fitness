@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -74,6 +75,45 @@ public class CoachNotificationController {
   @ResponseBody
   public ResponseEntity<Object> listNotificationReceivedByCoachId(@RequestParam(name = "coachId") Integer coachId) {
     BaseResult baseResult = notificationService.listNotificationReceivedByCoachId(coachId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "通知模块 课程id查找商家id,status=1", httpMethod = "GET")
+  @RequestMapping(value = "{courseId}/business", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> listBusinessByCourseId(@PathVariable("courseId") Integer courseId) {
+    BaseResult baseResult = notificationService.listBusinessByCourseId(courseId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "通知模块 课程id查找私教课顾客id", httpMethod = "GET")
+  @RequestMapping(value = "{courseId}/private_customer", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> listPrivateCustomerByCourseId(@PathVariable("courseId") Integer courseId) {
+    BaseResult baseResult = notificationService.listPrivateCustomerByCourseId(courseId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "通知模块 课程id查找团课所有顾客id", httpMethod = "GET")
+  @RequestMapping(value = "{courseId}/public_customer", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> listPublicCustomerByCourseId(@PathVariable("courseId") Integer courseId) {
+    BaseResult baseResult = notificationService.listPublicCustomerByCourseId(courseId);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
     } else {

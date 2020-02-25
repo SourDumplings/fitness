@@ -19,6 +19,8 @@ public class NotificationListItemDto {
 
   private String time;
 
+  private String content;
+
   private String name;
 
   private Integer type;
