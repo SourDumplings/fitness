@@ -12,6 +12,13 @@
     from takes_public
     where course_id = #{courseId,jdbcType=INTEGER}
   </select>
+
+  <!--通知模块 课程id查找团课所有顾客id-->
+  <select id="selectPublicCustomerByCourseId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from takes_public
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </select>
+
   <select id="selectByCustomerId" parameterType="Integer" resultMap="BaseResultMap">
     select
     *
