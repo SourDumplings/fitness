@@ -1,7 +1,10 @@
 package com.zju.se.nohair.fitness.coach.service;
 
 import com.zju.se.nohair.fitness.coach.dto.SendNotificationDto;
+
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.dao.po.NotifiesPo;
+import com.zju.se.nohair.fitness.dao.po.NotifiesPoKey;
 
 /**
  * 教练通知模块的 Service 接口.
@@ -23,4 +26,7 @@ public interface NotificationService {
   BaseResult listPrivateCustomerByCourseId(Integer courseId);//通知模块---课程id查找私教课顾客id
 
   BaseResult listPublicCustomerByCourseId(Integer courseId);//通知模块 课程id查找团课所有顾客id
+
+  BaseResult listBusinessList();//通知模块 查找所有商家id
+
 }
