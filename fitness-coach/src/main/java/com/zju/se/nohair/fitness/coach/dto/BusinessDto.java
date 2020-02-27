@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
  * @author Miss.Hu
  * @version 1.0.0
  * @projectName fitness
- * @date 2020-02-25
+ * @date 2020-02-27
  */
 @Component
 @Data
-public class NotificationBusinessDto {
+public class BusinessDto {
 
-  private Integer BusinessId;//通知商家id
+  private Integer id;//通知商家id
 }
