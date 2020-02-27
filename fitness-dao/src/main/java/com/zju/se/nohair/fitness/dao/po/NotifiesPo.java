@@ -6,8 +6,6 @@ public class NotifiesPo extends NotifiesPoKey {
 
   private String content;
 
-  private Integer type;
-
   private Integer status;
 
   public String getName() {
@@ -24,14 +22,6 @@ public class NotifiesPo extends NotifiesPoKey {
 
   public void setContent(String content) {
     this.content = content == null ? null : content.trim();
-  }
-
-  public Integer getType() {
-    return type;
-  }
-
-  public void setType(Integer type) {
-    this.type = type;
   }
 
   public Integer getStatus() {

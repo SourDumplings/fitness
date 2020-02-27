@@ -22,6 +22,7 @@
     where from_id = #{fromId,jdbcType=INTEGER}
     and to_id = #{toId,jdbcType=INTEGER}
     and time = #{time,jdbcType=TIMESTAMP}
+    and type = #{type,jdbcType=INTEGER}
   </select>
   <select id="selectAllByFromBusinessId" parameterType="java.lang.Integer"
     resultMap="BaseResultMap">
@@ -62,6 +63,7 @@
     where from_id = #{fromId,jdbcType=INTEGER}
       and to_id = #{toId,jdbcType=INTEGER}
       and time = #{time,jdbcType=TIMESTAMP}
+      and type = #{type,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPo">
     insert into notifies (from_id, to_id, time, name, content, type, status)
@@ -128,9 +130,6 @@
       <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        type = #{type,jdbcType=INTEGER},
-      </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
@@ -138,15 +137,16 @@
     where from_id = #{fromId,jdbcType=INTEGER}
     and to_id = #{toId,jdbcType=INTEGER}
     and time = #{time,jdbcType=TIMESTAMP}
+    and type = #{type,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPo">
     update notifies
     set name = #{name,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
-      type = #{type,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER}
     where from_id = #{fromId,jdbcType=INTEGER}
       and to_id = #{toId,jdbcType=INTEGER}
       and time = #{time,jdbcType=TIMESTAMP}
+      and type = #{type,jdbcType=INTEGER}
   </update>
 </mapper>

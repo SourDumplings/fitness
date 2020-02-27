@@ -10,6 +10,8 @@ public class NotifiesPoKey {
 
   private Date time;
 
+  private Integer type;
+
   public Integer getFromId() {
     return fromId;
   }
@@ -32,5 +34,13 @@ public class NotifiesPoKey {
 
   public void setTime(Date time) {
     this.time = time;
+  }
+
+  public Integer getType() {
+    return type;
+  }
+
+  public void setType(Integer type) {
+    this.type = type;
   }
 }
