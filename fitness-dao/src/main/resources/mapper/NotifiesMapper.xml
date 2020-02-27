@@ -149,4 +149,6 @@
       and time = #{time,jdbcType=TIMESTAMP}
       and type = #{type,jdbcType=INTEGER}
   </update>
+
+
 </mapper>

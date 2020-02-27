@@ -25,4 +25,6 @@ public interface NotifiesMapper {
   List<NotifiesPo> selectAllByToCoachId(Integer coachId);
 
   List<NotifiesPo> selectAllByFromCoachId(Integer coachId);
+
+
 }

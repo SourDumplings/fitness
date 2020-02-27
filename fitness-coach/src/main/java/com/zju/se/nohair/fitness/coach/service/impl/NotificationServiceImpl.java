@@ -1,5 +1,9 @@
 package com.zju.se.nohair.fitness.coach.service.impl;
 
+import com.zju.se.nohair.fitness.coach.dto.BusinessDto;
+import com.zju.se.nohair.fitness.coach.dto.NotificationBusinessDto;
+import com.zju.se.nohair.fitness.coach.dto.NotificationCustomerDto;
+import com.zju.se.nohair.fitness.coach.dto.NotificationDetailDto;
 import com.zju.se.nohair.fitness.coach.dto.NotificationListItemDto;
 import com.zju.se.nohair.fitness.coach.dto.SendNotificationDto;
 import com.zju.se.nohair.fitness.coach.service.NotificationService;
@@ -7,8 +11,17 @@ import com.zju.se.nohair.fitness.commons.constant.NotificationStatus;
 import com.zju.se.nohair.fitness.commons.constant.NotificationType;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.utils.DateUtils;
+import com.zju.se.nohair.fitness.dao.mapper.BusinessMapper;
 import com.zju.se.nohair.fitness.dao.mapper.NotifiesMapper;
+import com.zju.se.nohair.fitness.dao.mapper.ResponsesPrivateMapper;
+import com.zju.se.nohair.fitness.dao.mapper.TakesPrivateMapper;
+import com.zju.se.nohair.fitness.dao.mapper.TakesPublicMapper;
+import com.zju.se.nohair.fitness.dao.po.BusinessPo;
 import com.zju.se.nohair.fitness.dao.po.NotifiesPo;
+import com.zju.se.nohair.fitness.dao.po.NotifiesPoKey;
+import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo;
+import com.zju.se.nohair.fitness.dao.po.TakesPrivatePo;
+import com.zju.se.nohair.fitness.dao.po.TakesPublicPoKey;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -33,9 +46,37 @@ public class NotificationServiceImpl implements NotificationService {
 
   private NotifiesMapper notifiesMapper;
 
+  private ResponsesPrivateMapper responsesPrivateMapper;
+
+  private TakesPrivateMapper takesPrivateMapper;
+
+  private TakesPublicMapper takesPublicMapper;
+
+  private BusinessMapper businessMapper;
+
+  @Autowired
+  public void setBusinessMapper(BusinessMapper businessMapper) {
+    this.businessMapper = businessMapper;
+  }
+
+  @Autowired
+  public void setTakesPublicMapper(TakesPublicMapper takesPublicMapper) {
+    this.takesPublicMapper = takesPublicMapper;
+  }
+
   @Autowired
   public void setNotifiesMapper(NotifiesMapper notifiesMapper) {
     this.notifiesMapper = notifiesMapper;
+  }
+
+  @Autowired
+  public void setResponsesPrivateMapper(ResponsesPrivateMapper responsesPrivateMapper) {
+    this.responsesPrivateMapper = responsesPrivateMapper;
+  }
+
+  @Autowired
+  public void setTakesPrivateMapper(TakesPrivateMapper takesPrivateMapper) {
+    this.takesPrivateMapper = takesPrivateMapper;
   }
 
   @Override
@@ -114,4 +155,102 @@ public class NotificationServiceImpl implements NotificationService {
 
     return res;
   }
+
+  @Override
+  public BaseResult listBusinessByCourseId(Integer courseId) {
+    //通知模块---课程id查找商家id,status=1
+    BaseResult res = null;
+
+    try {
+      final List<ResponsesPrivatePo> responsesPrivatePos = responsesPrivateMapper.selectBusinessByCourseId(courseId);
+      List<NotificationBusinessDto> notificationBusinessDtoList = new ArrayList<>();
+      for (ResponsesPrivatePo responsesPrivatePo : responsesPrivatePos) {
+        NotificationBusinessDto notificationBusinessDto = new NotificationBusinessDto();
+        BeanUtils.copyProperties(responsesPrivatePo, notificationBusinessDto);
+
+        notificationBusinessDtoList.add(notificationBusinessDto);
+      }
+      res = BaseResult.success("查找商家id,status=1成功");
+      res.setData(notificationBusinessDtoList);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查找商家id,status=1失败");
+    }
+
+    return res;
+  }
+
+  @Override
+  public BaseResult listPrivateCustomerByCourseId(Integer courseId) {
+    //通知模块---课程id查找私教课顾客id
+    BaseResult res = null;
+
+    try {
+      final List<TakesPrivatePo> takesPrivatePos = takesPrivateMapper.selectPrivateCustomerByCourseId(courseId);
+      List<NotificationCustomerDto> notificationCustomerDtoList = new ArrayList<>();
+      for (TakesPrivatePo takesPrivatePo : takesPrivatePos) {
+        NotificationCustomerDto notificationCustomerDto = new NotificationCustomerDto();
+        BeanUtils.copyProperties(takesPrivatePo, notificationCustomerDto);
+
+        notificationCustomerDtoList.add(notificationCustomerDto);
+      }
+      res = BaseResult.success("查找私教课顾客id成功");
+      res.setData(notificationCustomerDtoList);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查找私教课顾客id失败");
+    }
+
+    return res;
+  }
+
+  @Override
+  public BaseResult listPublicCustomerByCourseId(Integer courseId) {
+    //通知模块 课程id查找团课所有顾客id
+    BaseResult res = null;
+
+    try {
+      final List<TakesPublicPoKey> takesPublicPoKeys = takesPublicMapper.selectPublicCustomerByCourseId(courseId);
+      List<NotificationCustomerDto> notificationCustomerDtoList = new ArrayList<>();
+      for (TakesPublicPoKey takesPublicPoKey : takesPublicPoKeys) {
+        NotificationCustomerDto notificationCustomerDto = new NotificationCustomerDto();
+        BeanUtils.copyProperties(takesPublicPoKey, notificationCustomerDto);
+
+        notificationCustomerDtoList.add(notificationCustomerDto);
+      }
+      res = BaseResult.success("查找团课所有顾客id成功");
+      res.setData(notificationCustomerDtoList);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查找团课所有顾客id失败");
+    }
+
+    return res;
+  }
+
+  @Override
+  public BaseResult listBusinessList() {
+    //通知模块 查找所有商家id
+    BaseResult res = null;
+
+    try {
+      final List<BusinessPo> businessPos = businessMapper.selectAll();
+      List<BusinessDto> businessDtoList = new ArrayList<>();
+      for (BusinessPo businessPo : businessPos) {
+        BusinessDto businessDto = new BusinessDto();
+        BeanUtils.copyProperties(businessPo, businessDto);
+
+        businessDtoList.add(businessDto);
+      }
+      res = BaseResult.success("查找所有商家id成功");
+      res.setData(businessDtoList);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("查找所有商家id失败");
+    }
+
+    return res;
+  }
+
+
 }

@@ -18,6 +18,12 @@
     where customer_id = #{customerId,jdbcType=INTEGER}
     and course_id = #{courseId,jdbcType=INTEGER}
   </select>
+  <!--通知模块 课程id查找私教课顾客id-->
+  <select id="selectPrivateCustomerByCourseId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from takes_private
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </select>
+
   <select id="selectByCourseId" parameterType="Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>

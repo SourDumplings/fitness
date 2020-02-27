@@ -25,4 +25,6 @@ public interface TakesPrivateMapper {
   int deleteByPo(TakesPrivatePo takesPrivatePo);
 
   List<TakesPrivatePo> selectByCourseId(Integer courseId);
+
+  List<TakesPrivatePo> selectPrivateCustomerByCourseId(Integer courseId);
 }

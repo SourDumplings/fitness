@@ -18,4 +18,6 @@ public interface TakesPublicMapper {
   List<TakesPublicPoKey> selectByCourseId(Integer id);
 
   List<TakesPublicPoKey> selectByCustomerId(Integer customerId);
+
+  List<TakesPublicPoKey> selectPublicCustomerByCourseId(Integer courseId);
 }
