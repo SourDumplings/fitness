@@ -9,6 +9,8 @@ public interface GymMapper {
 
   int insert(GymPo record);
 
+  void insertReturnId(GymPo gymPo);
+
   int insertSelective(GymPo record);
 
   GymPo selectByPrimaryKey(Integer id);

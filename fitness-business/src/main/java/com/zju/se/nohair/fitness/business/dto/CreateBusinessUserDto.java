@@ -33,4 +33,10 @@ public class CreateBusinessUserDto {
   @Pattern(regexp = RegexpUtils.ID_NUMBER, message = "身份证号格式不正确")
   private String idNumber;
 
+  @Length(min = 1, max = 30, message = "健身房名的长度必须介于 1 - 30 位之间")
+  private String gymName;
+
+  @Length(min = 1, max = 200, message = "健身房名的长度必须介于 1 - 200 位之间")
+  private String address;
+
 }

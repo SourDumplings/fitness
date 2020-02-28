@@ -30,7 +30,7 @@
     <include refid="Base_Column_List"/>
     from notifies
     where from_id = #{fromId,jdbcType=INTEGER}
-    and type = 1 or type = 2
+    and (type = 1 or type = 2)
   </select>
   <select id="selectAllByToBusinessId" parameterType="java.lang.Integer"
     resultMap="BaseResultMap">
@@ -38,7 +38,7 @@
     <include refid="Base_Column_List"/>
     from notifies
     where to_id = #{toId,jdbcType=INTEGER}
-    and type = 4 or type = 5
+    and (type = 4 or type = 5)
   </select>
   <!--查看发给教练的通知-->
   <select id="selectAllByToCoachId" parameterType="java.lang.Integer"
