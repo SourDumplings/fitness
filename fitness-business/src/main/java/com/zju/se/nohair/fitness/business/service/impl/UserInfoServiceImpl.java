@@ -9,8 +9,12 @@ import com.zju.se.nohair.fitness.commons.constant.CertificationStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.utils.DateUtils;
 import com.zju.se.nohair.fitness.dao.mapper.BusinessMapper;
+import com.zju.se.nohair.fitness.dao.mapper.GymMapper;
+import com.zju.se.nohair.fitness.dao.mapper.OwnsGymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.po.BusinessPo;
+import com.zju.se.nohair.fitness.dao.po.GymPo;
+import com.zju.se.nohair.fitness.dao.po.OwnsGymPoKey;
 import java.math.BigDecimal;
 import java.util.Date;
 import org.slf4j.Logger;
@@ -41,6 +45,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 
   private PictureMapper pictureMapper;
 
+  private OwnsGymMapper ownsGymMapper;
+
+  private GymMapper gymMapper;
+
   @Autowired
   public void setBusinessMapper(BusinessMapper businessMapper) {
     this.businessMapper = businessMapper;
@@ -51,6 +59,15 @@ public class UserInfoServiceImpl implements UserInfoService {
     this.pictureMapper = pictureMapper;
   }
 
+  @Autowired
+  public void setOwnsGymMapper(OwnsGymMapper ownsGymMapper) {
+    this.ownsGymMapper = ownsGymMapper;
+  }
+
+  @Autowired
+  public void setGymMapper(GymMapper gymMapper) {
+    this.gymMapper = gymMapper;
+  }
 
   @Transactional(readOnly = false)
   @Override
@@ -59,15 +76,30 @@ public class UserInfoServiceImpl implements UserInfoService {
     BaseResult res = null;
 
     try {
+      final Date now = new Date();
+
       BusinessPo businessPo = new BusinessPo();
       BeanUtils.copyProperties(createBusinessUserDto, businessPo);
       businessPo.setPassword(DigestUtils.md5DigestAsHex(businessPo.getPassword().getBytes()));
-      businessPo.setCreatedTime(new Date());
+      businessPo.setCreatedTime(now);
       businessPo.setStatus(CertificationStatus.NEW_PUBLISH);
       businessPo.setBalance(BigDecimal.ZERO);
       businessPo.setPicId(PicUtils.saveSinglePic(pictureMapper, profilePic));
       businessPo.setCertificationPicId(PicUtils.saveSinglePic(pictureMapper, certificationPic));
-      businessMapper.insert(businessPo);
+      businessMapper.insertReturnId(businessPo);
+
+      GymPo gymPo = new GymPo();
+      gymPo.setName(createBusinessUserDto.getGymName());
+      gymPo.setAddress(createBusinessUserDto.getAddress());
+      gymPo.setBusinessId(businessPo.getId());
+      gymPo.setCreatedTime(now);
+      gymMapper.insertReturnId(gymPo);
+
+      OwnsGymPoKey ownsGymPoKey = new OwnsGymPoKey();
+      ownsGymPoKey.setBusinessId(businessPo.getId());
+      ownsGymPoKey.setGymId(gymPo.getId());
+      ownsGymMapper.insert(ownsGymPoKey);
+
       res = BaseResult.success("商家用户注册成功");
     } catch (Exception e) {
       TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();

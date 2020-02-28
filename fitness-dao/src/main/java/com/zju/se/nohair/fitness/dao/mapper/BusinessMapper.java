@@ -9,6 +9,8 @@ public interface BusinessMapper {
 
   int insert(BusinessPo record);
 
+  void insertReturnId(BusinessPo record);
+
   int insertSelective(BusinessPo record);
 
   BusinessPo selectByPrimaryKey(Integer id);

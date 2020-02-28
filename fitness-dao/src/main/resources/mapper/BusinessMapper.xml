@@ -117,6 +117,80 @@
       </if>
     </trim>
   </insert>
+  <insert id="insertReturnId" parameterType="com.zju.se.nohair.fitness.dao.po.BusinessPo"
+    useGeneratedKeys="true" keyProperty="id">
+    insert into business
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="picId != null">
+        pic_id,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="personName != null">
+        person_name,
+      </if>
+      <if test="idNumber != null">
+        id_number,
+      </if>
+      <if test="certificationPicId != null">
+        certification_pic_id,
+      </if>
+      <if test="balance != null">
+        balance,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="picId != null">
+        #{picId,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="personName != null">
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="idNumber != null">
+        #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="certificationPicId != null">
+        #{certificationPicId,jdbcType=INTEGER},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
   <update id="updateByPrimaryKeySelective"
     parameterType="com.zju.se.nohair.fitness.dao.po.BusinessPo">
     update business
