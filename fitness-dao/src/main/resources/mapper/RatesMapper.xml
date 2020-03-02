@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zju.se.nohair.fitness.dao.mapper.RatesMapper">
-  <select id="selectByCoachId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+  <select id="selectByCoachId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from rates
     where to_id = #{coachId,jdbcType=INTEGER} and (type = 3 or type = 9)
   </select>
-  <select id="selectByGymId" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+  <select id="selectByGymId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from rates
@@ -139,4 +139,11 @@
       and to_id = #{toId,jdbcType=INTEGER}
       and time = #{time,jdbcType=TIMESTAMP}
   </update>
+  <select id="countMeanRatingForBusinessUser" parameterType="java.lang.Integer"
+    resultType="java.math.BigDecimal">
+    select avg(rating_points)
+    from rates
+    where to_id = #{businessId, jdbcType=INTEGER}
+        and (type = 4 or type = 5 or type = 10 or type = 11)
+  </select>
 </mapper>

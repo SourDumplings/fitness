@@ -23,6 +23,12 @@
     ifnull(max(pic_group_id),0)+1
     from picture
   </select>
+  <select id="selectByPicGroupId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List"/>
+    from picture
+    where pic_group_id = #{picGroupId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from picture
     where id = #{id,jdbcType=INTEGER}
@@ -33,7 +39,8 @@
     values (#{id,jdbcType=INTEGER}, #{picGroupId,jdbcType=INTEGER}, #{picLink,jdbcType=VARCHAR}, 
       #{filePath,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertReturnId" parameterType="com.zju.se.nohair.fitness.dao.po.PicturePo" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertReturnId" parameterType="com.zju.se.nohair.fitness.dao.po.PicturePo"
+    useGeneratedKeys="true" keyProperty="id">
     insert into picture
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

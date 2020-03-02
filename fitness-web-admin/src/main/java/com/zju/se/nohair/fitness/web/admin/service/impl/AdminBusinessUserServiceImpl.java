@@ -2,12 +2,18 @@ package com.zju.se.nohair.fitness.web.admin.service.impl;
 
 import com.zju.se.nohair.fitness.commons.constant.CertificationStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.commons.utils.DateUtils;
 import com.zju.se.nohair.fitness.dao.mapper.BusinessMapper;
 import com.zju.se.nohair.fitness.dao.mapper.GymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.OwnsGymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
+import com.zju.se.nohair.fitness.dao.mapper.RatesMapper;
+import com.zju.se.nohair.fitness.dao.mapper.ReceiveRecordMapper;
 import com.zju.se.nohair.fitness.dao.po.BusinessPo;
 import com.zju.se.nohair.fitness.dao.po.OwnsGymPoKey;
+import com.zju.se.nohair.fitness.dao.po.PicturePo;
+import com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo;
+import com.zju.se.nohair.fitness.web.admin.dto.AdminBusinessUserDetailDto;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminBusinessUserListItemDto;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminCreateBusinessUserDto;
 import com.zju.se.nohair.fitness.web.admin.service.AdminBusinessUserService;
@@ -48,6 +54,10 @@ public class AdminBusinessUserServiceImpl implements AdminBusinessUserService {
 
   private GymMapper gymMapper;
 
+  private RatesMapper ratesMapper;
+
+  private ReceiveRecordMapper receiveRecordMapper;
+
   @Autowired
   public void setBusinessMapper(BusinessMapper businessMapper) {
     this.businessMapper = businessMapper;
@@ -66,6 +76,16 @@ public class AdminBusinessUserServiceImpl implements AdminBusinessUserService {
   @Autowired
   public void setGymMapper(GymMapper gymMapper) {
     this.gymMapper = gymMapper;
+  }
+
+  @Autowired
+  public void setRatesMapper(RatesMapper ratesMapper) {
+    this.ratesMapper = ratesMapper;
+  }
+
+  @Autowired
+  public void setReceiveRecordMapper(ReceiveRecordMapper receiveRecordMapper) {
+    this.receiveRecordMapper = receiveRecordMapper;
   }
 
   @Override
@@ -100,7 +120,60 @@ public class AdminBusinessUserServiceImpl implements AdminBusinessUserService {
 
   @Override
   public BaseResult getDetailById(Integer id) {
-    return null;
+    BaseResult res = null;
+
+    try {
+      AdminBusinessUserDetailDto adminBusinessUserDetailDto = new AdminBusinessUserDetailDto();
+      final BusinessPo businessPo = businessMapper.selectByPrimaryKey(id);
+      BeanUtils.copyProperties(businessPo, adminBusinessUserDetailDto);
+
+      // 平均评分
+      adminBusinessUserDetailDto.setRating(ratesMapper.countMeanRatingForBusinessUser(id));
+
+      // 月、总收入
+      Date nowDate = new Date();
+      Date oneMonthBack = DateUtils.dateBack(nowDate, 0, 1, 0);
+      BigDecimal monthlyIncome = BigDecimal.ZERO;
+      BigDecimal totalIncome = BigDecimal.ZERO;
+      final List<ReceiveRecordPo> receiveRecordPos = receiveRecordMapper
+          .selectAllBusinessIncomeRecordsByCustomerId(id);
+      for (ReceiveRecordPo receiveRecordPo : receiveRecordPos) {
+        final BigDecimal amount = receiveRecordPo.getAmount();
+        if (oneMonthBack.compareTo(receiveRecordPo.getCreatedTime()) <= 0) {
+          monthlyIncome = monthlyIncome.add(amount);
+        }
+        totalIncome = totalIncome.add(amount);
+      }
+      adminBusinessUserDetailDto.setMonthlyIncome(monthlyIncome);
+      adminBusinessUserDetailDto.setTotalIncome(totalIncome);
+
+      // 资格证
+      final Integer certificationPicId = businessPo.getCertificationPicId();
+      adminBusinessUserDetailDto.setCertificationPicLink(
+          pictureMapper.selectByPrimaryKey(certificationPicId).getPicLink());
+
+      // 健身房图片集
+      final OwnsGymPoKey ownsGymPoKey = ownsGymMapper.selectByBusinessId(id);
+      final Integer picGroupId = gymMapper.selectByPrimaryKey(ownsGymPoKey.getGymId())
+          .getPicGroupId();
+      if (picGroupId != null) {
+        final List<PicturePo> picturePos = pictureMapper.selectByPicGroupId(picGroupId);
+        List<String> gymPicLinks = new ArrayList<>();
+        for (PicturePo picturePo : picturePos) {
+          gymPicLinks.add(picturePo.getPicLink());
+        }
+        adminBusinessUserDetailDto.setGymPicLinks(gymPicLinks);
+      }
+
+      res = BaseResult.success("获取商家详情成功");
+      res.setData(adminBusinessUserDetailDto);
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("获取商家详情失败");
+    }
+
+    return res;
   }
 
   @Transactional(readOnly = false)
