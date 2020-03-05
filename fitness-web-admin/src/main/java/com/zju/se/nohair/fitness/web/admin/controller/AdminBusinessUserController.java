@@ -53,7 +53,7 @@ public class AdminBusinessUserController {
     }
   }
 
-  @ApiOperation(value = "商家用户详情", httpMethod = "GET")
+  @ApiOperation(value = "商家用户详情；性别统计第一个数字为男顾客数，第二个为女顾客数", httpMethod = "GET")
   @RequestMapping(value = "{businessId}", method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<Object> getDetailById(

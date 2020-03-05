@@ -34,4 +34,11 @@ public class AdminBusinessUserDetailDto {
   private String certificationPicLink;
 
   private List<String> gymPicLinks;
+
+  private int[] genderDistribution;
+
+  private BigDecimal[] weeklyIncomeDistribution;
+
+  private List<AdminBusinessUserReceiveRecordListItemDto> receiveRecords;
+
 }
