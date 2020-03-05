@@ -45,7 +45,7 @@
     select
     <include refid="Base_Column_List"/>
     from receive_record
-    where to_id = #{businessId, jdbcType=INTEGER}
+    where to_id = #{businessId, jdbcType=INTEGER} and (type = 1 or type = 2 or type = 4)
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from receive_record
