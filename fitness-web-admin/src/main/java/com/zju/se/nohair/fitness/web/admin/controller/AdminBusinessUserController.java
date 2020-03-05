@@ -53,6 +53,20 @@ public class AdminBusinessUserController {
     }
   }
 
+  @ApiOperation(value = "商家用户详情；性别统计第一个数字为男顾客数，第二个为女顾客数", httpMethod = "GET")
+  @RequestMapping(value = "{businessId}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> getDetailById(
+      @PathVariable(value = "businessId") Integer businessId) {
+    BaseResult baseResult = adminBusinessUserService.getDetailById(businessId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
   @ApiOperation(value = "注册/更新商家用户；id 为 -1 即为注册，否则为更新", httpMethod = "POST")
   @RequestMapping(value = "", method = RequestMethod.POST)
   @ResponseBody

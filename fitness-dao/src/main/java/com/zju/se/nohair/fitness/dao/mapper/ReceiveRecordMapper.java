@@ -38,6 +38,15 @@ public interface ReceiveRecordMapper {
    */
   List<ReceiveRecordPo> selectAllCustomerExpensesByCustomerId(Integer customerId);
 
+
+  /**
+   * 选出该商家所有的收入记录.
+   *
+   * @param businessId
+   * @return
+   */
+  List<ReceiveRecordPo> selectAllBusinessIncomeRecordsByBusinessId(Integer businessId);
+
   int updateByPrimaryKeySelective(ReceiveRecordPo record);
 
   int updateByPrimaryKey(ReceiveRecordPo record);
