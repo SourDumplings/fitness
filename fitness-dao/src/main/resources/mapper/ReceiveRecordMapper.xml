@@ -40,7 +40,7 @@
     from receive_record
     where from_id = #{customerId,jdbcType=INTEGER} and (type = 0 or type = 1 or type = 4)
   </select>
-  <select id="selectAllBusinessIncomeRecordsByCustomerId" parameterType="java.lang.Integer"
+  <select id="selectAllBusinessIncomeRecordsByBusinessId" parameterType="java.lang.Integer"
     resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>

@@ -45,7 +45,7 @@ public interface ReceiveRecordMapper {
    * @param businessId
    * @return
    */
-  List<ReceiveRecordPo> selectAllBusinessIncomeRecordsByCustomerId(Integer businessId);
+  List<ReceiveRecordPo> selectAllBusinessIncomeRecordsByBusinessId(Integer businessId);
 
   int updateByPrimaryKeySelective(ReceiveRecordPo record);
 
