@@ -91,6 +91,7 @@ public class CoachPublicCourseController {
           HttpStatus.valueOf(baseResult.getStatus()));
     }
   }
+
   @ApiOperation(value = "查看发布的团课详情；课程状态（0代表商家已发布，1代表教练已选定，2代表至少一个顾客选定并已付款，3代表课程结束未评价，4代表已满，5代表课程结束已评价）", httpMethod = "GET")
   @RequestMapping(value = "{courseId}", method = RequestMethod.GET)
   @ResponseBody
