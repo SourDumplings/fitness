@@ -1,6 +1,8 @@
 package com.zju.se.nohair.fitness.coach.service;
 
+import com.zju.se.nohair.fitness.coach.dto.CreateCoachDto;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 教练端-我的 接口
@@ -12,4 +14,6 @@ import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 public interface DetailService {
 
   BaseResult getCoachDetailByCoachId(Integer coachId);//查看教练的个人信息
+
+  BaseResult createBusinessUser(CreateCoachDto createCoachDto, MultipartFile profilePic, MultipartFile certificationPic);//注册新教练
 }

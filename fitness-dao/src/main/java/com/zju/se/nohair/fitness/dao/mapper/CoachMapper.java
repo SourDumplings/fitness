@@ -18,4 +18,6 @@ public interface CoachMapper {
   int updateByPrimaryKeySelective(CoachPo record);
 
   int updateByPrimaryKey(CoachPo record);
+
+  int insertReturnId(CoachPo coachPo);
 }

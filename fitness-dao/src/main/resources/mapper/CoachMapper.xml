@@ -40,6 +40,23 @@
     delete from coach
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <!--注册新教练-->
+  <insert id="insertReturnId" parameterType="com.zju.se.nohair.fitness.dao.po.CoachPo">
+    insert into coach (id, username, password,
+      adeptness, gender, pic_id,
+      phone, birthday, name,
+      id_number, certification_pic_id, ps,
+      height, weight, balance,
+      status, created_time)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{adeptness,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{picId,jdbcType=INTEGER},
+      #{phone,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{name,jdbcType=VARCHAR},
+      #{idNumber,jdbcType=VARCHAR}, #{certificationPicId,jdbcType=INTEGER}, #{ps,jdbcType=VARCHAR},
+      #{height,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, #{balance,jdbcType=DECIMAL},
+      #{status,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP})
+  </insert>
+
+
   <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.CoachPo">
     insert into coach (id, username, password, 
       adeptness, gender, pic_id, 
