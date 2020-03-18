@@ -31,7 +31,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Transactional(readOnly = true)
 @Service
 public class DetailServiceImpl implements DetailService {
-  private static Logger logger = LoggerFactory.getLogger(FinanceServiceImpl.class);
+
+  private static Logger logger = LoggerFactory.getLogger(DetailServiceImpl.class);
 
   private CoachMapper coachMapper;
 
@@ -68,7 +69,7 @@ public class DetailServiceImpl implements DetailService {
 
   @Transactional(readOnly = false)
   @Override
-  public BaseResult createBusinessUser(CreateCoachDto createCoachDto, MultipartFile profilePic,
+  public BaseResult createBusinessUser(CreateCoachDto createCoachDto,
       MultipartFile certificationPic) {
     //注册新教练
     BaseResult res = null;
@@ -82,7 +83,7 @@ public class DetailServiceImpl implements DetailService {
       coachPo.setCreatedTime(now);
       coachPo.setStatus(CertificationStatus.NEW_PUBLISH);
       coachPo.setBalance(BigDecimal.ZERO);
-      coachPo.setPicId(PicUtils.saveSinglePic(pictureMapper, profilePic));
+      //coachPo.setPicId(PicUtils.saveSinglePic(pictureMapper, profilePic));
       coachPo.setCertificationPicId(PicUtils.saveSinglePic(pictureMapper, certificationPic));
       coachMapper.insertReturnId(coachPo);
 

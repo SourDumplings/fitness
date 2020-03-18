@@ -43,9 +43,8 @@ public class CoachDetailController {
   @ResponseBody
   public ResponseEntity<Object> createCoach(
       CreateCoachDto createCoachDto,
-      @RequestParam("profilePic") MultipartFile profilePic,
       @RequestParam("certificationPic") MultipartFile certificationPic) {
-    BaseResult baseResult = detailService.createBusinessUser(createCoachDto, profilePic, certificationPic);
+    BaseResult baseResult = detailService.createBusinessUser(createCoachDto, certificationPic);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
     } else {
