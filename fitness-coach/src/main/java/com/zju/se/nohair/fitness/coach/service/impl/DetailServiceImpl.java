@@ -69,8 +69,7 @@ public class DetailServiceImpl implements DetailService {
 
   @Transactional(readOnly = false)
   @Override
-  public BaseResult createBusinessUser(CreateCoachDto createCoachDto,
-      MultipartFile certificationPic) {
+  public BaseResult createBusinessUser(CreateCoachDto createCoachDto) {
     //注册新教练
     BaseResult res = null;
 
@@ -84,7 +83,9 @@ public class DetailServiceImpl implements DetailService {
       coachPo.setStatus(CertificationStatus.NEW_PUBLISH);
       coachPo.setBalance(BigDecimal.ZERO);
       //coachPo.setPicId(PicUtils.saveSinglePic(pictureMapper, profilePic));
-      coachPo.setCertificationPicId(PicUtils.saveSinglePic(pictureMapper, certificationPic));
+      //coachPo.setCertificationPicId(PicUtils.saveSinglePic(pictureMapper, certificationPic));
+      coachPo.setPicId(1);
+      coachPo.setCertificationPicId(1);
       coachMapper.insertReturnId(coachPo);
 
       res = BaseResult.success("新教练注册成功");

@@ -15,5 +15,5 @@ public interface DetailService {
 
   BaseResult getCoachDetailByCoachId(Integer coachId);//查看教练的个人信息
 
-  BaseResult createBusinessUser(CreateCoachDto createCoachDto,  MultipartFile certificationPic);//注册新教练
+  BaseResult createBusinessUser(CreateCoachDto createCoachDto);//注册新教练
 }
