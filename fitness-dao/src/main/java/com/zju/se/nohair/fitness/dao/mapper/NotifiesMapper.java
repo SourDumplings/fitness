@@ -27,4 +27,7 @@ public interface NotifiesMapper {
   List<NotifiesPo> selectAllByFromCoachId(Integer coachId);
 
 
+  int updateByNotifiesPoKey(NotifiesPo notifiesPo);
+
+  NotifiesPo selectByNotifiesPoKey(NotifiesPoKey notifiesPoKey);
 }

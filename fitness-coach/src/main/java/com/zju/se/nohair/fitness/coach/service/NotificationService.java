@@ -29,4 +29,5 @@ public interface NotificationService {
 
   BaseResult listBusinessList();//通知模块 查找所有商家id
 
+  BaseResult readNotification(NotifiesPoKey notifiesPoKey);//阅读通知
 }
