@@ -26,4 +26,6 @@ public interface GymMapper {
   List<GymPo> getNearGymList();
 
   List<GymPo> selectByCourseId(Integer courseId);
+
+  List<GymPo> selectAllGyms();
 }

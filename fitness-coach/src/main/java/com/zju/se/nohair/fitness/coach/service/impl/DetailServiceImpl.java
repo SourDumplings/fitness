@@ -69,7 +69,7 @@ public class DetailServiceImpl implements DetailService {
 
   @Transactional(readOnly = false)
   @Override
-  public BaseResult createBusinessUser(CreateCoachDto createCoachDto) {
+  public BaseResult createBusinessUser(CreateCoachDto createCoachDto,MultipartFile certificationPic) {
     //注册新教练
     BaseResult res = null;
 
@@ -83,9 +83,8 @@ public class DetailServiceImpl implements DetailService {
       coachPo.setStatus(CertificationStatus.NEW_PUBLISH);
       coachPo.setBalance(BigDecimal.ZERO);
       //coachPo.setPicId(PicUtils.saveSinglePic(pictureMapper, profilePic));
-      //coachPo.setCertificationPicId(PicUtils.saveSinglePic(pictureMapper, certificationPic));
+      coachPo.setCertificationPicId(PicUtils.saveSinglePic(pictureMapper, certificationPic));
       coachPo.setPicId(1);
-      coachPo.setCertificationPicId(1);
       coachMapper.insertReturnId(coachPo);
 
       res = BaseResult.success("新教练注册成功");
@@ -93,6 +92,29 @@ public class DetailServiceImpl implements DetailService {
       TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
       res = BaseResult.fail("新教练用户注册失败");
+    }
+
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult createCoachProfilePic(Integer coachId, MultipartFile profilePic) {
+    //上传头像
+    BaseResult res = null;
+
+    try {
+      final CoachPo coachPo = coachMapper.selectByPrimaryKey(coachId);
+      CoachDetailDto coachDetailDto = new CoachDetailDto();
+
+      coachPo.setPicId(PicUtils.saveSinglePic(pictureMapper, profilePic));
+      BeanUtils.copyProperties(coachPo,coachDetailDto);
+      coachMapper.updateByPrimaryKey(coachPo);
+      res = BaseResult.success("上传头像成功");
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("上传头像失败");
     }
 
     return res;

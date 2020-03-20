@@ -41,6 +41,21 @@ public class CoachNotificationController {
     this.notificationService = notificationService;
   }
 
+  @ApiOperation(value = "阅读通知；"
+      + "通知类型（2代表商家对教练，3代表顾客对教练）", httpMethod = "PUT")
+  @RequestMapping(value = "read", method = RequestMethod.PUT)
+  @ResponseBody
+  public ResponseEntity<Object> readNotification(
+      @RequestBody NotifiesPoKey notifiesPoKey) {
+    BaseResult baseResult = notificationService.readNotification(notifiesPoKey);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
   @ApiOperation(value = "发送通知（包含教练对商家，和教练对私教课用户）", httpMethod = "POST")
   @RequestMapping(value = "", method = RequestMethod.POST)
   @ResponseBody

@@ -5,6 +5,7 @@ import com.zju.se.nohair.fitness.coach.dto.NotificationBusinessDto;
 import com.zju.se.nohair.fitness.coach.dto.NotificationCustomerDto;
 import com.zju.se.nohair.fitness.coach.dto.NotificationDetailDto;
 import com.zju.se.nohair.fitness.coach.dto.NotificationListItemDto;
+import com.zju.se.nohair.fitness.coach.dto.ReadNotificationDetailDto;
 import com.zju.se.nohair.fitness.coach.dto.SendNotificationDto;
 import com.zju.se.nohair.fitness.coach.service.NotificationService;
 import com.zju.se.nohair.fitness.commons.constant.NotificationStatus;
@@ -77,6 +78,28 @@ public class NotificationServiceImpl implements NotificationService {
   @Autowired
   public void setTakesPrivateMapper(TakesPrivateMapper takesPrivateMapper) {
     this.takesPrivateMapper = takesPrivateMapper;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult readNotification(NotifiesPoKey notifiesPoKey) {
+    //阅读通知
+    BaseResult res = null;
+
+    try {
+      NotifiesPo notifiesPo = notifiesMapper.selectByNotifiesPoKey(notifiesPoKey);
+      ReadNotificationDetailDto readNotificationDetailDto = new ReadNotificationDetailDto();
+      BeanUtils.copyProperties(notifiesPo, readNotificationDetailDto);
+      notifiesMapper.updateByNotifiesPoKey(notifiesPo);
+
+      res = BaseResult.success("阅读通知成功");
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("阅读通知失败");
+    }
+
+    return res;
   }
 
   @Override
@@ -251,6 +274,8 @@ public class NotificationServiceImpl implements NotificationService {
 
     return res;
   }
+
+
 
 
 }

@@ -24,6 +24,17 @@
     and time = #{time,jdbcType=TIMESTAMP}
     and type = #{type,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByNotifiesPoKey" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPoKey"
+    resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from notifies
+    where from_id = #{fromId,jdbcType=INTEGER}
+    and to_id = #{toId,jdbcType=INTEGER}
+    and type = #{type,jdbcType=INTEGER}
+  </select>
+
   <select id="selectAllByFromBusinessId" parameterType="java.lang.Integer"
     resultMap="BaseResultMap">
     select
@@ -150,5 +161,12 @@
       and type = #{type,jdbcType=INTEGER}
   </update>
 
+  <update id="updateByNotifiesPoKey" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPo">
+    update notifies
+    set status = 1
+    where from_id = #{fromId,jdbcType=INTEGER}
+      and to_id = #{toId,jdbcType=INTEGER}
+      and type = #{type,jdbcType=INTEGER}
+  </update>
 
 </mapper>
