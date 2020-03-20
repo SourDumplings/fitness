@@ -20,6 +20,14 @@
     from gym
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <!--查看全部健身房列表-->
+  <select id="selectAllGyms" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from gym
+  </select>
+
   <select id="getGymNameListHasPublicCourse" resultType="String">
     select
     name
