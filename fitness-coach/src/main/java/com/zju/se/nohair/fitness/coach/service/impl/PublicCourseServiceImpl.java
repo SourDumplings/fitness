@@ -80,10 +80,19 @@ public class PublicCourseServiceImpl implements PublicCourseService {
     BaseResult res = null;
 
     try {
+
+      PublicCoursePo publicCoursePo = publicCourseMapper.selectByPrimaryKey(commentCourseDto.getCourseId());
+      if (publicCoursePo.getStatus() == PublicCourseStatus.END_WITHOUT_EVALUATION){
+        PublicCoursePo temp = new PublicCoursePo();
+        temp.setId(commentCourseDto.getCourseId());
+        temp.setStatus(PublicCourseStatus.EVALUATED);
+        publicCourseMapper.updateByPrimaryKeySelective(temp);
+      }
       RatesPo ratesPo = new RatesPo();
       BeanUtils.copyProperties(commentCourseDto, ratesPo);
       ratesPo.setTime(new Date());
       ratesMapper.insert(ratesPo);
+
       res = BaseResult.success("团课中教练评论商家成功");
     } catch (Exception e) {
       logger.error(e.getMessage());
