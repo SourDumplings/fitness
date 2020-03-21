@@ -32,4 +32,5 @@ public interface PublicCourseMapper {
   int finishByPrimaryKey(Integer courseId);
 
   List<PublicCoursePo> selectAll();
+
 }

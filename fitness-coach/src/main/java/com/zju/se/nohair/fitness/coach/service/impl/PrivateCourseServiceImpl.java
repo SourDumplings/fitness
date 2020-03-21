@@ -357,7 +357,13 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
   public BaseResult createCommentForPrivateCourse(CommentCourseDto commentCourseDto) {
     //10私教课中教练评论商家
     BaseResult res = null;
-
+    PrivateCoursePo privateCoursePo = privateCourseMapper.selectByPrimaryKey(commentCourseDto.getCourseId());
+    if (privateCoursePo.getStatus() == PrivateCourseStatus.END_WITHOUT_EVALUATION){
+      PrivateCoursePo temp = new PrivateCoursePo();
+      temp.setId(commentCourseDto.getCourseId());
+      temp.setStatus(PrivateCourseStatus.EVALUATED);
+      privateCourseMapper.updateByPrimaryKeySelective(temp);
+    }
     try {
       RatesPo ratesPo = new RatesPo();
       BeanUtils.copyProperties(commentCourseDto, ratesPo);

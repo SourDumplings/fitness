@@ -237,4 +237,5 @@
     update public_course set status = 3
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 </mapper>
