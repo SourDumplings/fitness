@@ -29,5 +29,5 @@ public interface NotifiesMapper {
 
   int updateByNotifiesPoKey(NotifiesPo notifiesPo);
 
-  NotifiesPo selectByNotifiesPoKey(NotifiesPoKey notifiesPoKey);
+  List<NotifiesPo> selectByNotifiesPoKey(NotifiesPoKey notifiesPoKey);
 }
