@@ -1,5 +1,6 @@
 package com.zju.se.nohair.fitness.coach.service;
 
+import com.zju.se.nohair.fitness.coach.dto.CommentCourseDto;
 import com.zju.se.nohair.fitness.coach.dto.CreatePrivateCourseDto;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import java.util.Date;
@@ -32,4 +33,6 @@ public interface PrivateCourseService {
   BaseResult finishPrivateCourseByCourseId(Integer courseId);//私教课结课
 
   BaseResult getPrivateCourseDetailByCoachId(Integer coachId);//查看待响应的私教课详情
+
+  BaseResult createCommentForPrivateCourse(CommentCourseDto commentCourseDto);//10私教课中教练评论商家
 }

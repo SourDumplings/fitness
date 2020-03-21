@@ -1,5 +1,6 @@
 package com.zju.se.nohair.fitness.coach.service.impl;
 
+import com.zju.se.nohair.fitness.coach.dto.CommentCourseDto;
 import com.zju.se.nohair.fitness.coach.dto.PublicCourseDetailDto;
 import com.zju.se.nohair.fitness.coach.dto.PublicCourseListItemDto;
 import com.zju.se.nohair.fitness.coach.dto.PublicCourseResponseListItemDto;
@@ -12,8 +13,10 @@ import com.zju.se.nohair.fitness.commons.utils.DateUtils;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PublicCourseMapper;
+import com.zju.se.nohair.fitness.dao.mapper.RatesMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ResponsesPublicMapper;
 import com.zju.se.nohair.fitness.dao.po.PublicCoursePo;
+import com.zju.se.nohair.fitness.dao.po.RatesPo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPoKey;
 import java.util.ArrayList;
@@ -46,6 +49,11 @@ public class PublicCourseServiceImpl implements PublicCourseService {
 
   private PictureMapper pictureMapper;
 
+  private RatesMapper ratesMapper;
+
+  @Autowired
+  public void setRatesMapper(RatesMapper ratesMapper) { this.ratesMapper = ratesMapper; }
+
   @Autowired
   public void setPublicCourseMapper(PublicCourseMapper publicCourseMapper) {
     this.publicCourseMapper = publicCourseMapper;
@@ -64,6 +72,25 @@ public class PublicCourseServiceImpl implements PublicCourseService {
   @Autowired
   public void setPictureMapper(PictureMapper pictureMapper) {
     this.pictureMapper = pictureMapper;
+  }
+
+  @Override
+  public BaseResult createCommentForPublicCourse(CommentCourseDto commentCourseDto) {
+    //团课中教练评论商家
+    BaseResult res = null;
+
+    try {
+      RatesPo ratesPo = new RatesPo();
+      BeanUtils.copyProperties(commentCourseDto, ratesPo);
+      ratesPo.setTime(new Date());
+      ratesMapper.insert(ratesPo);
+      res = BaseResult.success("团课中教练评论商家成功");
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("团课中教练评论商家失败");
+    }
+
+    return res;
   }
 
   @Override
@@ -302,5 +329,7 @@ public class PublicCourseServiceImpl implements PublicCourseService {
 
     return res;
   }
+
+
 
 }
