@@ -1,5 +1,6 @@
 package com.zju.se.nohair.fitness.coach.service;
 
+import com.zju.se.nohair.fitness.coach.dto.CommentCourseDto;
 import com.zju.se.nohair.fitness.coach.dto.ResponseToPublicCourseDto;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import java.util.Date;
@@ -30,4 +31,6 @@ public interface PublicCourseService {
   BaseResult listRequiredPublicCourses(Integer coachId);//查看教练待上团课列表
 
   BaseResult finishPublicCourseByCourseId(Integer courseId);//团课结课
+
+  BaseResult createCommentForPublicCourse(CommentCourseDto commentCourseDto);//团课中教练评论商家
 }

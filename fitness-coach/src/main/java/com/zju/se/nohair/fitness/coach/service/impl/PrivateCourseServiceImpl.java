@@ -1,6 +1,7 @@
 package com.zju.se.nohair.fitness.coach.service.impl;
 
 
+import com.zju.se.nohair.fitness.coach.dto.CommentCourseDto;
 import com.zju.se.nohair.fitness.coach.dto.CreatePrivateCourseDto;
 import com.zju.se.nohair.fitness.coach.dto.PrivateCourseDetailDto;
 import com.zju.se.nohair.fitness.coach.dto.PrivateCourseListItemDto;
@@ -15,10 +16,12 @@ import com.zju.se.nohair.fitness.dao.mapper.GymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.OwnsGymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PrivateCourseMapper;
+import com.zju.se.nohair.fitness.dao.mapper.RatesMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ResponsesPrivateMapper;
 import com.zju.se.nohair.fitness.dao.po.GymPo;
 import com.zju.se.nohair.fitness.dao.po.OwnsGymPoKey;
 import com.zju.se.nohair.fitness.dao.po.PrivateCoursePo;
+import com.zju.se.nohair.fitness.dao.po.RatesPo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePoKey;
 import java.util.ArrayList;
@@ -54,6 +57,11 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
   private BusinessMapper businessMapper;
 
   private PictureMapper pictureMapper;
+
+  private RatesMapper ratesMapper;
+
+  @Autowired
+  public void setRatesMapper(RatesMapper ratesMapper) { this.ratesMapper = ratesMapper; }
 
   @Autowired
   public void setPrivateCourseMapper(PrivateCourseMapper privateCourseMapper) {
@@ -339,6 +347,26 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
     } catch (Exception e) {
       logger.error(e.getMessage());
       res = BaseResult.fail("查看发布的私教课程详情失败");
+    }
+
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult createCommentForPrivateCourse(CommentCourseDto commentCourseDto) {
+    //10私教课中教练评论商家
+    BaseResult res = null;
+
+    try {
+      RatesPo ratesPo = new RatesPo();
+      BeanUtils.copyProperties(commentCourseDto, ratesPo);
+      ratesPo.setTime(new Date());
+      ratesMapper.insert(ratesPo);
+      res = BaseResult.success("10私教课中教练评论商家成功");
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("10私教课中教练评论商家失败");
     }
 
     return res;

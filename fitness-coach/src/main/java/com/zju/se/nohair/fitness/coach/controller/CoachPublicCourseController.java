@@ -1,5 +1,6 @@
 package com.zju.se.nohair.fitness.coach.controller;
 
+import com.zju.se.nohair.fitness.coach.dto.CommentCourseDto;
 import com.zju.se.nohair.fitness.coach.dto.ResponseToPublicCourseDto;
 import com.zju.se.nohair.fitness.coach.service.PublicCourseService;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
@@ -38,6 +39,19 @@ public class CoachPublicCourseController {
   @Autowired
   public void setPublicCourseService(PublicCourseService publicCourseService) {
     this.publicCourseService = publicCourseService;
+  }
+
+  @ApiOperation(value = "4团课中教练评论商家", httpMethod = "POST")
+  @RequestMapping(value = "comment", method = RequestMethod.POST)
+  @ResponseBody
+  public ResponseEntity<Object> createCommentForPublicCourse(@RequestBody CommentCourseDto commentCourseDto) {
+    BaseResult baseResult = publicCourseService.createCommentForPublicCourse(commentCourseDto);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
   }
 
   @ApiOperation(value = "教练响应团课", httpMethod = "POST")
