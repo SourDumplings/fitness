@@ -160,13 +160,13 @@
       and time = #{time,jdbcType=TIMESTAMP}
       and type = #{type,jdbcType=INTEGER}
   </update>
-
+<!--parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPo"-->
   <update id="updateByNotifiesPoKey" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPo">
     update notifies
     set status = 1
-    where from_id = #{fromId,jdbcType=INTEGER}
+    where ( from_id = #{fromId,jdbcType=INTEGER}
       and to_id = #{toId,jdbcType=INTEGER}
-      and type = #{type,jdbcType=INTEGER}
+      and type = #{type,jdbcType=INTEGER} )
   </update>
 
 </mapper>

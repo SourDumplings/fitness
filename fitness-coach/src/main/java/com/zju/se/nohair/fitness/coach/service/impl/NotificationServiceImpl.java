@@ -87,10 +87,15 @@ public class NotificationServiceImpl implements NotificationService {
     BaseResult res = null;
 
     try {
-      NotifiesPo notifiesPo = notifiesMapper.selectByNotifiesPoKey(notifiesPoKey);
-      ReadNotificationDetailDto readNotificationDetailDto = new ReadNotificationDetailDto();
-      BeanUtils.copyProperties(notifiesPo, readNotificationDetailDto);
-      notifiesMapper.updateByNotifiesPoKey(notifiesPo);
+
+      List<NotifiesPo> notifiesPos = notifiesMapper.selectByNotifiesPoKey(notifiesPoKey);
+
+      for (NotifiesPo notifiesPo : notifiesPos) {
+        ReadNotificationDetailDto readNotificationDetailDto = new ReadNotificationDetailDto();
+        BeanUtils.copyProperties(notifiesPo, readNotificationDetailDto);
+        notifiesMapper.updateByNotifiesPoKey(notifiesPo);
+      }
+
 
       res = BaseResult.success("阅读通知成功");
     } catch (Exception e) {
