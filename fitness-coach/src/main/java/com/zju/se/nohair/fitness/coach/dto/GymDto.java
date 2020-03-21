@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 @Data
 public class GymDto {
 
+  private Integer id;
+
   private String name;//健身房名字
 
   private String address;//健身房地址
