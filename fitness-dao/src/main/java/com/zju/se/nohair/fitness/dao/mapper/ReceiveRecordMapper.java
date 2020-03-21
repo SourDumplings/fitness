@@ -50,4 +50,6 @@ public interface ReceiveRecordMapper {
   int updateByPrimaryKeySelective(ReceiveRecordPo record);
 
   int updateByPrimaryKey(ReceiveRecordPo record);
+
+  List<ReceiveRecordPo> selectAllByCoachId(Integer coachId);//选出和某个教练有关的收款记录
 }
