@@ -18,4 +18,6 @@ public interface DetailService {
   BaseResult createBusinessUser(CreateCoachDto createCoachDto,MultipartFile certificationPic);//注册新教练
 
   BaseResult createCoachProfilePic(Integer coachId, MultipartFile profilePic);//上传头像
+
+  BaseResult createCoachCertificationPic(Integer coachId, MultipartFile certificationPic);//上传资格证
 }
