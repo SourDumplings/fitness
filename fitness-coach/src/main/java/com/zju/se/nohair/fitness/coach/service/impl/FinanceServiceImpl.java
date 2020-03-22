@@ -9,6 +9,7 @@ import com.zju.se.nohair.fitness.dao.mapper.BusinessMapper;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
 import com.zju.se.nohair.fitness.dao.mapper.CustomerMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ReceiveRecordMapper;
+import com.zju.se.nohair.fitness.dao.po.BusinessPo;
 import com.zju.se.nohair.fitness.dao.po.CoachPo;
 import com.zju.se.nohair.fitness.dao.po.CustomerPo;
 import com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo;
@@ -103,14 +104,14 @@ public class FinanceServiceImpl implements FinanceService {
 
         if (receiveRecordPo.getType().equals(ReceiveRecordType.COACH_FEE)) {
           // 教练费
-          final CoachPo coachPo = coachMapper.selectByPrimaryKey(receiveRecordPo.getToId());
-          coachFinanceRecordListItemDto.setName(coachPo.getName());
+          final BusinessPo businessPo = businessMapper.selectByPrimaryKey(receiveRecordPo.getToId());
+          coachFinanceRecordListItemDto.setName(businessPo.getPersonName());
           coachFinanceRecordListItemDto.setOtherId(receiveRecordPo.getToId());
         } else if (receiveRecordPo.getType().equals(ReceiveRecordType.GYM_FEE)) {
           // 场地费
-          final CoachPo coachPo = coachMapper.selectByPrimaryKey(receiveRecordPo.getFromId());
-          coachFinanceRecordListItemDto.setOtherId(receiveRecordPo.getFromId());
-          coachFinanceRecordListItemDto.setName(coachPo.getName());
+          final BusinessPo businessPo = businessMapper.selectByPrimaryKey(receiveRecordPo.getToId());
+          coachFinanceRecordListItemDto.setOtherId(receiveRecordPo.getToId());
+          coachFinanceRecordListItemDto.setName(businessPo.getPersonName());
 
           coachFinanceRecordListItemDto.setAmount(coachFinanceRecordListItemDto.getAmount().negate());//显示金额为负
 
