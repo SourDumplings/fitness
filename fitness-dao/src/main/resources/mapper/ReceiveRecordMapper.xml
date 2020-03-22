@@ -26,6 +26,16 @@
     where from_id = #{businessId,jdbcType=INTEGER} and type = 3
     or to_id = #{businessId,jdbcType=INTEGER} and (type = 1 or type = 2 or type = 4)
   </select>
+
+  <!--查询教练端交易记录的列表-->
+  <select id="selectAllByCoachId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from receive_record
+    where from_id = #{coachId,jdbcType=INTEGER} and type = 2
+    or to_id = #{coachId,jdbcType=INTEGER} and (type = 0 or type = 3)
+  </select>
+
   <select id="selectAllCoachReceiveRecordsByCoachId" parameterType="java.lang.Integer"
     resultMap="BaseResultMap">
     select

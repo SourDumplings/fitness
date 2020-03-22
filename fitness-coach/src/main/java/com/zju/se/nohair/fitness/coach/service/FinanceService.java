@@ -12,4 +12,6 @@ import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 public interface FinanceService {
 
   BaseResult getBalanceByCoachId(Integer coachId);//查看教练钱包余额
+
+  BaseResult listFinanceRecordsByCoachId(Integer coachId);//查询教练端交易记录的列表
 }
