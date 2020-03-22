@@ -119,4 +119,27 @@ public class DetailServiceImpl implements DetailService {
 
     return res;
   }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult createCoachCertificationPic(Integer coachId, MultipartFile certificationPic) {
+    //上传资格证
+    BaseResult res = null;
+
+    try {
+      final CoachPo coachPo = coachMapper.selectByPrimaryKey(coachId);
+      CoachDetailDto coachDetailDto = new CoachDetailDto();
+
+      coachPo.setCertificationPicId(PicUtils.saveSinglePic(pictureMapper, certificationPic));
+      BeanUtils.copyProperties(coachPo,coachDetailDto);
+      coachMapper.updateByPrimaryKey(coachPo);
+      res = BaseResult.success("上传资格证成功");
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("上传资格证失败");
+    }
+
+    return res;
+  }
 }

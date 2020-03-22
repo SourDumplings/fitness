@@ -53,11 +53,25 @@ public class CoachDetailController {
   }
 
   @ApiOperation(value = "上传头像", httpMethod = "POST")
-  @RequestMapping(value = "{coachId}", method = RequestMethod.POST)
+  @RequestMapping(value = "profile/{coachId}", method = RequestMethod.POST)
   @ResponseBody
   public ResponseEntity<Object> createCoachProfilePic(@PathVariable("coachId") Integer coachId,
       @RequestParam("profilePic") MultipartFile profilePic) {
     BaseResult baseResult = detailService.createCoachProfilePic(coachId,profilePic);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "上传资格证", httpMethod = "POST")
+  @RequestMapping(value = "certification/{coachId}", method = RequestMethod.POST)
+  @ResponseBody
+  public ResponseEntity<Object> createCoachCertificationPic(@PathVariable("coachId") Integer coachId,
+      @RequestParam("certificationPic") MultipartFile certificationPic) {
+    BaseResult baseResult = detailService.createCoachCertificationPic(coachId,certificationPic);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
     } else {
