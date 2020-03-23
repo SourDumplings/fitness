@@ -25,6 +25,13 @@
     id, username, password, adeptness, gender, pic_id, phone, birthday, name, id_number, 
     certification_pic_id, ps, height, weight, balance, status, created_time
   </sql>
+
+  <!--selectByUsername-->
+  <select id="selectByUsername" parameterType="java.lang.String" resultType="String">
+    select password from coach
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>

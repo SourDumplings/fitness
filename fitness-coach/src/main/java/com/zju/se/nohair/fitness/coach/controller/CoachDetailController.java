@@ -52,6 +52,20 @@ public class CoachDetailController {
     }
   }
 
+  @ApiOperation(value = "教练端登录", httpMethod = "GET")
+  @RequestMapping(value = "", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> logInCoach(@RequestParam("username") String username,
+      @RequestParam("password") String password) {
+    BaseResult baseResult = detailService.logInCoach(username,password);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
   @ApiOperation(value = "上传头像", httpMethod = "POST")
   @RequestMapping(value = "profile/{coachId}", method = RequestMethod.POST)
   @ResponseBody

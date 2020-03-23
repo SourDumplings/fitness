@@ -20,4 +20,6 @@ public interface CoachMapper {
   int updateByPrimaryKey(CoachPo record);
 
   int insertReturnId(CoachPo coachPo);
+
+  String selectByUsername(String username);
 }
