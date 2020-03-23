@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zju.se.nohair.fitness.customer.dao.mapper.NotifiesInCustomerMapper">
+  <resultMap id="NotifiesWithCoachMap" type="com.zju.se.nohair.fitness.customer.dto.NotifiesDto">
+    <id column="from_id" jdbcType="INTEGER" property="fromId"/>
+    <id column="to_id" jdbcType="INTEGER" property="toId"/>
+    <id column="time" jdbcType="TIMESTAMP" property="time"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="content" jdbcType="VARCHAR" property="content"/>
+    <result column="type" jdbcType="INTEGER" property="type"/>
+    <result column="status" jdbcType="INTEGER" property="status"/>
+    <association property="coach" javaType="com.zju.se.nohair.fitness.dao.po.CoachPo">
+      <id column="id" jdbcType="INTEGER" property="id"/>
+      <result column="username" jdbcType="VARCHAR" property="username"/>
+      <result column="adeptness" jdbcType="VARCHAR" property="adeptness"/>
+      <result column="gender" jdbcType="INTEGER" property="gender"/>
+      <result column="pic_id" jdbcType="INTEGER" property="picId"/>
+      <result column="phone" jdbcType="VARCHAR" property="phone"/>
+      <result column="birthday" jdbcType="DATE" property="birthday"/>
+      <result column="coach_name" jdbcType="VARCHAR" property="name"/>
+      <result column="ps" jdbcType="VARCHAR" property="ps"/>
+      <result column="height" jdbcType="INTEGER" property="height"/>
+      <result column="weight" jdbcType="INTEGER" property="weight"/>
+      <result column="balance" jdbcType="DECIMAL" property="balance"/>
+    </association>
+  </resultMap>
+  <resultMap id="NotifiesWithGymMap" type="com.zju.se.nohair.fitness.customer.dto.NotifiesDto">
+    <id column="from_id" jdbcType="INTEGER" property="fromId"/>
+    <id column="to_id" jdbcType="INTEGER" property="toId"/>
+    <id column="time" jdbcType="TIMESTAMP" property="time"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="content" jdbcType="VARCHAR" property="content"/>
+    <result column="type" jdbcType="INTEGER" property="type"/>
+    <result column="status" jdbcType="INTEGER" property="status"/>
+    <association property="gym" javaType="com.zju.se.nohair.fitness.dao.po.GymPo">
+      <id column="id" jdbcType="INTEGER" property="id"/>
+      <result column="gym_name" jdbcType="VARCHAR" property="name"/>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    from_id, to_id, time, name, content, type, status
+  </sql>
+
+  <select id="selectAllFromCoachToCustomer" parameterType="java.lang.Integer"
+    resultMap="NotifiesWithCoachMap">
+    select *,c.name coach_name from notifies n,coach c
+    where to_id = #{customerId,jdbcType=INTEGER}
+    and type=0 and n.from_id=c.id
+  </select>
+
+  <select id="selectAllFromBusinessToCustomer" parameterType="java.lang.Integer"
+    resultMap="NotifiesWithGymMap">
+    select n.*,g.id,g.name gym_name from notifies n,gym g ,business b
+    where to_id = #{customerId,jdbcType=INTEGER}
+    and type=1 and n.from_id=b.id and b.id=g.business_id
+  </select>
+
+</mapper>
