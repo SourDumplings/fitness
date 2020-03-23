@@ -2,6 +2,9 @@ package com.zju.se.nohair.fitness.customer.service;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.customer.dto.CommentCourseDto;
+import com.zju.se.nohair.fitness.customer.dto.PurchaseVipCardDto;
+import com.zju.se.nohair.fitness.customer.dto.RechargeDto;
+import com.zju.se.nohair.fitness.dao.po.NotifiesPoKey;
 
 /**
  * @author Wang Haowen
@@ -18,4 +21,14 @@ public interface CustomerService {
   BaseResult createCommentForPublicCourse(CommentCourseDto commentCourseDto);
 
   BaseResult createCommentForPrivateCourse(CommentCourseDto commentCourseDto);
+
+  BaseResult getCustomerInfo(Integer customerId);
+
+  BaseResult rechargeAmount(RechargeDto rechargeDto);
+
+  BaseResult purchaseVipCard(PurchaseVipCardDto purchaseVipCardDto);
+
+  BaseResult getNotifies(Integer customerId);
+
+  BaseResult checkedNotifies(NotifiesPoKey notifies);
 }

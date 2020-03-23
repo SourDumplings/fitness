@@ -164,4 +164,17 @@ public class InfoForCustomerController {
     }
   }
 
+  @ApiOperation(value = "查询用户信息", httpMethod = "GET")
+  @RequestMapping(value = "details/customer/{customerId}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> getCustomerInfo(@PathVariable("customerId") Integer customerId) {
+    BaseResult baseResult = customerService.getCustomerInfo(customerId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
 }
