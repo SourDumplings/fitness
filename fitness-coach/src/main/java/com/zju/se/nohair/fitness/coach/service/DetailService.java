@@ -20,4 +20,6 @@ public interface DetailService {
   BaseResult createCoachProfilePic(Integer coachId, MultipartFile profilePic);//上传头像
 
   BaseResult createCoachCertificationPic(Integer coachId, MultipartFile certificationPic);//上传资格证
+
+  BaseResult logInCoach(String username,String password);//教练端登录
 }

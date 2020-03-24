@@ -67,6 +67,26 @@ public class DetailServiceImpl implements DetailService {
     return res;
   }
 
+  @Override
+  public BaseResult logInCoach(String username,String password) {
+    //教练端登录
+    BaseResult res = null;
+
+    try {
+      String passwordFromSQL = coachMapper.selectByUsername(username);
+      if(password.equals(passwordFromSQL)){
+        res = BaseResult.success("教练端登录成功");
+      }else{
+        res = BaseResult.fail("用户名或密码错误");
+      }
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("用户名或密码错误");
+    }
+
+    return res;
+  }
+
   @Transactional(readOnly = false)
   @Override
   public BaseResult createBusinessUser(CreateCoachDto createCoachDto,MultipartFile certificationPic) {
@@ -142,4 +162,6 @@ public class DetailServiceImpl implements DetailService {
 
     return res;
   }
+
+
 }
