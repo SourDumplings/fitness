@@ -13,11 +13,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Data
-public class NotificationListItemDto {
+public class NotificationListItemDto
+{
 
   private Integer fromId;
 
+  private String fromUsername;
+
   private Integer toId;
+
+  private String toUsername;
 
   private String time;
 

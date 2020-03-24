@@ -289,12 +289,35 @@ public class AdminBusinessUserServiceImpl implements AdminBusinessUserService {
   public BaseResult deleteItem(Integer id) {
     BaseResult res = null;
 
-    try {
+    try
+    {
       businessMapper.deleteByPrimaryKey(id);
       res = BaseResult.success("删除商家用户成功");
-    } catch (Exception e) {
+    }
+    catch (Exception e)
+    {
       logger.error(e.getMessage());
       res = BaseResult.fail("删除商家用户失败");
+    }
+
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult deleteMulti(List<Integer> ids)
+  {
+    BaseResult res = null;
+
+    try
+    {
+      businessMapper.deleteMultiByPrimaryKeys(ids);
+      res = BaseResult.success("批量删除商家用户成功");
+    }
+    catch (Exception e)
+    {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("批量删除商家用户失败");
     }
 
     return res;

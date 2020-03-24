@@ -13,17 +13,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Data
-public class NotificationDetailDto {
-
-  private Integer fromId;
-
-  private Integer toId;
-
-  private String time;
-
-  private String name;
+public class NotificationDetailDto extends NotificationListItemDto
+{
 
   private String content;
-
-  private Integer type;
 }

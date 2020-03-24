@@ -3,9 +3,12 @@ package com.zju.se.nohair.fitness.dao.mapper;
 import com.zju.se.nohair.fitness.dao.po.BusinessPo;
 import java.util.List;
 
-public interface BusinessMapper {
+public interface BusinessMapper
+{
 
   int deleteByPrimaryKey(Integer id);
+
+  int deleteMultiByPrimaryKeys(List<Integer> ids);
 
   int insert(BusinessPo record);
 
