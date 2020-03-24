@@ -34,6 +34,13 @@
     delete from business
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteMultiByPrimaryKeys">
+    DELETE FROM business
+    WHERE id IN
+    <foreach collection="list" open="(" close=")" separator="," item="id">
+      #{id}
+    </foreach>
+  </delete>
   <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.BusinessPo">
     insert into business (id, username, password, 
       pic_id, phone, person_name, 
