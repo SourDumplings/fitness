@@ -54,6 +54,26 @@ public class GymServiceImpl  implements GymService {
   }
 
   @Override
+  public BaseResult getGymDetailByBusinessId(Integer businessId) {
+    //根据商家id查看健身房详细信息
+    BaseResult res = null;
+
+    try {
+      final GymPo gymPo = gymMapper.selectByBusinessId(businessId);
+      GymDto gymDto = new GymDto();
+      BeanUtils.copyProperties(gymPo, gymDto);
+
+      res = BaseResult.success("根据商家id查看健身房详细信息成功");
+      res.setData(gymDto);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("根据商家id查看健身房详细信息失败");
+    }
+
+    return res;
+  }
+
+  @Override
   public BaseResult listGym() {
     //查看全部健身房列表
     BaseResult res = null;
@@ -74,4 +94,6 @@ public class GymServiceImpl  implements GymService {
     }
     return res;
   }
+
+
 }

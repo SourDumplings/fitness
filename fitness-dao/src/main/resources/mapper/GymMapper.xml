@@ -21,6 +21,14 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <!--根据商家id查找健身房信息-->
+  <select id="selectByBusinessId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from gym
+    where business_id = #{businessId,jdbcType=INTEGER}
+  </select>
+
   <!--查看全部健身房列表-->
   <select id="selectAllGyms" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select

@@ -1,5 +1,7 @@
 package com.zju.se.nohair.fitness.coach.service;
 
+import com.zju.se.nohair.fitness.coach.dto.ChangeCoachDetailDto;
+import com.zju.se.nohair.fitness.coach.dto.ChangeCoachPasswordDto;
 import com.zju.se.nohair.fitness.coach.dto.CreateCoachDto;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,4 +24,8 @@ public interface DetailService {
   BaseResult createCoachCertificationPic(Integer coachId, MultipartFile certificationPic);//上传资格证
 
   BaseResult logInCoach(String username,String password);//教练端登录
+
+  BaseResult changeCoachDetail(ChangeCoachDetailDto changeCoachDetailDto);//教练端修改个人信息
+
+  BaseResult changeCoachPassword(ChangeCoachPasswordDto changeCoachPasswordDto);//教练端修改密码
 }
