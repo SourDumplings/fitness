@@ -1,6 +1,7 @@
 package com.zju.se.nohair.fitness.web.admin.abstracts;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import java.util.List;
 
 /**
  * 后台管理模块抽象接口.
@@ -10,11 +11,17 @@ import com.zju.se.nohair.fitness.commons.dto.BaseResult;
  * @projectName fitness
  * @date 2020/1/19 10:02
  */
-public interface AbstractService {
+public interface AbstractService
+{
 
-  BaseResult listAll();
+    BaseResult listAll();
 
-  BaseResult getDetailById(Integer id);
+    BaseResult getDetailById(Integer id);
 
-  BaseResult deleteItem(Integer id);
+    BaseResult deleteItem(Integer id);
+
+    default BaseResult deleteMulti(List<Integer> ids)
+    {
+        return null;
+    }
 }
