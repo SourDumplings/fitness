@@ -76,25 +76,28 @@ public class AdminCustomerUserController {
       @RequestParam("profilePic") MultipartFile profilePic) {
     BaseResult baseResult = adminCustomerUserService.saveItem(adminCreateCustomerUserDto,
         profilePic);
-    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS)
+    {
       return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
-    } else {
+    }
+    else
+    {
       return new ResponseEntity<>(baseResult.getMessage(),
           HttpStatus.valueOf(baseResult.getStatus()));
     }
   }
 
-  @ApiOperation(value = "删除顾客用户", httpMethod = "DELETE")
-  @RequestMapping(value = "{customerId}", method = RequestMethod.DELETE)
-  @ResponseBody
-  public ResponseEntity<Object> deleteItem(
-      @PathVariable(value = "customerId") Integer customerId) {
-    BaseResult baseResult = adminCustomerUserService.deleteItem(customerId);
-    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
-      return new ResponseEntity<>(baseResult.getData(), HttpStatus.NO_CONTENT);
-    } else {
-      return new ResponseEntity<>(baseResult.getMessage(),
-          HttpStatus.valueOf(baseResult.getStatus()));
-    }
-  }
+  // @ApiOperation(value = "删除顾客用户", httpMethod = "DELETE")
+  // @RequestMapping(value = "{customerId}", method = RequestMethod.DELETE)
+  // @ResponseBody
+  // public ResponseEntity<Object> deleteItem(
+  //     @PathVariable(value = "customerId") Integer customerId) {
+  //   BaseResult baseResult = adminCustomerUserService.deleteItem(customerId);
+  //   if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+  //     return new ResponseEntity<>(baseResult.getData(), HttpStatus.NO_CONTENT);
+  //   } else {
+  //     return new ResponseEntity<>(baseResult.getMessage(),
+  //         HttpStatus.valueOf(baseResult.getStatus()));
+  //   }
+  // }
 }
