@@ -7,10 +7,12 @@ import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.VerifiesMapper;
 import com.zju.se.nohair.fitness.dao.po.CoachPo;
 import com.zju.se.nohair.fitness.dao.po.VerifiesPo;
+import com.zju.se.nohair.fitness.web.admin.dto.AdminCreateVerifiesDto;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminVerifiesCoachDetailDto;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminVerifiesCoachListDto;
 import com.zju.se.nohair.fitness.web.admin.service.AdminVerifiesCoachService;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * @author Miss.Hu
@@ -95,6 +98,39 @@ public class AdminVerifiesCoachServiceImpl implements AdminVerifiesCoachService 
     } catch (Exception e) {
       logger.error(e.getMessage());
       res = BaseResult.fail("查看审批教练详细信息(审批type=0)失败");
+    }
+
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult verifiesByApplicantIdAndType(AdminCreateVerifiesDto adminCreateVerifiesDto) {
+    //审批教练（type=0）
+    BaseResult res = null;
+
+    try {
+      if (!adminCreateVerifiesDto.getType().equals(0)) {
+        return BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "通知类型错误！");
+      }
+
+      VerifiesPo verifiesPo = new VerifiesPo();
+      BeanUtils.copyProperties(adminCreateVerifiesDto, verifiesPo);
+      verifiesPo.setTime(new Date());
+      verifiesMapper.insert(verifiesPo);
+
+      if(adminCreateVerifiesDto.getResult().equals(1)){//result=1代表审批通过
+        coachMapper.updateStatus1(adminCreateVerifiesDto.getApplicantId());
+        res = BaseResult.success("教练审批通过");
+      }else{
+        coachMapper.updateStatus2(adminCreateVerifiesDto.getApplicantId());
+        res = BaseResult.success("教练审批未通过");
+      }
+
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("审批教练（type=0）失败");
     }
 
     return res;

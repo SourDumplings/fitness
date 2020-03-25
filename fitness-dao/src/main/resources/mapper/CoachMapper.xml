@@ -262,4 +262,16 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+  <!--审批教练通过-->
+  <update id="updateStatus1" parameterType="com.zju.se.nohair.fitness.dao.po.CoachPo">
+    update coach
+    set status = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--审批教练未通过-->
+  <update id="updateStatus2" parameterType="com.zju.se.nohair.fitness.dao.po.CoachPo">
+    update coach
+    set status = 2
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

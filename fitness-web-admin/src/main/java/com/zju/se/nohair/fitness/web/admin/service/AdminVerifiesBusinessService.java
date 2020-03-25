@@ -1,6 +1,7 @@
 package com.zju.se.nohair.fitness.web.admin.service;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.web.admin.dto.AdminCreateVerifiesDto;
 
 /**
  * 后台商家审核接口
@@ -14,4 +15,6 @@ public interface AdminVerifiesBusinessService {
   BaseResult listBusinessAll();//商家审批列表
 
   BaseResult getBusinessDetailByBusinessId(Integer businessId);//查看审批商家详细信息
+
+  BaseResult verifiesByApplicantIdAndType(AdminCreateVerifiesDto adminCreateVerifiesDto);//审批商家（type=1）
 }

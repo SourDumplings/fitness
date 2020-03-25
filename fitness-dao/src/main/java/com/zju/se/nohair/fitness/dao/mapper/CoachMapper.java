@@ -23,4 +23,7 @@ public interface CoachMapper {
 
   String selectByUsername(String username);
 
+  int updateStatus1(Integer applicantId);//教练审批通过
+
+  int updateStatus2(Integer applicantId);//教练审批未通过
 }

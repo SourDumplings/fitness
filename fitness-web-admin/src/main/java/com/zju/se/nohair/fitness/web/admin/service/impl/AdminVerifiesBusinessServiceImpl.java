@@ -7,10 +7,12 @@ import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.VerifiesMapper;
 import com.zju.se.nohair.fitness.dao.po.BusinessPo;
 import com.zju.se.nohair.fitness.dao.po.VerifiesPo;
+import com.zju.se.nohair.fitness.web.admin.dto.AdminCreateVerifiesDto;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminVerifiesBusinessDetailDto;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminVerifiesBusinessListDto;
 import com.zju.se.nohair.fitness.web.admin.service.AdminVerifiesBusinessService;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * 后台商家审核接口实现类
@@ -94,6 +97,39 @@ public class AdminVerifiesBusinessServiceImpl implements AdminVerifiesBusinessSe
     } catch (Exception e) {
       logger.error(e.getMessage());
       res = BaseResult.fail("查看审批商家详细信息失败");
+    }
+
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult verifiesByApplicantIdAndType(AdminCreateVerifiesDto adminCreateVerifiesDto) {
+    //审批商家（type=1）
+    BaseResult res = null;
+
+    try {
+      if (!adminCreateVerifiesDto.getType().equals(1)) {
+        return BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "通知类型错误！");
+      }
+
+      VerifiesPo verifiesPo = new VerifiesPo();
+      BeanUtils.copyProperties(adminCreateVerifiesDto, verifiesPo);
+      verifiesPo.setTime(new Date());
+      verifiesMapper.insert(verifiesPo);
+
+      if(adminCreateVerifiesDto.getResult().equals(1)){//result=1代表审批通过
+        businessMapper.updateStatus1(adminCreateVerifiesDto.getApplicantId());
+        res = BaseResult.success("商家审批通过");
+      }else{
+        businessMapper.updateStatus2(adminCreateVerifiesDto.getApplicantId());
+        res = BaseResult.success("商家审批未通过");
+      }
+
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("审批商家（type=1）失败");
     }
 
     return res;

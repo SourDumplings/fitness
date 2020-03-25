@@ -249,4 +249,17 @@
       created_time = #{createdTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--审批商家通过-->
+  <update id="updateStatus1" parameterType="com.zju.se.nohair.fitness.dao.po.BusinessPo">
+    update business
+    set status = 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--审批商家未通过-->
+  <update id="updateStatus2" parameterType="com.zju.se.nohair.fitness.dao.po.BusinessPo">
+    update business
+    set status = 2
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
