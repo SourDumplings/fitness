@@ -1,5 +1,8 @@
 package com.zju.se.nohair.fitness.coach.controller;
 
+import com.zju.se.nohair.fitness.coach.dto.ChangeCoachDetailDto;
+import com.zju.se.nohair.fitness.coach.dto.ChangeCoachPasswordDto;
+import com.zju.se.nohair.fitness.coach.dto.CoachDetailDto;
 import com.zju.se.nohair.fitness.coach.dto.CreateCoachDto;
 import com.zju.se.nohair.fitness.coach.service.DetailService;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,6 +50,34 @@ public class CoachDetailController {
     BaseResult baseResult = detailService.createBusinessUser(createCoachDto,certificationPic);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "教练端修改个人信息", httpMethod = "PUT")
+  @RequestMapping(value = "change", method = RequestMethod.PUT)
+  @ResponseBody
+  public ResponseEntity<Object> changeCoachDetail(
+      @RequestBody ChangeCoachDetailDto changeCoachDetailDto) {
+    BaseResult baseResult = detailService.changeCoachDetail(changeCoachDetailDto);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "教练端修改密码；password（请输入原密码）；password1（请输入新密码）；password2（再次确认密码）", httpMethod = "PUT")
+  @RequestMapping(value = "password", method = RequestMethod.PUT)
+  @ResponseBody
+  public ResponseEntity<Object> changeCoachPassword(
+      @RequestBody ChangeCoachPasswordDto changeCoachPasswordDto) {
+    BaseResult baseResult = detailService.changeCoachPassword(changeCoachPasswordDto);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
     } else {
       return new ResponseEntity<>(baseResult.getMessage(),
           HttpStatus.valueOf(baseResult.getStatus()));

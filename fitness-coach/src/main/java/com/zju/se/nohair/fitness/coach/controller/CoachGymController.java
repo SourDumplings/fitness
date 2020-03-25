@@ -36,12 +36,26 @@ public class CoachGymController {
     this.gymService = gymService;
   }
 
-  @ApiOperation(value = "查看健身房详细信息）", httpMethod = "GET")
+  @ApiOperation(value = "查看健身房详细信息", httpMethod = "GET")
   @RequestMapping(value = "{gymId}", method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<Object> getGymDetail(
       @PathVariable("gymId") Integer gymId) {
     BaseResult baseResult = gymService.getGymDetail(gymId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "根据商家id查看健身房详细信息", httpMethod = "GET")
+  @RequestMapping(value = "detail/{businessId}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> getGymDetailByBusinessId(
+      @PathVariable("businessId") Integer businessId) {
+    BaseResult baseResult = gymService.getGymDetailByBusinessId(businessId);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
     } else {

@@ -14,4 +14,6 @@ public interface GymService {
   BaseResult getGymDetail(Integer gymId);//查看健身房详细信息
 
   BaseResult listGym();//查看全部健身房列表
+
+  BaseResult getGymDetailByBusinessId(Integer businessId);//根据商家id查看健身房详细信息
 }

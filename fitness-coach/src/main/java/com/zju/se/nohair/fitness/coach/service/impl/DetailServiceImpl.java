@@ -1,10 +1,13 @@
 package com.zju.se.nohair.fitness.coach.service.impl;
 
+import com.zju.se.nohair.fitness.coach.dto.ChangeCoachDetailDto;
+import com.zju.se.nohair.fitness.coach.dto.ChangeCoachPasswordDto;
 import com.zju.se.nohair.fitness.coach.dto.CoachDetailDto;
 import com.zju.se.nohair.fitness.coach.dto.CreateCoachDto;
 import com.zju.se.nohair.fitness.coach.service.DetailService;
 import com.zju.se.nohair.fitness.coach.utils.PicUtils;
 import com.zju.se.nohair.fitness.commons.constant.CertificationStatus;
+import com.zju.se.nohair.fitness.commons.constant.ResponseStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
@@ -84,6 +87,74 @@ public class DetailServiceImpl implements DetailService {
     } catch (Exception e) {
       logger.error(e.getMessage());
       res = BaseResult.fail("用户名或密码错误");
+    }
+
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult changeCoachDetail(ChangeCoachDetailDto changeCoachDetailDto) {
+    //教练端修个人信息
+    BaseResult res = null;
+
+    try {
+      final Integer coachId = changeCoachDetailDto.getId();
+      final CoachPo coachPo = coachMapper.selectByPrimaryKey(coachId);
+      CoachDetailDto coachDetailDto = new CoachDetailDto();
+      coachPo.setAdeptness(changeCoachDetailDto.getAdeptness());
+      coachPo.setGender(changeCoachDetailDto.getGender());
+      coachPo.setPhone(changeCoachDetailDto.getPhone());
+      coachPo.setBirthday(changeCoachDetailDto.getBirthday());
+      coachPo.setPs(changeCoachDetailDto.getPs());
+      coachPo.setHeight(changeCoachDetailDto.getHeight());
+      coachPo.setWeight(changeCoachDetailDto.getWeight());
+      BeanUtils.copyProperties(coachPo,coachDetailDto);
+      coachMapper.updateByPrimaryKey(coachPo);
+      res = BaseResult.success("教练端修改个人信息成功");
+
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("教练端修改个人信息失败");
+    }
+
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult changeCoachPassword(ChangeCoachPasswordDto changeCoachPasswordDto) {
+    //教练端修改密码
+    BaseResult res = null;
+
+    try {
+      final Integer coachId = changeCoachPasswordDto.getId();
+      final CoachPo coachPo = coachMapper.selectByPrimaryKey(coachId);
+      String passwordMd5 = DigestUtils.md5DigestAsHex(changeCoachPasswordDto.getPassword().getBytes());
+
+      if(coachPo.getPassword().equals(passwordMd5)){//原密码与数据库中密码一致
+        CoachDetailDto coachDetailDto = new CoachDetailDto();
+
+        if(changeCoachPasswordDto.getPassword1().equals(changeCoachPasswordDto.getPassword2())){//两次输入密码一致
+          String password1Md5 = DigestUtils.md5DigestAsHex(changeCoachPasswordDto.getPassword1().getBytes());
+          coachPo.setPassword(password1Md5);
+          BeanUtils.copyProperties(coachPo,coachDetailDto);
+          coachMapper.updateByPrimaryKey(coachPo);
+          res = BaseResult.success("教练端修改密码成功");
+        }else{
+          res = BaseResult.fail("两次输入密码不一致！");
+        }
+
+      }else{
+        res = BaseResult.fail("原密码输入错误！");
+      }
+
+
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("教练端修改密码失败");
     }
 
     return res;

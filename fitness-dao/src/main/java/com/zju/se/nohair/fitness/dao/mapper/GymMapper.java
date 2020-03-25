@@ -28,4 +28,6 @@ public interface GymMapper {
   List<GymPo> selectByCourseId(Integer courseId);
 
   List<GymPo> selectAllGyms();
+
+  GymPo selectByBusinessId(Integer businessId);
 }
