@@ -5,14 +5,12 @@ import com.zju.se.nohair.fitness.web.admin.dto.AdminCreateBusinessUserDto;
 import com.zju.se.nohair.fitness.web.admin.service.AdminBusinessUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -100,39 +98,39 @@ public class AdminBusinessUserController
     }
   }
 
-  @ApiOperation(value = "删除商家用户", httpMethod = "DELETE")
-  @RequestMapping(value = "{businessId}", method = RequestMethod.DELETE)
-  @ResponseBody
-  public ResponseEntity<Object> deleteItem(
-      @PathVariable(value = "businessId") Integer businessId)
-  {
-    BaseResult baseResult = adminBusinessUserService.deleteItem(businessId);
-    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS)
-    {
-      return new ResponseEntity<>(baseResult.getData(), HttpStatus.NO_CONTENT);
-    }
-    else
-    {
-      return new ResponseEntity<>(baseResult.getMessage(),
-          HttpStatus.valueOf(baseResult.getStatus()));
-    }
-  }
-
-  @ApiOperation(value = "批量删除商家用户；参数输入格式示例：[id1,id2,id3]", httpMethod = "DELETE")
-  @RequestMapping(value = "", method = RequestMethod.DELETE)
-  @ResponseBody
-  public ResponseEntity<Object> deleteMulti(
-      @RequestBody List<Integer> businessIds)
-  {
-    BaseResult baseResult = adminBusinessUserService.deleteMulti(businessIds);
-    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS)
-    {
-      return new ResponseEntity<>(baseResult.getData(), HttpStatus.NO_CONTENT);
-    }
-    else
-    {
-      return new ResponseEntity<>(baseResult.getMessage(),
-          HttpStatus.valueOf(baseResult.getStatus()));
-    }
-  }
+  // @ApiOperation(value = "删除商家用户", httpMethod = "DELETE")
+  // @RequestMapping(value = "{businessId}", method = RequestMethod.DELETE)
+  // @ResponseBody
+  // public ResponseEntity<Object> deleteItem(
+  //     @PathVariable(value = "businessId") Integer businessId)
+  // {
+  //   BaseResult baseResult = adminBusinessUserService.deleteItem(businessId);
+  //   if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS)
+  //   {
+  //     return new ResponseEntity<>(baseResult.getData(), HttpStatus.NO_CONTENT);
+  //   }
+  //   else
+  //   {
+  //     return new ResponseEntity<>(baseResult.getMessage(),
+  //         HttpStatus.valueOf(baseResult.getStatus()));
+  //   }
+  // }
+  //
+  // @ApiOperation(value = "批量删除商家用户；参数输入格式示例：[id1,id2,id3]", httpMethod = "DELETE")
+  // @RequestMapping(value = "", method = RequestMethod.DELETE)
+  // @ResponseBody
+  // public ResponseEntity<Object> deleteMulti(
+  //     @RequestBody List<Integer> businessIds)
+  // {
+  //   BaseResult baseResult = adminBusinessUserService.deleteMulti(businessIds);
+  //   if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS)
+  //   {
+  //     return new ResponseEntity<>(baseResult.getData(), HttpStatus.NO_CONTENT);
+  //   }
+  //   else
+  //   {
+  //     return new ResponseEntity<>(baseResult.getMessage(),
+  //         HttpStatus.valueOf(baseResult.getStatus()));
+  //   }
+  // }
 }
