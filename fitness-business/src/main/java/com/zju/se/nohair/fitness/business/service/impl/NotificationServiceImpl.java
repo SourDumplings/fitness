@@ -2,6 +2,7 @@ package com.zju.se.nohair.fitness.business.service.impl;
 
 import com.zju.se.nohair.fitness.business.dto.NotificationDetailDto;
 import com.zju.se.nohair.fitness.business.dto.NotificationListItemDto;
+import com.zju.se.nohair.fitness.business.dto.ReadNotificationDto;
 import com.zju.se.nohair.fitness.business.dto.SendNotificationDto;
 import com.zju.se.nohair.fitness.business.service.NotificationService;
 import com.zju.se.nohair.fitness.commons.constant.NotificationStatus;
@@ -198,13 +199,22 @@ public class NotificationServiceImpl implements NotificationService
 
   @Transactional(readOnly = false)
   @Override
-  public BaseResult readNotification(NotifiesPoKey notifiesPoKey)
+  public BaseResult readNotification(ReadNotificationDto readNotificationDto)
   {
     BaseResult res = null;
 
     try
     {
+      NotifiesPoKey notifiesPoKey = new NotifiesPoKey();
+      BeanUtils.copyProperties(readNotificationDto, notifiesPoKey);
+      notifiesPoKey.setTime(DateUtils.strToDate(readNotificationDto.getTimeStr()));
       NotifiesPo notifiesPo = notifiesMapper.selectByPrimaryKey(notifiesPoKey);
+
+      if (notifiesPo == null)
+      {
+        return BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "参数错误，无此通知");
+      }
+
       NotificationDetailDto notificationDetailDto = new NotificationDetailDto();
       BeanUtils.copyProperties(notifiesPo, notificationDetailDto);
       notificationDetailDto.setTime(DateUtils.date2String(notifiesPo.getTime()));

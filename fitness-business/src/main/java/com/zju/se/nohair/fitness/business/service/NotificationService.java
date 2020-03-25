@@ -1,8 +1,8 @@
 package com.zju.se.nohair.fitness.business.service;
 
+import com.zju.se.nohair.fitness.business.dto.ReadNotificationDto;
 import com.zju.se.nohair.fitness.business.dto.SendNotificationDto;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
-import com.zju.se.nohair.fitness.dao.po.NotifiesPoKey;
 
 /**
  * 商家通知模块的 Service 接口.
@@ -20,5 +20,5 @@ public interface NotificationService {
 
   BaseResult listNotificationReceivedByBusinessId(Integer businessId);
 
-  BaseResult readNotification(NotifiesPoKey notifiesPoKey);
+  BaseResult readNotification(ReadNotificationDto readNotificationDto);
 }
