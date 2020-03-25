@@ -1,5 +1,6 @@
 package com.zju.se.nohair.fitness.business.service;
 
+import com.zju.se.nohair.fitness.business.dto.NotifyPublicCourseMembersDto;
 import com.zju.se.nohair.fitness.business.dto.ReadNotificationDto;
 import com.zju.se.nohair.fitness.business.dto.SendNotificationDto;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
@@ -15,6 +16,8 @@ import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 public interface NotificationService {
 
   BaseResult notifyByIdAndType(SendNotificationDto sendNotificationDto);
+
+  BaseResult notifyPublicCourseMembers(NotifyPublicCourseMembersDto notifyPublicCourseMembersDto);
 
   BaseResult listNotificationSentByBusinessId(Integer businessId);
 

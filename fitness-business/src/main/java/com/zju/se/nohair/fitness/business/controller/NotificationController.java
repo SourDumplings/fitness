@@ -1,5 +1,6 @@
 package com.zju.se.nohair.fitness.business.controller;
 
+import com.zju.se.nohair.fitness.business.dto.NotifyPublicCourseMembersDto;
 import com.zju.se.nohair.fitness.business.dto.ReadNotificationDto;
 import com.zju.se.nohair.fitness.business.dto.SendNotificationDto;
 import com.zju.se.nohair.fitness.business.service.NotificationService;
@@ -55,6 +56,21 @@ public class NotificationController {
     }
   }
 
+  @ApiOperation(value = "群发团课通知；通知类型（1代表商家对顾客，2代表商家对教练）", httpMethod = "POST")
+  @RequestMapping(value = "course", method = RequestMethod.POST)
+  @ResponseBody
+  public ResponseEntity<Object> notifyPublicCourseMembers(
+      @RequestBody @Valid NotifyPublicCourseMembersDto notifyPublicCourseMembersDto) {
+    BaseResult baseResult = notificationService
+        .notifyPublicCourseMembers(notifyPublicCourseMembersDto);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
   @ApiOperation(value = "查看发送的通知列表；"
       + "通知类型（1代表商家对顾客，2代表商家对教练）；"
       + "通知状态（0未读，1代表已读）", httpMethod = "GET")
@@ -92,15 +108,11 @@ public class NotificationController {
   @RequestMapping(value = "read", method = RequestMethod.PUT)
   @ResponseBody
   public ResponseEntity<Object> readNotification(
-      @RequestBody ReadNotificationDto readNotificationDto)
-  {
+      @RequestBody ReadNotificationDto readNotificationDto) {
     BaseResult baseResult = notificationService.readNotification(readNotificationDto);
-    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS)
-    {
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
-    }
-    else
-    {
+    } else {
       return new ResponseEntity<>(baseResult.getMessage(),
           HttpStatus.valueOf(baseResult.getStatus()));
     }
