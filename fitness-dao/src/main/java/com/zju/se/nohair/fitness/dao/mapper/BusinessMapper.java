@@ -23,4 +23,8 @@ public interface BusinessMapper
   int updateByPrimaryKeySelective(BusinessPo record);
 
   int updateByPrimaryKey(BusinessPo record);
+
+  int updateStatus1(Integer applicantId);//商家审批通过
+
+  int updateStatus2(Integer applicantId);//商家审批未通过
 }

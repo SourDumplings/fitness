@@ -1,9 +1,9 @@
 package com.zju.se.nohair.fitness.business.controller;
 
+import com.zju.se.nohair.fitness.business.dto.ReadNotificationDto;
 import com.zju.se.nohair.fitness.business.dto.SendNotificationDto;
 import com.zju.se.nohair.fitness.business.service.NotificationService;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
-import com.zju.se.nohair.fitness.dao.po.NotifiesPoKey;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
@@ -87,16 +87,20 @@ public class NotificationController {
     }
   }
 
-  @ApiOperation(value = "阅读通知；"
+  @ApiOperation(value = "阅读通知；传入时间格式：yyyy/MM/dd HH:mm:ss"
       + "通知类型（4代表教练对商家，5代表顾客对商家）", httpMethod = "PUT")
   @RequestMapping(value = "read", method = RequestMethod.PUT)
   @ResponseBody
   public ResponseEntity<Object> readNotification(
-      @RequestBody NotifiesPoKey notifiesPoKey) {
-    BaseResult baseResult = notificationService.readNotification(notifiesPoKey);
-    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      @RequestBody ReadNotificationDto readNotificationDto)
+  {
+    BaseResult baseResult = notificationService.readNotification(readNotificationDto);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS)
+    {
       return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
-    } else {
+    }
+    else
+    {
       return new ResponseEntity<>(baseResult.getMessage(),
           HttpStatus.valueOf(baseResult.getStatus()));
     }

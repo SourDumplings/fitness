@@ -1,5 +1,6 @@
 package com.zju.se.nohair.fitness.commons.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -59,13 +60,25 @@ public class DateUtils {
   }
 
   /**
-   * 将 Date 转换为 yyyy/MM/dd HH:mm:ss 类型的字符串.
+   * 将 Date 转换为 yyyy/MM/dd HH:mm:ss 格式的字符串.
    *
    * @param date
    * @return
    */
-  public static String date2String(Date date) {
+  public static String date2String(Date date)
+  {
     return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(date);
+  }
+
+  /**
+   * 将 yyyy/MM/dd HH:mm:ss 格式的字符串转换为 Date.
+   *
+   * @param dateStr
+   * @return
+   */
+  public static Date strToDate(String dateStr) throws ParseException
+  {
+    return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").parse(dateStr);
   }
 
   /**
