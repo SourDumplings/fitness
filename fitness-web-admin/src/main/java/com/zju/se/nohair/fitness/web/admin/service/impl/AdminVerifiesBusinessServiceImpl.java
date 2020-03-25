@@ -110,7 +110,7 @@ public class AdminVerifiesBusinessServiceImpl implements AdminVerifiesBusinessSe
 
     try {
       if (!adminCreateVerifiesDto.getType().equals(1)) {
-        return BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "通知类型错误！");
+        return BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "审批类型错误！");
       }
 
       VerifiesPo verifiesPo = new VerifiesPo();
