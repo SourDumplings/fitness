@@ -67,4 +67,18 @@ public class FinanceController {
           HttpStatus.valueOf(baseResult.getStatus()));
     }
   }
+
+  @ApiOperation(value = "商家钱包余额全部提现", httpMethod = "PUT")
+  @RequestMapping(value = "{businessId}", method = RequestMethod.PUT)
+  @ResponseBody
+  public ResponseEntity<Object> withdrawAll(
+      @PathVariable(name = "businessId") Integer businessId) {
+    BaseResult baseResult = financeService.withdrawAll(businessId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
 }

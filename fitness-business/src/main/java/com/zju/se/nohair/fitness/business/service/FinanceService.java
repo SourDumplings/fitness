@@ -15,4 +15,6 @@ public interface FinanceService {
   BaseResult getBalanceByBusinessId(Integer businessId);
 
   BaseResult listFinanceRecordsByBusinessId(Integer businessId);
+
+  BaseResult withdrawAll(Integer businessId);
 }
