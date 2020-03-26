@@ -183,6 +183,19 @@ public class PublicCourseServiceImpl implements PublicCourseService {
       final int takeNum = takesPublicMapper.countByCourseId(courseId);
       publicCourseDetailDto.setTakeNum(takeNum);
 
+      Integer coachId = publicCourseDetailDto.getCoachId();
+      if (coachId != null) {
+        CoachPo coachPo = coachMapper.selectByPrimaryKey(coachId);
+        publicCourseDetailDto.setCoachName(coachPo.getName());
+        Integer picId = coachPo.getPicId();
+        if (picId != null) {
+          PicturePo picturePo = pictureMapper.selectByPrimaryKey(picId);
+          if (picturePo != null) {
+            publicCourseDetailDto.setCoachProfileLink(picturePo.getPicLink());
+          }
+        }
+      }
+
       res = BaseResult.success("查询发布的课程详情成功");
       res.setData(publicCourseDetailDto);
     } catch (Exception e) {

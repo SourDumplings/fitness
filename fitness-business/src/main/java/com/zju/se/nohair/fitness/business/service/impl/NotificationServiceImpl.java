@@ -264,4 +264,30 @@ public class NotificationServiceImpl implements NotificationService {
 
     return res;
   }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult deleteNotification(ReadNotificationDto readNotificationDto) {
+    BaseResult res = null;
+
+    try {
+      NotifiesPoKey notifiesPoKey = new NotifiesPoKey();
+      BeanUtils.copyProperties(readNotificationDto, notifiesPoKey);
+      notifiesPoKey.setTime(DateUtils.strToDate(readNotificationDto.getTimeStr()));
+      NotifiesPo notifiesPo = notifiesMapper.selectByPrimaryKey(notifiesPoKey);
+
+      if (notifiesPo == null) {
+        return BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "参数错误，无此通知");
+      }
+
+      notifiesMapper.deleteByPrimaryKey(notifiesPoKey);
+      res = BaseResult.success("删除通知成功");
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("删除通知失败");
+    }
+
+    return res;
+  }
 }

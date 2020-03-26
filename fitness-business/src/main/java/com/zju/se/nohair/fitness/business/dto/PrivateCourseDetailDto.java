@@ -22,6 +22,10 @@ public class PrivateCourseDetailDto {
 
   private Integer coachId;
 
+  private String coachName;
+
+  private String coachProfileLink;
+
   private Integer businessId;
 
   private BigDecimal price;

@@ -117,4 +117,19 @@ public class NotificationController {
           HttpStatus.valueOf(baseResult.getStatus()));
     }
   }
+
+  @ApiOperation(value = "删除通知；传入时间格式：yyyy/MM/dd HH:mm:ss"
+      + "通知类型（4代表教练对商家，5代表顾客对商家）", httpMethod = "DELETE")
+  @RequestMapping(value = "", method = RequestMethod.DELETE)
+  @ResponseBody
+  public ResponseEntity<Object> deleteNotification(
+      @RequestBody ReadNotificationDto readNotificationDto) {
+    BaseResult baseResult = notificationService.deleteNotification(readNotificationDto);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.NO_CONTENT);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
 }
