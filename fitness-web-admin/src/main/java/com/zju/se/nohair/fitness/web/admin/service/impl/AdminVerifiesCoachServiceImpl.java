@@ -111,7 +111,7 @@ public class AdminVerifiesCoachServiceImpl implements AdminVerifiesCoachService 
 
     try {
       if (!adminCreateVerifiesDto.getType().equals(0)) {
-        return BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "通知类型错误！");
+        return BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "审批类型错误！");
       }
 
       VerifiesPo verifiesPo = new VerifiesPo();

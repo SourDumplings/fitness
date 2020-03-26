@@ -14,13 +14,13 @@
   <!--商家审核-->
   <select id="selectBusinessByApplicantId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select * from verifies
-    where ( applicant_id = #{applicant_id,jdbcType=INTEGER} and type = 1 )
+    where ( applicant_id = #{applicantId,jdbcType=INTEGER} and type = 1 )
   </select>
 
   <!--教练审批-->
   <select id="selectCoachByApplicantId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select * from verifies
-    where ( applicant_id = #{applicant_id,jdbcType=INTEGER} and type = 0 )
+    where ( applicant_id = #{applicantId,jdbcType=INTEGER} and type = 0 )
   </select>
 
   <insert id="insert" parameterType="com.zju.se.nohair.fitness.dao.po.VerifiesPo">
