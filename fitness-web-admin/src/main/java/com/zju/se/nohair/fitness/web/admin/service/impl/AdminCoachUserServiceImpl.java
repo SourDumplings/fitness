@@ -75,7 +75,9 @@ public class AdminCoachUserServiceImpl implements AdminCoachUserService {
       for (CoachPo coachPo : coachPoList) {
         AdminCoachUserListItemDto adminCoachUserListItemDto = new AdminCoachUserListItemDto();
         BeanUtils.copyProperties(coachPo, adminCoachUserListItemDto);
-        adminCoachUserListItemDto.setAge(DateUtils.getAgeFromBirthday(coachPo.getBirthday()));
+        if (coachPo.getBirthday() != null) {
+          adminCoachUserListItemDto.setAge(DateUtils.getAgeFromBirthday(coachPo.getBirthday()));
+        }
         adminCoachUserListItemDtoList.add(adminCoachUserListItemDto);
       }
       res = BaseResult.success("查询教练列表成功");
