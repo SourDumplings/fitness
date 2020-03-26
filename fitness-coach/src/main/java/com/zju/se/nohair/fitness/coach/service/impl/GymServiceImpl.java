@@ -50,7 +50,13 @@ public class GymServiceImpl  implements GymService {
       final GymPo gymPo = gymMapper.selectByPrimaryKey(gymId);
       GymDto gymDto = new GymDto();
       BeanUtils.copyProperties(gymPo, gymDto);
-      gymDto.setPicGroupId("/pic/1584971096229.png");
+      List<String> gymPicGroupId = new ArrayList<>();
+
+      final List<PicturePo> picturePos = pictureMapper.selectByPicGroupId(gymPo.getPicGroupId());
+      for(PicturePo picturePo:picturePos){
+        gymPicGroupId.add(picturePo.getPicLink());
+      }
+      gymDto.setPicGroupId(gymPicGroupId);
 
       res = BaseResult.success("查看健身房详细信息成功");
       res.setData(gymDto);

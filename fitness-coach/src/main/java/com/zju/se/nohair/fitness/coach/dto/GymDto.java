@@ -1,5 +1,6 @@
 package com.zju.se.nohair.fitness.coach.dto;
 
+import java.util.List;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,6 @@ public class GymDto {
 
   private Integer businessId;//商家id
 
-  private String picGroupId;//健身房图片组
+  private List<String> picGroupId;//健身房图片组
 
 }
