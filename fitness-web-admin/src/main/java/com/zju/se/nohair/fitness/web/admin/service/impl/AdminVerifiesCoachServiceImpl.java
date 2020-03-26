@@ -6,6 +6,7 @@ import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.VerifiesMapper;
 import com.zju.se.nohair.fitness.dao.po.CoachPo;
+import com.zju.se.nohair.fitness.dao.po.PicturePo;
 import com.zju.se.nohair.fitness.dao.po.VerifiesPo;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminCreateVerifiesDto;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminVerifiesCoachDetailDto;
@@ -92,6 +93,13 @@ public class AdminVerifiesCoachServiceImpl implements AdminVerifiesCoachService 
       AdminVerifiesCoachDetailDto adminVerifiesCoachDetailDto = new AdminVerifiesCoachDetailDto();
       BeanUtils.copyProperties(coachPo, adminVerifiesCoachDetailDto);
       BeanUtils.copyProperties(verifiesPo, adminVerifiesCoachDetailDto);
+
+      if (coachPo.getPicId() != null) {
+        final PicturePo picturePo = pictureMapper.selectByPrimaryKey(coachPo.getCertificationPicId());
+        adminVerifiesCoachDetailDto.setCertificationPicId(picturePo.getPicLink());
+      } else {
+        adminVerifiesCoachDetailDto.setCertificationPicId(null);
+      }
 
       res = BaseResult.success("查看审批教练详细信息(审批type=0)成功");
       res.setData(adminVerifiesCoachDetailDto);
