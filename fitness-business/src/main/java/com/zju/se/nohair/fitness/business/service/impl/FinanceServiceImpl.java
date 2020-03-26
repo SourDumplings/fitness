@@ -13,6 +13,7 @@ import com.zju.se.nohair.fitness.dao.po.BusinessPo;
 import com.zju.se.nohair.fitness.dao.po.CoachPo;
 import com.zju.se.nohair.fitness.dao.po.CustomerPo;
 import com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * 商家金融相关服务实现类.
@@ -134,6 +136,30 @@ public class FinanceServiceImpl implements FinanceService {
     } catch (Exception e) {
       logger.error(e.getMessage());
       res = BaseResult.fail("查询商家交易列表失败");
+    }
+
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult withdrawAll(Integer businessId) {
+    BaseResult res = null;
+
+    try {
+      final BusinessPo businessPo = businessMapper.selectByPrimaryKey(businessId);
+
+      if (businessPo == null) {
+        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "错误：无此商家！");
+      } else {
+        businessPo.setBalance(BigDecimal.ZERO);
+        businessMapper.updateByPrimaryKey(businessPo);
+        res = BaseResult.success("商家钱包余额全部提现成功");
+      }
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("商家钱包余额全部提现失败");
     }
 
     return res;
