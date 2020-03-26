@@ -24,4 +24,6 @@ public interface NotificationService {
   BaseResult listNotificationReceivedByBusinessId(Integer businessId);
 
   BaseResult readNotification(ReadNotificationDto readNotificationDto);
+
+  BaseResult deleteNotification(ReadNotificationDto readNotificationDto);
 }
