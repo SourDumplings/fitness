@@ -8,8 +8,12 @@ import com.zju.se.nohair.fitness.business.service.PrivateCourseService;
 import com.zju.se.nohair.fitness.commons.constant.ResponseStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.utils.DateUtils;
+import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
+import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PrivateCourseMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ResponsesPrivateMapper;
+import com.zju.se.nohair.fitness.dao.po.CoachPo;
+import com.zju.se.nohair.fitness.dao.po.PicturePo;
 import com.zju.se.nohair.fitness.dao.po.PrivateCoursePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePoKey;
@@ -42,6 +46,10 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
 
   private ResponsesPrivateMapper responsesPrivateMapper;
 
+  private CoachMapper coachMapper;
+
+  private PictureMapper pictureMapper;
+
   @Autowired
   public void setPrivateCourseMapper(PrivateCourseMapper privateCourseMapper) {
     this.privateCourseMapper = privateCourseMapper;
@@ -51,6 +59,18 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
   public void setResponsesPrivateMapper(ResponsesPrivateMapper responsesPrivateMapper) {
     this.responsesPrivateMapper = responsesPrivateMapper;
   }
+
+
+  @Autowired
+  public void setCoachMapper(CoachMapper coachMapper) {
+    this.coachMapper = coachMapper;
+  }
+
+  @Autowired
+  public void setPictureMapper(PictureMapper pictureMapper) {
+    this.pictureMapper = pictureMapper;
+  }
+
 
   @Override
   public BaseResult listResponsesByBusinessId(Integer businessId) {
@@ -155,6 +175,20 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
       privateCourseDetailDto.setCourseDate(DateUtils.date2String(privateCoursePo.getCourseDate()));
       privateCourseDetailDto
           .setCreatedTime(DateUtils.date2String(privateCoursePo.getCreatedTime()));
+
+      Integer coachId = privateCourseDetailDto.getCoachId();
+      if (coachId != null) {
+        CoachPo coachPo = coachMapper.selectByPrimaryKey(coachId);
+        privateCourseDetailDto.setCoachName(coachPo.getName());
+        Integer picId = coachPo.getPicId();
+        if (picId != null) {
+          PicturePo picturePo = pictureMapper.selectByPrimaryKey(picId);
+          if (picturePo != null) {
+            privateCourseDetailDto.setCoachProfileLink(picturePo.getPicLink());
+          }
+        }
+      }
+
       res = BaseResult.success("查询私教课程详情成功");
       res.setData(privateCourseDetailDto);
     } catch (Exception e) {
