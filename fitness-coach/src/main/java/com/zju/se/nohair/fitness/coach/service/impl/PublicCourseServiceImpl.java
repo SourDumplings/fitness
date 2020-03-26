@@ -10,11 +10,14 @@ import com.zju.se.nohair.fitness.commons.constant.PublicCourseStatus;
 import com.zju.se.nohair.fitness.commons.constant.ResponseStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.utils.DateUtils;
+import com.zju.se.nohair.fitness.dao.mapper.BusinessMapper;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PublicCourseMapper;
 import com.zju.se.nohair.fitness.dao.mapper.RatesMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ResponsesPublicMapper;
+import com.zju.se.nohair.fitness.dao.po.BusinessPo;
+import com.zju.se.nohair.fitness.dao.po.PicturePo;
 import com.zju.se.nohair.fitness.dao.po.PublicCoursePo;
 import com.zju.se.nohair.fitness.dao.po.RatesPo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo;
@@ -47,9 +50,14 @@ public class PublicCourseServiceImpl implements PublicCourseService {
 
   private CoachMapper coachMapper;
 
+  private BusinessMapper businessMapper;
+
   private PictureMapper pictureMapper;
 
   private RatesMapper ratesMapper;
+
+  @Autowired
+  public void setBusinessMapper(BusinessMapper businessMapper) { this.businessMapper = businessMapper; }
 
   @Autowired
   public void setRatesMapper(RatesMapper ratesMapper) { this.ratesMapper = ratesMapper; }
@@ -104,17 +112,27 @@ public class PublicCourseServiceImpl implements PublicCourseService {
 
   @Override
   public BaseResult getPublicCourseDetailByCourseId(Integer courseId) {
+    //查看发布的团课详情
     BaseResult res = null;
 
     try {
       final PublicCoursePo publicCoursePo = publicCourseMapper.selectByPrimaryKey(courseId);
       PublicCourseDetailDto publicCourseDetailDto = new PublicCourseDetailDto();
       BeanUtils.copyProperties(publicCoursePo, publicCourseDetailDto);
-      res = BaseResult.success("查询发布的课程详情成功");
+
+      final BusinessPo businessPo = businessMapper.selectByPrimaryKey(publicCoursePo.getBusinessId());
+      if (businessPo.getPicId() != null) {
+        final PicturePo picturePo = pictureMapper.selectByPrimaryKey(businessPo.getPicId());
+        publicCourseDetailDto.setPicId(picturePo.getPicLink());
+      } else {
+        publicCourseDetailDto.setPicId(null);
+      }
+
+      res = BaseResult.success("查看发布的团课详情成功");
       res.setData(publicCourseDetailDto);
     } catch (Exception e) {
       logger.error(e.getMessage());
-      res = BaseResult.fail("查询发布的课程详情失败");
+      res = BaseResult.fail("查看发布的团课详情失败");
     }
 
     return res;

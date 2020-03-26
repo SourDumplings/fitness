@@ -28,7 +28,7 @@ public class PublicCourseDetailDto {
 
   private BigDecimal coachPrice;
 
-  private Integer picId;
+  private String picId;
 
   private Integer capacity;
 
