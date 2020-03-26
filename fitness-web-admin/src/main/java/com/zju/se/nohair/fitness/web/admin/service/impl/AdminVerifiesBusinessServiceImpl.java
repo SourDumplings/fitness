@@ -6,6 +6,7 @@ import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.VerifiesMapper;
 import com.zju.se.nohair.fitness.dao.po.BusinessPo;
+import com.zju.se.nohair.fitness.dao.po.PicturePo;
 import com.zju.se.nohair.fitness.dao.po.VerifiesPo;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminCreateVerifiesDto;
 import com.zju.se.nohair.fitness.web.admin.dto.AdminVerifiesBusinessDetailDto;
@@ -91,6 +92,13 @@ public class AdminVerifiesBusinessServiceImpl implements AdminVerifiesBusinessSe
       AdminVerifiesBusinessDetailDto adminVerifiesBusinessDetailDto = new AdminVerifiesBusinessDetailDto();
       BeanUtils.copyProperties(businessPo, adminVerifiesBusinessDetailDto);
       BeanUtils.copyProperties(verifiesPo, adminVerifiesBusinessDetailDto);
+      if (businessPo.getPicId() != null) {
+        final PicturePo picturePo = pictureMapper.selectByPrimaryKey(businessPo.getCertificationPicId());
+        adminVerifiesBusinessDetailDto.setCertificationPicId(picturePo.getPicLink());
+      } else {
+        adminVerifiesBusinessDetailDto.setCertificationPicId(null);
+      }
+
 
       res = BaseResult.success("查看审批商家详细信息成功");
       res.setData(adminVerifiesBusinessDetailDto);

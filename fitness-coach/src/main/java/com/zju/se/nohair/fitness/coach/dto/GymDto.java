@@ -24,5 +24,6 @@ public class GymDto {
 
   private Integer businessId;//商家id
 
-  private Integer picGroupId;//健身房图片组
+  private String picGroupId;//健身房图片组
+
 }
