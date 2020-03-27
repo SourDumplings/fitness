@@ -91,7 +91,10 @@ public class AdminVerifiesBusinessServiceImpl implements AdminVerifiesBusinessSe
       final VerifiesPo verifiesPo =verifiesMapper.selectBusinessByApplicantId(businessId);
       AdminVerifiesBusinessDetailDto adminVerifiesBusinessDetailDto = new AdminVerifiesBusinessDetailDto();
       BeanUtils.copyProperties(businessPo, adminVerifiesBusinessDetailDto);
-      BeanUtils.copyProperties(verifiesPo, adminVerifiesBusinessDetailDto);
+      if(verifiesPo!=null){
+        BeanUtils.copyProperties(verifiesPo, adminVerifiesBusinessDetailDto);
+      }
+
       if (businessPo.getPicId() != null) {
         final PicturePo picturePo = pictureMapper.selectByPrimaryKey(businessPo.getCertificationPicId());
         adminVerifiesBusinessDetailDto.setCertificationPicId(picturePo.getPicLink());
