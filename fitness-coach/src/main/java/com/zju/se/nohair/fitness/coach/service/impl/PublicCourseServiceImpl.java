@@ -12,11 +12,13 @@ import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.commons.utils.DateUtils;
 import com.zju.se.nohair.fitness.dao.mapper.BusinessMapper;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
+import com.zju.se.nohair.fitness.dao.mapper.GymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PublicCourseMapper;
 import com.zju.se.nohair.fitness.dao.mapper.RatesMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ResponsesPublicMapper;
 import com.zju.se.nohair.fitness.dao.po.BusinessPo;
+import com.zju.se.nohair.fitness.dao.po.GymPo;
 import com.zju.se.nohair.fitness.dao.po.PicturePo;
 import com.zju.se.nohair.fitness.dao.po.PublicCoursePo;
 import com.zju.se.nohair.fitness.dao.po.RatesPo;
@@ -55,6 +57,13 @@ public class PublicCourseServiceImpl implements PublicCourseService {
   private PictureMapper pictureMapper;
 
   private RatesMapper ratesMapper;
+
+  private GymMapper gymMapper;
+
+  @Autowired
+  public void setGymMapper(GymMapper gymMapper) {
+    this.gymMapper = gymMapper;
+  }
 
   @Autowired
   public void setBusinessMapper(BusinessMapper businessMapper) { this.businessMapper = businessMapper; }
@@ -190,7 +199,8 @@ public class PublicCourseServiceImpl implements PublicCourseService {
         } else {
           publicCourseListItemDto.setPicId(null);
         }
-
+        final GymPo gymPo = gymMapper.selectByBusinessId(publicCoursePo.getBusinessId());
+        publicCourseListItemDto.setGymName(gymPo.getName());
         publicCourseListItemDtoList.add(publicCourseListItemDto);
       }
       res = BaseResult.success("查询等待教练响应的团课列表成功");
