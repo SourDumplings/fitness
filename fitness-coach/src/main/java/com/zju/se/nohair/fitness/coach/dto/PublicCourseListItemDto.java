@@ -20,6 +20,8 @@ public class PublicCourseListItemDto {
 
   private Integer businessId;
 
+  private String picId;
+
   private Date courseDate;
 
   private Integer capacity;

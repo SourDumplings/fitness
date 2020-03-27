@@ -175,13 +175,22 @@ public class PublicCourseServiceImpl implements PublicCourseService {
     try {
       final List<PublicCoursePo> publicCourses = publicCourseMapper.selectForResponsing();
       List<PublicCourseListItemDto> publicCourseListItemDtoList = new ArrayList<>();
-      for (PublicCoursePo publicCourse : publicCourses) {
-        if (courseDate != null && !DateUtils.sameDate(publicCourse.getCourseDate(), courseDate)) {
+      for (PublicCoursePo publicCoursePo : publicCourses) {
+        if (courseDate != null && !DateUtils.sameDate(publicCoursePo.getCourseDate(), courseDate)) {
           continue;
         }
 
         PublicCourseListItemDto publicCourseListItemDto = new PublicCourseListItemDto();
-        BeanUtils.copyProperties(publicCourse, publicCourseListItemDto);
+        BeanUtils.copyProperties(publicCoursePo, publicCourseListItemDto);
+
+        final BusinessPo businessPo = businessMapper.selectByPrimaryKey(publicCoursePo.getBusinessId());
+        if (businessPo.getPicId() != null) {
+          final PicturePo picturePo = pictureMapper.selectByPrimaryKey(businessPo.getPicId());
+          publicCourseListItemDto.setPicId(picturePo.getPicLink());
+        } else {
+          publicCourseListItemDto.setPicId(null);
+        }
+
         publicCourseListItemDtoList.add(publicCourseListItemDto);
       }
       res = BaseResult.success("查询等待教练响应的团课列表成功");
@@ -208,9 +217,17 @@ public class PublicCourseServiceImpl implements PublicCourseService {
             .sameDate(publicCoursePo.getCourseDate(), courseDate)) {
           continue;
         }
-
         PublicCourseListItemDto publicCourseListItemDto = new PublicCourseListItemDto();
         BeanUtils.copyProperties(publicCoursePo, publicCourseListItemDto);
+
+        final BusinessPo businessPo = businessMapper.selectByPrimaryKey(publicCoursePo.getBusinessId());
+        if (businessPo.getPicId() != null) {
+          final PicturePo picturePo = pictureMapper.selectByPrimaryKey(businessPo.getPicId());
+          publicCourseListItemDto.setPicId(picturePo.getPicLink());
+        } else {
+          publicCourseListItemDto.setPicId(null);
+        }
+
         publicCourseListItemDtoList.add(publicCourseListItemDto);
       }
       res = BaseResult.success("查询教练响应成功的团课列表成功");

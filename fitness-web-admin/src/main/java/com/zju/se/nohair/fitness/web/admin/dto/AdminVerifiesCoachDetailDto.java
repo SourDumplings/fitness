@@ -27,7 +27,7 @@ public class AdminVerifiesCoachDetailDto {
 
   private String phone;
 
-  private String certificationPicPath;
+  private String certificationPicId;
 
   private Integer result;//审批结果
 

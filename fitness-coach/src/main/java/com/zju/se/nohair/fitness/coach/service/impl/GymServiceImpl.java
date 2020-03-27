@@ -6,6 +6,7 @@ import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.dao.mapper.GymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.po.GymPo;
+import com.zju.se.nohair.fitness.dao.po.PicturePo;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -28,6 +29,13 @@ public class GymServiceImpl  implements GymService {
 
   private GymMapper gymMapper;
 
+  private PictureMapper pictureMapper;
+
+  @Autowired
+  public void setPictureMapper(PictureMapper pictureMapper) {
+    this.pictureMapper = pictureMapper;
+  }
+
   @Autowired
   public void setGymMapper(GymMapper gymMapper) {
     this.gymMapper = gymMapper;
@@ -42,6 +50,13 @@ public class GymServiceImpl  implements GymService {
       final GymPo gymPo = gymMapper.selectByPrimaryKey(gymId);
       GymDto gymDto = new GymDto();
       BeanUtils.copyProperties(gymPo, gymDto);
+      List<String> gymPicGroupId = new ArrayList<>();
+
+      final List<PicturePo> picturePos = pictureMapper.selectByPicGroupId(gymPo.getPicGroupId());
+      for(PicturePo picturePo:picturePos){
+        gymPicGroupId.add(picturePo.getPicLink());
+      }
+      gymDto.setPicGroupId(gymPicGroupId);
 
       res = BaseResult.success("查看健身房详细信息成功");
       res.setData(gymDto);
