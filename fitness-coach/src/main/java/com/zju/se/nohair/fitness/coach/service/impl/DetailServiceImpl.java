@@ -12,6 +12,7 @@ import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.dao.mapper.CoachMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.po.CoachPo;
+import com.zju.se.nohair.fitness.dao.po.PicturePo;
 import java.math.BigDecimal;
 import java.util.Date;
 import org.slf4j.Logger;
@@ -60,6 +61,20 @@ public class DetailServiceImpl implements DetailService {
       final CoachPo coachPo = coachMapper.selectByPrimaryKey(coachId);
       CoachDetailDto coachDetailDto = new CoachDetailDto();
       BeanUtils.copyProperties(coachPo, coachDetailDto);
+
+      if (coachPo.getPicId() != null) {
+        final PicturePo picturePo = pictureMapper.selectByPrimaryKey(coachPo.getPicId());
+        coachDetailDto.setPicId(picturePo.getPicLink());
+      } else {
+        coachDetailDto.setPicId(null);
+      }
+
+      if (coachPo.getCertificationPicId() != null) {
+        final PicturePo picturePo = pictureMapper.selectByPrimaryKey(coachPo.getCertificationPicId());
+        coachDetailDto.setCertificationPicId(picturePo.getPicLink());
+      } else {
+        coachDetailDto.setCertificationPicId(null);
+      }
       res = BaseResult.success("查看教练的个人信息成功");
       res.setData(coachDetailDto);
     } catch (Exception e) {

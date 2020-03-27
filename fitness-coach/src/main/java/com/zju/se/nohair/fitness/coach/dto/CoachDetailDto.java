@@ -24,7 +24,7 @@ public class CoachDetailDto {
 
   private Integer gender;
 
-  private Integer picId;//头像图片
+  private String picId;//头像图片
 
   private String phone;
 
@@ -34,7 +34,7 @@ public class CoachDetailDto {
 
   private String idNumber;
 
-  private Integer certificationPicId;
+  private String certificationPicId;
 
   private String ps;//个人简介
 
