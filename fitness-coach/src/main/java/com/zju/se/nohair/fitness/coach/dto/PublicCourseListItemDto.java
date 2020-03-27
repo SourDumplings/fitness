@@ -22,6 +22,8 @@ public class PublicCourseListItemDto {
 
   private String picId;
 
+  private String gymName;
+
   private Date courseDate;
 
   private Integer capacity;
