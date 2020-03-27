@@ -2,9 +2,12 @@ package com.zju.se.nohair.fitness.customer.service;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.customer.dto.CommentCourseDto;
+import com.zju.se.nohair.fitness.customer.dto.LoginDto;
 import com.zju.se.nohair.fitness.customer.dto.PurchaseVipCardDto;
 import com.zju.se.nohair.fitness.customer.dto.RechargeDto;
+import com.zju.se.nohair.fitness.customer.dto.RegisterDto;
 import com.zju.se.nohair.fitness.dao.po.NotifiesPoKey;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Wang Haowen
@@ -31,4 +34,14 @@ public interface CustomerService {
   BaseResult getNotifies(Integer customerId);
 
   BaseResult checkedNotifies(NotifiesPoKey notifies);
+
+  BaseResult login(LoginDto loginDto);
+
+  BaseResult register(RegisterDto registerDto);
+
+  BaseResult getPicInfo(Integer picId);
+
+  BaseResult getPicGroupInfo(Integer picGroupId);
+
+  BaseResult uploadPic(MultipartFile file, Integer customerId);
 }
