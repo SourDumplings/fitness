@@ -2,8 +2,10 @@ package com.zju.se.nohair.fitness.customer.controller;
 
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import com.zju.se.nohair.fitness.customer.dto.CommentCourseDto;
+import com.zju.se.nohair.fitness.customer.dto.LoginDto;
 import com.zju.se.nohair.fitness.customer.dto.PurchaseVipCardDto;
 import com.zju.se.nohair.fitness.customer.dto.RechargeDto;
+import com.zju.se.nohair.fitness.customer.dto.RegisterDto;
 import com.zju.se.nohair.fitness.customer.service.CustomerService;
 import com.zju.se.nohair.fitness.dao.po.NotifiesPoKey;
 import io.swagger.annotations.Api;
@@ -17,8 +19,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 用户controller
@@ -108,6 +112,45 @@ public class CustomerController {
   @ResponseBody
   public ResponseEntity<Object> checkedNotifies(@RequestBody NotifiesPoKey notifies) {
     BaseResult baseResult = customerService.checkedNotifies(notifies);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "顾客登录 ", httpMethod = "POST")
+  @RequestMapping(value = "login", method = RequestMethod.POST)
+  @ResponseBody
+  public ResponseEntity<Object> login(@RequestBody LoginDto loginDto) {
+    BaseResult baseResult = customerService.login(loginDto);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "顾客注册 ", httpMethod = "POST")
+  @RequestMapping(value = "register", method = RequestMethod.POST)
+  @ResponseBody
+  public ResponseEntity<Object> register(@RequestBody RegisterDto registerDto) {
+    BaseResult baseResult = customerService.register(registerDto);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "顾客上传头像 ", httpMethod = "POST")
+  @RequestMapping(value = "upload/pic", method = RequestMethod.POST)
+  @ResponseBody
+  public ResponseEntity<Object> uploadPic(@RequestParam("file") MultipartFile file, Integer customerId) {
+    BaseResult baseResult = customerService.uploadPic(file,customerId);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
     } else {

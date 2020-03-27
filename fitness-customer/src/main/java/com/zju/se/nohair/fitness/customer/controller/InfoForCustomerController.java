@@ -177,4 +177,30 @@ public class InfoForCustomerController {
     }
   }
 
+  @ApiOperation(value = "查询单个图片", httpMethod = "GET")
+  @RequestMapping(value = "pic/{picId}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> getPicInfo(@PathVariable("picId") Integer picId) {
+    BaseResult baseResult = customerService.getPicInfo(picId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "查询图片组", httpMethod = "GET")
+  @RequestMapping(value = "pic_group/{picGroupId}", method = RequestMethod.GET)
+  @ResponseBody
+  public ResponseEntity<Object> getPicGroupInfo(@PathVariable("picGroupId") Integer picGroupId) {
+    BaseResult baseResult = customerService.getPicGroupInfo(picGroupId);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
 }

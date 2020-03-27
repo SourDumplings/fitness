@@ -6,13 +6,17 @@ import com.zju.se.nohair.fitness.commons.constant.ReceiveRecordType;
 import com.zju.se.nohair.fitness.commons.constant.VipCardType;
 import com.zju.se.nohair.fitness.commons.constant.VipOrderStatus;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
+import com.zju.se.nohair.fitness.commons.utils.DateUtils;
+import com.zju.se.nohair.fitness.commons.utils.FileUtils;
 import com.zju.se.nohair.fitness.customer.dao.mapper.NotifiesInCustomerMapper;
 import com.zju.se.nohair.fitness.customer.dao.mapper.VipCardInCustomerMapper;
 import com.zju.se.nohair.fitness.customer.dto.CommentCourseDto;
 import com.zju.se.nohair.fitness.customer.dto.CustomerInfoDto;
+import com.zju.se.nohair.fitness.customer.dto.LoginDto;
 import com.zju.se.nohair.fitness.customer.dto.NotifiesDto;
 import com.zju.se.nohair.fitness.customer.dto.PurchaseVipCardDto;
 import com.zju.se.nohair.fitness.customer.dto.RechargeDto;
+import com.zju.se.nohair.fitness.customer.dto.RegisterDto;
 import com.zju.se.nohair.fitness.customer.dto.VipCardWithGymInfoDto;
 import com.zju.se.nohair.fitness.customer.service.CustomerService;
 import com.zju.se.nohair.fitness.dao.mapper.CustomerMapper;
@@ -51,6 +55,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Wang Haowen
@@ -423,6 +428,163 @@ public class CustomerServiceImp implements CustomerService {
     } catch (Exception e) {
       logger.error(e.getMessage());
       res = BaseResult.fail("已读失败");
+    }
+
+    return res;
+  }
+
+  @Override
+  public BaseResult login(LoginDto loginDto) {
+    BaseResult res = null;
+
+    try {
+
+      int id = 0;
+
+      List<CustomerPo> list = customerMapper.selectAll();
+      for(CustomerPo p:list){
+        if (p.getPhone()==null)
+          break;
+        if (p.getPassword()==null)
+          break;
+        String ph = p.getPhone();
+        String pw = p.getPassword();
+        if (ph.equals(loginDto.getPhone()) && pw.equals(loginDto.getPassword())){
+          id = p.getId();
+          break;
+        }
+      }
+
+      if (id==0){
+        res = BaseResult.fail("登录失败");
+      }else {
+        res = BaseResult.success("登录成功");
+        res.setData(id);
+      }
+
+
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("登录失败");
+    }
+
+    return res;
+  }
+
+  @Override
+  public BaseResult register(RegisterDto registerDto) {
+    BaseResult res = null;
+
+    try {
+      CustomerPo customerPo = new CustomerPo();
+      BeanUtils.copyProperties(registerDto,customerPo);
+      customerPo.setCreatedTime(new Date());
+      customerPo.setBalance(BigDecimal.valueOf(0));
+
+
+      if (customerPo.getPhone()==null || customerPo.getPhone().equals("")
+          || customerPo.getPassword()==null || customerPo.getPassword().equals("")
+          || customerPo.getUsername()==null || customerPo.getUsername().equals("")){
+        res = BaseResult.fail("注册失败 手机号、用户名和密码均不能为空 ");
+        return res;
+      }
+
+      List<CustomerPo> list = customerMapper.selectAll();
+      for(CustomerPo p:list){
+        if (p.getPhone()==null)
+          break;
+        String ph = p.getPhone();
+        if (ph.equals(registerDto.getPhone())){
+          res = BaseResult.fail("注册失败 该手机号已被注册 ");
+          return res;
+        }
+      }
+
+
+      customerMapper.insertSelective(customerPo);
+
+      res = BaseResult.success("注册成功");
+
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("注册失败");
+    }
+
+    return res;
+  }
+
+  @Override
+  public BaseResult getPicInfo(Integer picId) {
+    BaseResult res = null;
+
+    try {
+
+      PicturePo picturePo = pictureMapper.selectByPrimaryKey(picId);
+
+      res = BaseResult.success("获取成功");
+      res.setData(picturePo);
+
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("获取失败");
+    }
+
+    return res;
+  }
+
+  @Override
+  public BaseResult getPicGroupInfo(Integer picGroupId) {
+    BaseResult res = null;
+
+    try {
+
+      List<PicturePo> pictures = pictureMapper.selectByPicGroupId(picGroupId);
+
+      res = BaseResult.success("获取成功");
+      res.setData(pictures);
+
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("获取失败");
+    }
+
+    return res;
+  }
+
+  @Override
+  public BaseResult uploadPic(MultipartFile file, Integer customerId) {
+    BaseResult res = null;
+
+    try {
+      //保存图片
+      String extension = FileUtils.getExtension(file.getOriginalFilename());
+      if (extension==null || extension.equals("") ){
+        throw new Exception();
+      }
+      long times = System.currentTimeMillis();
+      if(FileUtils.savePic(file.getInputStream(),times+extension)){
+        PicturePo picturePo = new PicturePo();
+        picturePo.setCreatedTime(new Date());
+        picturePo.setFilePath("/root/pic/"+times+extension);
+        picturePo.setPicLink("/pic/"+times+extension);
+        pictureMapper.insertReturnId(picturePo);
+        //此处的picturePo中id自动被设置为数据库生成的主键id了
+        //下一步可以直接使用 例如 设置用户的头像图片id
+        CustomerPo customerPo = new CustomerPo();
+        customerPo.setId(customerId);
+        customerPo.setPicId(picturePo.getId());
+        customerMapper.updateByPrimaryKeySelective(customerPo);
+      }else{
+        TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        res = BaseResult.fail("图片存储失败");
+        return res;
+      }
+
+      res = BaseResult.success("保存图片成功");
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("保存图片失败");
     }
 
     return res;
