@@ -92,8 +92,9 @@ public class AdminVerifiesCoachServiceImpl implements AdminVerifiesCoachService 
       final VerifiesPo verifiesPo =verifiesMapper.selectCoachByApplicantId(coachId);
       AdminVerifiesCoachDetailDto adminVerifiesCoachDetailDto = new AdminVerifiesCoachDetailDto();
       BeanUtils.copyProperties(coachPo, adminVerifiesCoachDetailDto);
-      BeanUtils.copyProperties(verifiesPo, adminVerifiesCoachDetailDto);
-
+      if(verifiesPo!=null){
+        BeanUtils.copyProperties(verifiesPo, adminVerifiesCoachDetailDto);
+      }
       if (coachPo.getPicId() != null) {
         final PicturePo picturePo = pictureMapper.selectByPrimaryKey(coachPo.getCertificationPicId());
         adminVerifiesCoachDetailDto.setCertificationPicId(picturePo.getPicLink());
