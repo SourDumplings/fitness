@@ -47,6 +47,8 @@ import com.zju.se.nohair.fitness.dao.po.VipCardPo;
 import com.zju.se.nohair.fitness.dao.po.VipOrderPo;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
@@ -399,6 +401,25 @@ public class CustomerServiceImp implements CustomerService {
       List<NotifiesDto> all = notifiesFromBusiness;
       all.addAll(notifiesFromCoach);
 
+      Collections.sort(all, new Comparator<NotifiesDto>() {
+
+        @Override
+        public int compare(NotifiesDto o1, NotifiesDto o2) {
+
+          long t1 = o1.getTime().getTime();
+          long t2 = o2.getTime().getTime();
+          if (t1>t2){
+            return -1;
+          }else if(t1<t2){
+            return 1;
+          }else {
+            return 0;
+          }
+        }
+      });
+
+
+
       res = BaseResult.success("获取成功");
       res.setData(all);
 
@@ -417,11 +438,14 @@ public class CustomerServiceImp implements CustomerService {
     try {
 
       NotifiesPo notifiesPo = notifiesMapper.selectByPrimaryKey(notifies);
-      if (notifiesPo.getFromId()==0){
+      if (notifiesPo==null || notifiesPo.getFromId()==0){
         res = BaseResult.fail("已读失败 没有此消息");
         return res;
       }
-      notifiesMapper.updateByNotifiesPoKey(notifiesPo);
+      NotifiesPo newN = new NotifiesPo();
+      BeanUtils.copyProperties(notifies,newN);
+      newN.setStatus(1);
+      notifiesMapper.updateByPrimaryKeySelective(newN);
 
       res = BaseResult.success("已读成功");
 
