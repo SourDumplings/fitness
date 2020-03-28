@@ -1,7 +1,8 @@
 package com.zju.se.nohair.fitness.business.service;
 
+import com.zju.se.nohair.fitness.business.dto.ChangePasswordDto;
 import com.zju.se.nohair.fitness.business.dto.CreateBusinessUserDto;
-import com.zju.se.nohair.fitness.business.dto.UpdateBusinessUserDetailDto;
+import com.zju.se.nohair.fitness.business.dto.LoginDto;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,12 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface UserInfoService {
 
+  BaseResult login(LoginDto loginDto);
+
+  BaseResult changePasssword(ChangePasswordDto changePasswordDto);
+
   BaseResult createBusinessUser(CreateBusinessUserDto createBusinessUserDto,
       MultipartFile profilePic, MultipartFile certificationPic);
 
   BaseResult getBusinessUserDetailByBusinessId(Integer businessId);
-
-  BaseResult updateBusinessUserDetail(
-      UpdateBusinessUserDetailDto updateBusinessUserDetailDto,
-      MultipartFile profilePic, MultipartFile certificationPic);
 }

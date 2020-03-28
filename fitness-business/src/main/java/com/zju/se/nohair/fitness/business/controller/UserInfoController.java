@@ -1,6 +1,8 @@
 package com.zju.se.nohair.fitness.business.controller;
 
+import com.zju.se.nohair.fitness.business.dto.ChangePasswordDto;
 import com.zju.se.nohair.fitness.business.dto.CreateBusinessUserDto;
+import com.zju.se.nohair.fitness.business.dto.LoginDto;
 import com.zju.se.nohair.fitness.business.service.UserInfoService;
 import com.zju.se.nohair.fitness.commons.dto.BaseResult;
 import io.swagger.annotations.Api;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,20 +74,31 @@ public class UserInfoController {
     }
   }
 
-/*  @ApiOperation(value = "更新商家用户信息", httpMethod = "PUT")
-  @RequestMapping(value = "", method = RequestMethod.PUT)
+  @ApiOperation(value = "商家用户登录", httpMethod = "POST")
+  @RequestMapping(value = "login", method = RequestMethod.POST)
   @ResponseBody
-  public ResponseEntity<Object> createPublicCourse(
-      @RequestBody @Valid UpdateBusinessUserDetailDto updateBusinessUserDetailDto,
-      @RequestParam("profilePic") MultipartFile profilePic,
-      @RequestParam("certificationPic") MultipartFile certificationPic) {
-    BaseResult baseResult = userInfoService.updateBusinessUserDetail(updateBusinessUserDetailDto,
-        profilePic, certificationPic);
+  public ResponseEntity<Object> getPublicCourseDetailByCourseId(
+      @RequestBody LoginDto loginDto) {
+    BaseResult baseResult = userInfoService.login(loginDto);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
-      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
     } else {
       return new ResponseEntity<>(baseResult.getMessage(),
           HttpStatus.valueOf(baseResult.getStatus()));
     }
-  }*/
+  }
+
+  @ApiOperation(value = "商家用户修改密码", httpMethod = "PUT")
+  @RequestMapping(value = "changePassword", method = RequestMethod.PUT)
+  @ResponseBody
+  public ResponseEntity<Object> changePasssword(
+      @RequestBody ChangePasswordDto changePasswordDto) {
+    BaseResult baseResult = userInfoService.changePasssword(changePasswordDto);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
 }

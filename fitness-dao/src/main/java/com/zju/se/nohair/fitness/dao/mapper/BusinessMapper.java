@@ -18,6 +18,8 @@ public interface BusinessMapper
 
   BusinessPo selectByPrimaryKey(Integer id);
 
+  BusinessPo selectByUsername(String username);
+
   List<BusinessPo> selectAll();
 
   int updateByPrimaryKeySelective(BusinessPo record);

@@ -25,6 +25,13 @@
     from business
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByUsername" parameterType="com.zju.se.nohair.fitness.business.dto.LoginDto"
+    resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from business
+    where username = #{username}
+  </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>

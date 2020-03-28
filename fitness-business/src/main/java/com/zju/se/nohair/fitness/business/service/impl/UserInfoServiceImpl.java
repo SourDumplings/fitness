@@ -1,8 +1,9 @@
 package com.zju.se.nohair.fitness.business.service.impl;
 
 import com.zju.se.nohair.fitness.business.dto.BusinessUserDetailDto;
+import com.zju.se.nohair.fitness.business.dto.ChangePasswordDto;
 import com.zju.se.nohair.fitness.business.dto.CreateBusinessUserDto;
-import com.zju.se.nohair.fitness.business.dto.UpdateBusinessUserDetailDto;
+import com.zju.se.nohair.fitness.business.dto.LoginDto;
 import com.zju.se.nohair.fitness.business.service.UserInfoService;
 import com.zju.se.nohair.fitness.business.utils.PicUtils;
 import com.zju.se.nohair.fitness.commons.constant.CertificationStatus;
@@ -134,25 +135,47 @@ public class UserInfoServiceImpl implements UserInfoService {
     return res;
   }
 
-  @Transactional(readOnly = false)
   @Override
-  public BaseResult updateBusinessUserDetail(
-      UpdateBusinessUserDetailDto updateBusinessUserDetailDto,
-      MultipartFile profilePic, MultipartFile certificationPic) {
+  public BaseResult login(LoginDto loginDto) {
     BaseResult res = null;
 
     try {
-      BusinessPo businessPo = businessMapper
-          .selectByPrimaryKey(updateBusinessUserDetailDto.getId());
-      businessPo.setPassword(DigestUtils.md5DigestAsHex(businessPo.getPassword().getBytes()));
-      businessPo.setUsername(updateBusinessUserDetailDto.getUsername());
-      businessPo.setPhone(updateBusinessUserDetailDto.getPhone());
-      businessMapper.updateByPrimaryKey(businessPo);
-      res = BaseResult.success("商家用户信息修改成功");
+      BusinessPo businessPo = businessMapper.selectByUsername(loginDto.getUsername());
+      String passwordMd5 = DigestUtils.md5DigestAsHex(loginDto.getPassword().getBytes());
+      if (businessPo != null && passwordMd5.equals(businessPo.getPassword())) {
+        res = BaseResult.success("商家用户登录成功");
+      } else {
+        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "用户名或密码错误");
+      }
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      res = BaseResult.fail("商家用户登录失败");
+    }
+
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult changePasssword(ChangePasswordDto changePasswordDto) {
+    BaseResult res = null;
+
+    try {
+      BusinessPo businessPo = businessMapper.selectByUsername(changePasswordDto.getUsername());
+      String oldPassword = DigestUtils
+          .md5DigestAsHex(changePasswordDto.getOldPassword().getBytes());
+      if (businessPo != null && oldPassword.equals(businessPo.getPassword())) {
+        businessPo
+            .setPassword(DigestUtils.md5DigestAsHex(changePasswordDto.getNewPassword().getBytes()));
+        businessMapper.updateByPrimaryKey(businessPo);
+        res = BaseResult.success("商家端修改密码成功");
+      } else {
+        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "用户名或密码错误");
+      }
     } catch (Exception e) {
       TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
-      res = BaseResult.fail("商家用户信息修改失败");
+      res = BaseResult.fail("商家端修改密码失败");
     }
 
     return res;
