@@ -75,7 +75,7 @@ public class FinanceController {
       @PathVariable(name = "businessId") Integer businessId) {
     BaseResult baseResult = financeService.withdrawAll(businessId);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
-      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
     } else {
       return new ResponseEntity<>(baseResult.getMessage(),
           HttpStatus.valueOf(baseResult.getStatus()));

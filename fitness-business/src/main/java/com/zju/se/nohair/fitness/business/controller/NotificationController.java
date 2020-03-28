@@ -126,7 +126,7 @@ public class NotificationController {
       @RequestBody ReadNotificationDto readNotificationDto) {
     BaseResult baseResult = notificationService.deleteNotification(readNotificationDto);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
-      return new ResponseEntity<>(baseResult.getData(), HttpStatus.NO_CONTENT);
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.NO_CONTENT);
     } else {
       return new ResponseEntity<>(baseResult.getMessage(),
           HttpStatus.valueOf(baseResult.getStatus()));
