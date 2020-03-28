@@ -99,6 +99,13 @@ public class GymServiceImpl  implements GymService {
       for (GymPo gymPo : gyms) {
         GymDto gymDto = new GymDto();
         BeanUtils.copyProperties(gymPo, gymDto);
+        List<String> gymPicGroupId = new ArrayList<>();
+
+        final List<PicturePo> picturePos = pictureMapper.selectByPicGroupId(gymPo.getPicGroupId());
+        for(PicturePo picturePo:picturePos){
+          gymPicGroupId.add(picturePo.getPicLink());
+        }
+        gymDto.setPicGroupId(gymPicGroupId);
         gymDtoList.add(gymDto);
       }
       res = BaseResult.success("查看全部健身房列表成功");
