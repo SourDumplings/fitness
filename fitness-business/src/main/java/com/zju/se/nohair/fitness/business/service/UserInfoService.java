@@ -23,5 +23,9 @@ public interface UserInfoService {
   BaseResult createBusinessUser(CreateBusinessUserDto createBusinessUserDto,
       MultipartFile profilePic, MultipartFile certificationPic);
 
+  BaseResult uploadProfilePic(Integer businessId, MultipartFile profilePic);
+
+  BaseResult uploadCertificationPic(Integer businessId, MultipartFile certificationPic);
+
   BaseResult getBusinessUserDetailByBusinessId(Integer businessId);
 }

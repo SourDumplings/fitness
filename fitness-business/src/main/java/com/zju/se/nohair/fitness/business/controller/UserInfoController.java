@@ -60,6 +60,36 @@ public class UserInfoController {
     }
   }
 
+  @ApiOperation(value = "商家用户上传头像图片", httpMethod = "PUT")
+  @RequestMapping(value = "profile/{businessId}", method = RequestMethod.PUT)
+  @ResponseBody
+  public ResponseEntity<Object> uploadProfilePic(
+      @PathVariable("businessId") Integer businessId,
+      @RequestParam("profilePic") MultipartFile profilePic) {
+    BaseResult baseResult = userInfoService.uploadProfilePic(businessId, profilePic);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
+  @ApiOperation(value = "商家用户上传资格证图片", httpMethod = "PUT")
+  @RequestMapping(value = "certification/{businessId}", method = RequestMethod.PUT)
+  @ResponseBody
+  public ResponseEntity<Object> uploadCertificationPic(
+      @PathVariable("businessId") Integer businessId,
+      @RequestParam("certificationPic") MultipartFile certificationPic) {
+    BaseResult baseResult = userInfoService.uploadCertificationPic(businessId, certificationPic);
+    if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
+    } else {
+      return new ResponseEntity<>(baseResult.getMessage(),
+          HttpStatus.valueOf(baseResult.getStatus()));
+    }
+  }
+
   @ApiOperation(value = "查看商家用户详情", httpMethod = "GET")
   @RequestMapping(value = "{businessId}", method = RequestMethod.GET)
   @ResponseBody

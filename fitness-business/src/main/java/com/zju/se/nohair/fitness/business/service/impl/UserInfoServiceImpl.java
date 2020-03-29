@@ -111,6 +111,44 @@ public class UserInfoServiceImpl implements UserInfoService {
     return res;
   }
 
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult uploadProfilePic(Integer businessId, MultipartFile profilePic) {
+    BaseResult res = null;
+
+    try {
+      BusinessPo businessPo = businessMapper.selectByPrimaryKey(businessId);
+      businessPo.setPicId(PicUtils.saveSinglePic(pictureMapper, profilePic));
+      businessMapper.updateByPrimaryKey(businessPo);
+      res = BaseResult.success("商家用户头像上传成功");
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("商家用户头像上传失败");
+    }
+
+    return res;
+  }
+
+  @Transactional(readOnly = false)
+  @Override
+  public BaseResult uploadCertificationPic(Integer businessId, MultipartFile certificationPic) {
+    BaseResult res = null;
+
+    try {
+      BusinessPo businessPo = businessMapper.selectByPrimaryKey(businessId);
+      businessPo.setCertificationPicId(PicUtils.saveSinglePic(pictureMapper, certificationPic));
+      businessMapper.updateByPrimaryKey(businessPo);
+      res = BaseResult.success("商家用户资格证图片上传成功");
+    } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+      logger.error(e.getMessage());
+      res = BaseResult.fail("商家用户资格证图片上传失败");
+    }
+
+    return res;
+  }
+
   @Override
   public BaseResult getBusinessUserDetailByBusinessId(Integer businessId) {
     BaseResult res = null;
