@@ -84,8 +84,8 @@ public class CoachDetailController {
     }
   }
 
-  @ApiOperation(value = "教练端登录", httpMethod = "GET")
-  @RequestMapping(value = "", method = RequestMethod.GET)
+  @ApiOperation(value = "教练端登录", httpMethod = "POST")
+  @RequestMapping(value = "logIn", method = RequestMethod.POST)
   @ResponseBody
   public ResponseEntity<Object> logInCoach(@RequestParam("username") String username,
       @RequestParam("password") String password) {
