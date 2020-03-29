@@ -104,7 +104,7 @@ public class NotificationController {
   }
 
   @ApiOperation(value = "阅读通知；传入时间格式：yyyy/MM/dd HH:mm:ss"
-      + "通知类型（4代表教练对商家，5代表顾客对商家）", httpMethod = "PUT")
+      + "通知类型（1代表商家对顾客，2代表商家对教练，4代表教练对商家，5代表顾客对商家）", httpMethod = "PUT")
   @RequestMapping(value = "read", method = RequestMethod.PUT)
   @ResponseBody
   public ResponseEntity<Object> readNotification(
