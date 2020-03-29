@@ -160,7 +160,7 @@
       and time = #{time,jdbcType=TIMESTAMP}
       and type = #{type,jdbcType=INTEGER}
   </update>
-<!--parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPo"-->
+<!--教练端阅读多条通知-->
   <update id="updateByNotifiesPoKey" parameterType="com.zju.se.nohair.fitness.dao.po.NotifiesPo">
     update notifies
     set status = 1
