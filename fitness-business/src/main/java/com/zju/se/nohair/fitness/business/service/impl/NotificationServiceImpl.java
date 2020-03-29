@@ -252,8 +252,14 @@ public class NotificationServiceImpl implements NotificationService {
       NotificationDetailDto notificationDetailDto = new NotificationDetailDto();
       BeanUtils.copyProperties(notifiesPo, notificationDetailDto);
       notificationDetailDto.setTime(DateUtils.date2String(notifiesPo.getTime()));
-      notifiesPo.setStatus(NotificationStatus.READ);
-      notifiesMapper.updateByPrimaryKey(notifiesPo);
+
+      Integer type = notifiesPoKey.getType();
+      if (NotificationType.COACH_TO_BUSINESS.equals(type) || NotificationType.CUSTOMER_TO_BUSINESS
+          .equals(type)) {
+        notifiesPo.setStatus(NotificationStatus.READ);
+        notifiesMapper.updateByPrimaryKey(notifiesPo);
+      }
+
       res = BaseResult.success("阅读通知成功");
       res.setData(notificationDetailDto);
     } catch (Exception e) {
