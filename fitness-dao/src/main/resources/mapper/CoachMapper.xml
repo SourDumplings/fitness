@@ -26,9 +26,14 @@
     certification_pic_id, ps, height, weight, balance, status, created_time
   </sql>
 
-  <!--selectByUsername-->
+  <!--selectPasswordByUsername-->
   <select id="selectByUsername" parameterType="java.lang.String" resultType="String">
     select password from coach
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+<!--selectCoachIdByUsername-->
+  <select id="selectCoachIdByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from coach
     where username = #{username,jdbcType=VARCHAR}
   </select>
 
