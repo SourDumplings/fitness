@@ -26,4 +26,6 @@ public interface CoachMapper {
   int updateStatus1(Integer applicantId);//教练审批通过
 
   int updateStatus2(Integer applicantId);//教练审批未通过
+
+  CoachPo selectCoachIdByUsername(String username);//教练端登录成功返回CoachID
 }

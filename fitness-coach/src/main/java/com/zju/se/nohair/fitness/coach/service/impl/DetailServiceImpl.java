@@ -92,10 +92,14 @@ public class DetailServiceImpl implements DetailService {
 
     try {
       String passwordFromSQL = coachMapper.selectByUsername(username);
+
       String passwordMd5 = DigestUtils.md5DigestAsHex(password.getBytes());
       //System.out.println(passwordMd5);
       if(passwordMd5.equals(passwordFromSQL)){
+        CoachPo coachPo = coachMapper.selectCoachIdByUsername(username);//教练端登录成功返回CoachID
+        //System.out.println(coachId);
         res = BaseResult.success("教练端登录成功");
+        res.setData(coachPo.getId());
       }else{
         res = BaseResult.fail("用户名或密码错误");
       }

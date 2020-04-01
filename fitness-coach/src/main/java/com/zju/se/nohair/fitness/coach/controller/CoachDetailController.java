@@ -91,7 +91,7 @@ public class CoachDetailController {
       @RequestParam("password") String password) {
     BaseResult baseResult = detailService.logInCoach(username,password);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
-      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.CREATED);
     } else {
       return new ResponseEntity<>(baseResult.getMessage(),
           HttpStatus.valueOf(baseResult.getStatus()));
