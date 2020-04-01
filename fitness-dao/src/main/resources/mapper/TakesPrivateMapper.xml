@@ -30,6 +30,14 @@
     from takes_private
     where course_id = #{courseId,jdbcType=INTEGER}
   </select>
+
+  <!--同上-->
+  <select id="selectByCourseId1" parameterType="Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from takes_private
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </select>
   <select id="selectByCustomerId" parameterType="Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
