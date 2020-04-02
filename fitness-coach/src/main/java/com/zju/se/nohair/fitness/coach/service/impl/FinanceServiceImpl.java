@@ -79,7 +79,7 @@ public class FinanceServiceImpl implements FinanceService {
       }
     } catch (Exception e) {
       logger.error(e.getMessage());
-      res = BaseResult.fail("查看教练钱包余额失败\n" + e.getMessage());
+      res = BaseResult.fail("查看教练钱包余额失败");
     }
 
     return res;
@@ -147,7 +147,7 @@ public class FinanceServiceImpl implements FinanceService {
       res.setData(coachFinanceRecordListItemDtos);
     } catch (Exception e) {
       logger.error(e.getMessage());
-      res = BaseResult.fail("查询商家交易列表失败");
+      res = BaseResult.fail("查询商家交易列表失败\n" + e.getMessage());
     }
 
     return res;
