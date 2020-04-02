@@ -28,5 +28,5 @@ public interface TakesPrivateMapper {
 
   List<TakesPrivatePo> selectPrivateCustomerByCourseId(Integer courseId);
 
-  TakesPrivatePoKey selectByCourseId1(Integer courseId);
+  TakesPrivatePoKey selectByCourseIdAndTimeSlotId(Integer courseId, Integer timeSlotId);
 }

@@ -184,11 +184,11 @@ public class CoachPrivateCourseController {
   }
 
   @ApiOperation(value = "私教课结课", httpMethod = "PUT")
-  @RequestMapping(value = "{courseId}", method = RequestMethod.PUT)
+  @RequestMapping(value = "{courseId}/{timeSlotId}", method = RequestMethod.PUT)
   @ResponseBody
-  public ResponseEntity<Object> finishPrivateCourseByCourseId(
-      @PathVariable("courseId") Integer courseId) {
-    BaseResult baseResult = privateCourseService.finishPrivateCourseByCourseId(courseId);
+  public ResponseEntity<Object> finishPrivateCourseByCourseId(@PathVariable("courseId") Integer courseId,
+      @PathVariable("timeSlotId") Integer timeSlotId) {
+    BaseResult baseResult = privateCourseService.finishPrivateCourseByCourseId(courseId,timeSlotId);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
     } else {

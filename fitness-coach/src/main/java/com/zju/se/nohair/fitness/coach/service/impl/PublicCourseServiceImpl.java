@@ -390,6 +390,7 @@ public class PublicCourseServiceImpl implements PublicCourseService {
           status.equals(PublicCourseStatus.COACH_SELECTED)||
           status.equals(PublicCourseStatus.CUSTOMER_PAID) ||
           status.equals(PublicCourseStatus.FULL) ) {
+
         publicCourseMapper.finishByPrimaryKey(courseId);
         //教练费（fromId：商家、toId：教练）
         receiveRecordCoachFeePo.setFromId(publicCoursePo.getBusinessId());
@@ -409,8 +410,8 @@ public class PublicCourseServiceImpl implements PublicCourseService {
           receiveRecordBusinessFeePo.setCreatedTime(new Date());
           receiveRecordMapper.insertWithoutId(receiveRecordBusinessFeePo);
         }
-
         res = BaseResult.success("团课结课成功，教练费 & 团课课程费 结算成功");
+
       } else {
         res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "该课程已结束");
       }
@@ -419,7 +420,6 @@ public class PublicCourseServiceImpl implements PublicCourseService {
       logger.error(e.getMessage());
       res = BaseResult.fail("团课结课失败");
     }
-
     return res;
   }
 

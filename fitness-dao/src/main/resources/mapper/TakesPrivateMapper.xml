@@ -31,12 +31,12 @@
     where course_id = #{courseId,jdbcType=INTEGER}
   </select>
 
-  <!--同上-->
-  <select id="selectByCourseId1" parameterType="Integer" resultMap="BaseResultMap">
+  <!--根据课程id和time_slot_id结课私教课-->
+  <select id="selectByCourseIdAndTimeSlotId" parameterType="Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from takes_private
-    where course_id = #{courseId,jdbcType=INTEGER}
+    where course_id = #{courseId,jdbcType=INTEGER} and time_slot_id = #{timeSlotId,jdbcType=INTEGER}
   </select>
   <select id="selectByCustomerId" parameterType="Integer" resultMap="BaseResultMap">
     select
