@@ -79,7 +79,7 @@ public class FinanceServiceImpl implements FinanceService {
       }
     } catch (Exception e) {
       logger.error(e.getMessage());
-      res = BaseResult.fail("查看教练钱包余额失败");
+      res = BaseResult.fail("查看教练钱包余额失败\n" + e.getMessage());
     }
 
     return res;
