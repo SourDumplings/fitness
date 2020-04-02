@@ -16,14 +16,18 @@ import com.zju.se.nohair.fitness.dao.mapper.GymMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PictureMapper;
 import com.zju.se.nohair.fitness.dao.mapper.PublicCourseMapper;
 import com.zju.se.nohair.fitness.dao.mapper.RatesMapper;
+import com.zju.se.nohair.fitness.dao.mapper.ReceiveRecordMapper;
 import com.zju.se.nohair.fitness.dao.mapper.ResponsesPublicMapper;
+import com.zju.se.nohair.fitness.dao.mapper.TakesPublicMapper;
 import com.zju.se.nohair.fitness.dao.po.BusinessPo;
 import com.zju.se.nohair.fitness.dao.po.GymPo;
 import com.zju.se.nohair.fitness.dao.po.PicturePo;
 import com.zju.se.nohair.fitness.dao.po.PublicCoursePo;
 import com.zju.se.nohair.fitness.dao.po.RatesPo;
+import com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPublicPoKey;
+import com.zju.se.nohair.fitness.dao.po.TakesPublicPoKey;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,6 +63,20 @@ public class PublicCourseServiceImpl implements PublicCourseService {
   private RatesMapper ratesMapper;
 
   private GymMapper gymMapper;
+
+  private ReceiveRecordMapper receiveRecordMapper;
+
+  private TakesPublicMapper takesPublicMapper;
+
+  @Autowired
+  public void setTakesPublicMapper(TakesPublicMapper takesPublicMapper) {
+    this.takesPublicMapper = takesPublicMapper;
+  }
+
+  @Autowired
+  public void setReceiveRecordMapper(ReceiveRecordMapper receiveRecordMapper) {
+    this.receiveRecordMapper = receiveRecordMapper;
+  }
 
   @Autowired
   public void setGymMapper(GymMapper gymMapper) {
@@ -365,20 +383,41 @@ public class PublicCourseServiceImpl implements PublicCourseService {
     BaseResult res = null;
     try {
       final PublicCoursePo publicCoursePo = publicCourseMapper.selectByPrimaryKey(courseId);
+      ReceiveRecordPo receiveRecordCoachFeePo = new ReceiveRecordPo();
+      ReceiveRecordPo receiveRecordBusinessFeePo = new ReceiveRecordPo();
       final Integer status = publicCoursePo.getStatus();
       if (PublicCourseStatus.NEW_PUBLISH.equals(status) ||
           status.equals(PublicCourseStatus.COACH_SELECTED)||
           status.equals(PublicCourseStatus.CUSTOMER_PAID) ||
           status.equals(PublicCourseStatus.FULL) ) {
         publicCourseMapper.finishByPrimaryKey(courseId);
-        res = BaseResult.success("私教课结课成功");
+        //教练费（fromId：商家、toId：教练）
+        receiveRecordCoachFeePo.setFromId(publicCoursePo.getBusinessId());
+        receiveRecordCoachFeePo.setToId(publicCoursePo.getCoachId());
+        receiveRecordCoachFeePo.setAmount(publicCoursePo.getCoachPrice());
+        receiveRecordCoachFeePo.setType(3);//教练费
+        receiveRecordCoachFeePo.setCreatedTime(new Date());
+        receiveRecordMapper.insertWithoutId(receiveRecordCoachFeePo);
+
+        //团课课程费（fromId：很多顾客、toId: 商家）
+        List<TakesPublicPoKey> takesPublicPoKeyList = takesPublicMapper.selectByCourseId(courseId);
+        for(TakesPublicPoKey takesPublicPoKey:takesPublicPoKeyList){
+          receiveRecordBusinessFeePo.setFromId(takesPublicPoKey.getCustomerId());
+          receiveRecordBusinessFeePo.setToId(publicCoursePo.getBusinessId());
+          receiveRecordBusinessFeePo.setAmount(publicCoursePo.getPrice());
+          receiveRecordBusinessFeePo.setType(1);//团课课程费
+          receiveRecordBusinessFeePo.setCreatedTime(new Date());
+          receiveRecordMapper.insertWithoutId(receiveRecordBusinessFeePo);
+        }
+
+        res = BaseResult.success("团课结课成功，教练费 & 团课课程费 结算成功");
       } else {
         res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "该课程已结束");
       }
     } catch (Exception e) {
       TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
-      res = BaseResult.fail("私教课结课失败");
+      res = BaseResult.fail("团课结课失败");
     }
 
     return res;

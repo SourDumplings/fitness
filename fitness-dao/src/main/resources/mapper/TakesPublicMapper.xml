@@ -7,9 +7,7 @@
     <id column="course_id" jdbcType="INTEGER" property="courseId"/>
   </resultMap>
   <select id="selectByCourseId" parameterType="Integer" resultMap="BaseResultMap">
-    select
-    *
-    from takes_public
+    select * from takes_public
     where course_id = #{courseId,jdbcType=INTEGER}
   </select>
 

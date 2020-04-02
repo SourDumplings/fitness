@@ -69,6 +69,16 @@
       #{amount,jdbcType=DECIMAL}, #{type,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}
       )
   </insert>
+
+  <!--团课结课教练费用记录-->
+  <insert id="insertWithoutId" parameterType="com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo">
+    insert into receive_record (from_id, to_id,
+      amount, type, created_time
+      )
+    values (#{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER},
+      #{amount,jdbcType=DECIMAL}, #{type,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
   <insert id="insertSelective" parameterType="com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo">
     insert into receive_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
