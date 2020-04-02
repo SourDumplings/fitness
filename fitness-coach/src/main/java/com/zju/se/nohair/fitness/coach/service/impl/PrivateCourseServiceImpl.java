@@ -328,40 +328,46 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
 
   @Transactional(readOnly = false)
   @Override
-  public BaseResult finishPrivateCourseByCourseId(Integer courseId) {
+  public BaseResult finishPrivateCourseByCourseId(Integer courseId,Integer timeSlotId) {
     //私教课结课
     BaseResult res = null;
     try {
       final PrivateCoursePo privateCoursePo = privateCourseMapper.selectByPrimaryKey(courseId);
+      TakesPrivatePoKey takesPrivatePoKey = takesPrivateMapper.selectByCourseIdAndTimeSlotId(courseId,timeSlotId);
+
       final Integer status = privateCoursePo.getStatus();
       ReceiveRecordPo receiveRecordGymFeePo = new ReceiveRecordPo();
       ReceiveRecordPo receiveRecordPrivateFeePo = new ReceiveRecordPo();
-      if (PrivateCourseStatus.NEW_PUBLISH.equals(status) ||
-          status.equals(PrivateCourseStatus.BUSINESS_SELECTED )||
-          status.equals(PrivateCourseStatus.CUSTOMER_PAID)) {
-        privateCourseMapper.finishByPrimaryKey(courseId);
 
-        //场地费（fromId：教练、toId：商家）
-        receiveRecordGymFeePo.setFromId(privateCoursePo.getCoachId());
-        receiveRecordGymFeePo.setToId(privateCoursePo.getBusinessId());
-        receiveRecordGymFeePo.setAmount(privateCoursePo.getGymPrice());
-        receiveRecordGymFeePo.setType(2);//场地费
-        receiveRecordGymFeePo.setCreatedTime(new Date());
-        receiveRecordMapper.insertWithoutId(receiveRecordGymFeePo);
+        if(takesPrivatePoKey!=null){
+          if (PrivateCourseStatus.NEW_PUBLISH.equals(status) ||
+              status.equals(PrivateCourseStatus.BUSINESS_SELECTED )||
+              status.equals(PrivateCourseStatus.CUSTOMER_PAID)) {
 
-        //私教课费（fromId：顾客、toId：教练）
-        TakesPrivatePoKey takesPrivatePoKey = takesPrivateMapper.selectByCourseId1(courseId);
-        receiveRecordPrivateFeePo.setFromId(takesPrivatePoKey.getCustomerId());
-        receiveRecordPrivateFeePo.setToId(privateCoursePo.getCoachId());
-        receiveRecordPrivateFeePo.setAmount(privateCoursePo.getPrice());
-        receiveRecordPrivateFeePo.setType(0);//私教课费
-        receiveRecordPrivateFeePo.setCreatedTime(new Date());
-        receiveRecordMapper.insertWithoutId(receiveRecordPrivateFeePo);
+            privateCourseMapper.finishByPrimaryKey(courseId);
+            //场地费（fromId：教练、toId：商家）
+            receiveRecordGymFeePo.setFromId(privateCoursePo.getCoachId());
+            receiveRecordGymFeePo.setToId(privateCoursePo.getBusinessId());
+            receiveRecordGymFeePo.setAmount(privateCoursePo.getGymPrice());
+            receiveRecordGymFeePo.setType(2);//场地费
+            receiveRecordGymFeePo.setCreatedTime(new Date());
+            receiveRecordMapper.insertWithoutId(receiveRecordGymFeePo);
 
-        res = BaseResult.success("私教课结课成功,场地费 & 私教课费 结算成功");
-      } else {
-        res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "该课程已结束");
-      }
+            //私教课费（fromId：顾客、toId：教练）
+            receiveRecordPrivateFeePo.setFromId(takesPrivatePoKey.getCustomerId());
+            receiveRecordPrivateFeePo.setToId(privateCoursePo.getCoachId());
+            receiveRecordPrivateFeePo.setAmount(privateCoursePo.getPrice());
+            receiveRecordPrivateFeePo.setType(0);//私教课费
+            receiveRecordPrivateFeePo.setCreatedTime(new Date());
+            receiveRecordMapper.insertWithoutId(receiveRecordPrivateFeePo);
+            res = BaseResult.success("私教课结课成功,场地费 & 私教课费 结算成功");
+
+          } else {
+            res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "该课程已结束");
+          }
+        }else{
+          res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "找不到该私教课（课程id或时间段输入错误）！");
+        }
     } catch (Exception e) {
       TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
