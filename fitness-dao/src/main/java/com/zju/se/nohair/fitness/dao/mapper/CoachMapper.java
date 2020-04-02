@@ -1,6 +1,7 @@
 package com.zju.se.nohair.fitness.dao.mapper;
 
 import com.zju.se.nohair.fitness.dao.po.CoachPo;
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface CoachMapper {
@@ -28,4 +29,7 @@ public interface CoachMapper {
   int updateStatus2(Integer applicantId);//教练审批未通过
 
   CoachPo selectCoachIdByUsername(String username);//教练端登录成功返回CoachID
+
+
+  int updateBalance(Integer id, BigDecimal balance);
 }

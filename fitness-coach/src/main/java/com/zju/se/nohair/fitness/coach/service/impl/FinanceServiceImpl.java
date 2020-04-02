@@ -13,6 +13,7 @@ import com.zju.se.nohair.fitness.dao.po.BusinessPo;
 import com.zju.se.nohair.fitness.dao.po.CoachPo;
 import com.zju.se.nohair.fitness.dao.po.CustomerPo;
 import com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -84,6 +85,7 @@ public class FinanceServiceImpl implements FinanceService {
     return res;
   }
 
+  @Transactional(readOnly = false)
   @Override
   public BaseResult listFinanceRecordsByCoachId(Integer coachId) {
     //查询教练端交易记录的列表
@@ -91,10 +93,13 @@ public class FinanceServiceImpl implements FinanceService {
 
     try {
       final List<ReceiveRecordPo> receiveRecordPos = receiveRecordMapper.selectAllByCoachId(coachId);
-
       if (receiveRecordPos == null) {
         return BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "错误：找不到教练！");
       }
+      BigDecimal balance = new BigDecimal(0);
+      BigDecimal coachFee = new BigDecimal(0);
+      BigDecimal gymFee = new BigDecimal(0);
+      BigDecimal privateCourseFee = new BigDecimal(0);
 
       List<CoachFinanceRecordListItemDto> coachFinanceRecordListItemDtos = new ArrayList<>();
       for (ReceiveRecordPo receiveRecordPo : receiveRecordPos) {
@@ -107,25 +112,38 @@ public class FinanceServiceImpl implements FinanceService {
           final BusinessPo businessPo = businessMapper.selectByPrimaryKey(receiveRecordPo.getToId());
           coachFinanceRecordListItemDto.setName(businessPo.getPersonName());
           coachFinanceRecordListItemDto.setOtherId(receiveRecordPo.getToId());
+          //System.out.println(coachFinanceRecordListItemDto.getAmount());
+           coachFee = coachFee.add(coachFinanceRecordListItemDto.getAmount());
+
         } else if (receiveRecordPo.getType().equals(ReceiveRecordType.GYM_FEE)) {
           // 场地费
           final BusinessPo businessPo = businessMapper.selectByPrimaryKey(receiveRecordPo.getToId());
           coachFinanceRecordListItemDto.setOtherId(receiveRecordPo.getToId());
           coachFinanceRecordListItemDto.setName(businessPo.getPersonName());
-
           coachFinanceRecordListItemDto.setAmount(coachFinanceRecordListItemDto.getAmount().negate());//显示金额为负
+          gymFee = gymFee.add(coachFinanceRecordListItemDto.getAmount().negate());
 
+          //coachFinanceRecordListItemDto.getAmount().add(coachFinanceRecordListItemDto.getAmount().negate())
+          //System.out.println();
         } else if (receiveRecordPo.getType().equals(ReceiveRecordType.PRIVATE_COURSE_FEE)) {
           // 私教课课程费
           final CustomerPo customerPo = customerMapper.selectByPrimaryKey(receiveRecordPo.getFromId());
           coachFinanceRecordListItemDto.setOtherId(receiveRecordPo.getFromId());
           coachFinanceRecordListItemDto.setName(customerPo.getUsername());
+          privateCourseFee = privateCourseFee.add(coachFinanceRecordListItemDto.getAmount());
         }
 
         coachFinanceRecordListItemDtos.add(coachFinanceRecordListItemDto);
 
       }
+      //BigDecimal balance = new BigDecimal(0);
+      balance = balance.add(coachFee);
+      balance = balance.subtract(gymFee);
+      balance = balance.add(privateCourseFee);
+      //System.out.println(balance);
+      coachMapper.updateBalance(coachId,balance);//更改余额
       res = BaseResult.success("查询商家交易列表成功");
+      //System.out.println(balance);
       res.setData(coachFinanceRecordListItemDtos);
     } catch (Exception e) {
       logger.error(e.getMessage());
