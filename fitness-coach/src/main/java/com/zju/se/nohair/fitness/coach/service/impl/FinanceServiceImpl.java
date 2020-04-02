@@ -22,6 +22,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 /**
  * 教练钱包接口实现类
@@ -146,8 +147,9 @@ public class FinanceServiceImpl implements FinanceService {
       //System.out.println(balance);
       res.setData(coachFinanceRecordListItemDtos);
     } catch (Exception e) {
+      TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       logger.error(e.getMessage());
-      res = BaseResult.fail("查询商家交易列表失败\n" + e.getMessage());
+      res = BaseResult.fail("查询商家交易列表失败\n" + e.getStackTrace().toString());
     }
 
     return res;

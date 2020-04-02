@@ -280,7 +280,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <!---->
-  <update id="updateBalance" parameterType="com.zju.se.nohair.fitness.dao.po.CoachPo">
+  <update id="updateBalance">
     update coach
     set balance = #{balance,jdbcType=DECIMAL}
     where id = #{id,jdbcType=INTEGER}
