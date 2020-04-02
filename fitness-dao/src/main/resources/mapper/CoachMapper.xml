@@ -279,4 +279,10 @@
     set status = 2
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!---->
+  <update id="updateBalance" parameterType="com.zju.se.nohair.fitness.dao.po.CoachPo">
+    update coach
+    set balance = #{balance,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
