@@ -21,7 +21,7 @@ public interface UserInfoService {
   BaseResult changePasssword(ChangePasswordDto changePasswordDto);
 
   BaseResult createBusinessUser(CreateBusinessUserDto createBusinessUserDto,
-      MultipartFile profilePic, MultipartFile certificationPic);
+      MultipartFile certificationPic);
 
   BaseResult uploadProfilePic(Integer businessId, MultipartFile profilePic);
 

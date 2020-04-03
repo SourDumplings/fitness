@@ -48,10 +48,9 @@ public class UserInfoController {
   @ResponseBody
   public ResponseEntity<Object> createPublicCourse(
       CreateBusinessUserDto createBusinessUserDto,
-      @RequestParam("profilePic") MultipartFile profilePic,
       @RequestParam("certificationPic") MultipartFile certificationPic) {
     BaseResult baseResult = userInfoService.createBusinessUser(createBusinessUserDto,
-        profilePic, certificationPic);
+        certificationPic);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
     } else {
