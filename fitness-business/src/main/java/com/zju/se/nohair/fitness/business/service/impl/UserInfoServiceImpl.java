@@ -72,8 +72,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
   @Transactional(readOnly = false)
   @Override
-  public BaseResult createBusinessUser(CreateBusinessUserDto createBusinessUserDto,
-      MultipartFile profilePic, MultipartFile certificationPic) {
+  public BaseResult createBusinessUser(CreateBusinessUserDto createBusinessUserDto) {
     BaseResult res = null;
 
     try {
@@ -85,8 +84,6 @@ public class UserInfoServiceImpl implements UserInfoService {
       businessPo.setCreatedTime(now);
       businessPo.setStatus(CertificationStatus.NEW_PUBLISH);
       businessPo.setBalance(BigDecimal.ZERO);
-      businessPo.setPicId(PicUtils.saveSinglePic(pictureMapper, profilePic));
-      businessPo.setCertificationPicId(PicUtils.saveSinglePic(pictureMapper, certificationPic));
       businessMapper.insertReturnId(businessPo);
 
       GymPo gymPo = new GymPo();
