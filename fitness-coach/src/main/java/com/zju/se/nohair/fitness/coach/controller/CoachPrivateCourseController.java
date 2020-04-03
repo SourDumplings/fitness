@@ -183,8 +183,8 @@ public class CoachPrivateCourseController {
     }
   }
 
-  @ApiOperation(value = "私教课结课", httpMethod = "POST")
-  @RequestMapping(value = "{courseId}/{timeSlotId}", method = RequestMethod.POST)
+  @ApiOperation(value = "私教课结课", httpMethod = "GET")
+  @RequestMapping(value = "{courseId}/{timeSlotId}", method = RequestMethod.GET)
   @ResponseBody
   public ResponseEntity<Object> finishPrivateCourseByCourseId(@PathVariable("courseId") Integer courseId,
       @PathVariable("timeSlotId") Integer timeSlotId) {

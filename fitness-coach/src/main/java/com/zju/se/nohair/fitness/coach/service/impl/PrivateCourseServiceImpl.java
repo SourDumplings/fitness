@@ -27,6 +27,7 @@ import com.zju.se.nohair.fitness.dao.po.RatesPo;
 import com.zju.se.nohair.fitness.dao.po.ReceiveRecordPo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePo;
 import com.zju.se.nohair.fitness.dao.po.ResponsesPrivatePoKey;
+import com.zju.se.nohair.fitness.dao.po.TakesPrivatePo;
 import com.zju.se.nohair.fitness.dao.po.TakesPrivatePoKey;
 import java.util.ArrayList;
 import java.util.Date;
@@ -333,13 +334,23 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
     BaseResult res = null;
     try {
       final PrivateCoursePo privateCoursePo = privateCourseMapper.selectByPrimaryKey(courseId);
-      TakesPrivatePoKey takesPrivatePoKey = takesPrivateMapper.selectByCourseIdAndTimeSlotId(courseId,timeSlotId);
+      List<TakesPrivatePo> takesPrivatePoKeys = takesPrivateMapper.selectByCourseId(courseId);
+      //TakesPrivatePoKey takesPrivatePoKey = takesPrivateMapper.selectByCourseIdAndTimeSlotId(courseId,timeSlotId);
+
+      TakesPrivatePo takesPrivatePoKey = new TakesPrivatePo();
+      for (TakesPrivatePo takesPrivatePoKeyItem:takesPrivatePoKeys) {
+        if(takesPrivatePoKeyItem.getTimeSlotId().equals(timeSlotId)){
+          BeanUtils.copyProperties(takesPrivatePoKeyItem, takesPrivatePoKey);
+        }else{
+          res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "找不到该私教课（课程id或时间段输入错误）！");
+        }
+      }
 
       final Integer status = privateCoursePo.getStatus();
       ReceiveRecordPo receiveRecordGymFeePo = new ReceiveRecordPo();
       ReceiveRecordPo receiveRecordPrivateFeePo = new ReceiveRecordPo();
 
-        if(takesPrivatePoKey!=null){
+        if(takesPrivatePoKeys!=null){
           if (PrivateCourseStatus.NEW_PUBLISH.equals(status) ||
               status.equals(PrivateCourseStatus.BUSINESS_SELECTED )||
               status.equals(PrivateCourseStatus.CUSTOMER_PAID)) {
