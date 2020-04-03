@@ -47,8 +47,11 @@ public class UserInfoController {
   @RequestMapping(value = "", method = RequestMethod.POST)
   @ResponseBody
   public ResponseEntity<Object> createPublicCourse(
-      CreateBusinessUserDto createBusinessUserDto) {
-    BaseResult baseResult = userInfoService.createBusinessUser(createBusinessUserDto);
+      CreateBusinessUserDto createBusinessUserDto,
+      @RequestParam("profilePic") MultipartFile profilePic,
+      @RequestParam("certificationPic") MultipartFile certificationPic) {
+    BaseResult baseResult = userInfoService.createBusinessUser(createBusinessUserDto,
+        profilePic, certificationPic);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
       return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.CREATED);
     } else {
