@@ -110,7 +110,7 @@ public class UserInfoController {
       @RequestBody LoginDto loginDto) {
     BaseResult baseResult = userInfoService.login(loginDto);
     if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
-      return new ResponseEntity<>(baseResult.getMessage(), HttpStatus.OK);
+      return new ResponseEntity<>(baseResult.getData(), HttpStatus.OK);
     } else {
       return new ResponseEntity<>(baseResult.getMessage(),
           HttpStatus.valueOf(baseResult.getStatus()));

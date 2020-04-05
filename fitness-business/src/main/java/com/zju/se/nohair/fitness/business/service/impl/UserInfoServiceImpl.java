@@ -181,6 +181,7 @@ public class UserInfoServiceImpl implements UserInfoService {
       String passwordMd5 = DigestUtils.md5DigestAsHex(loginDto.getPassword().getBytes());
       if (businessPo != null && passwordMd5.equals(businessPo.getPassword())) {
         res = BaseResult.success("商家用户登录成功");
+        res.setData(businessPo.getId());
       } else {
         res = BaseResult.fail(BaseResult.STATUS_BAD_REQUEST, "用户名或密码错误");
       }
