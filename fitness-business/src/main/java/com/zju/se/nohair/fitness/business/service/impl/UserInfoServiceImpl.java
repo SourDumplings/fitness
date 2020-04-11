@@ -159,8 +159,10 @@ public class UserInfoServiceImpl implements UserInfoService {
       businessUserDetailDto.setCreatedTime(DateUtils.date2String(businessPo.getCreatedTime()));
       businessUserDetailDto.setCertificationPicPath(
           pictureMapper.selectByPrimaryKey(businessPo.getCertificationPicId()).getPicLink());
-      businessUserDetailDto
-          .setPicPath(pictureMapper.selectByPrimaryKey(businessPo.getPicId()).getPicLink());
+      if (businessPo.getPicId() != null) {
+        businessUserDetailDto
+            .setPicPath(pictureMapper.selectByPrimaryKey(businessPo.getPicId()).getPicLink());
+      }
       res = BaseResult.success("查看商家用户详情成功");
       res.setData(businessUserDetailDto);
     } catch (Exception e) {
